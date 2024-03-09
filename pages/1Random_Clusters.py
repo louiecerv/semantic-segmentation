@@ -16,7 +16,7 @@ from sklearn.datasets import make_blobs
 # Define the Streamlit app
 def app():
 
-    st.subheader('The Random CLuster Generator')
+    st.subheader('The Random Cluster Generator')
     text = """Describe the randon cluster generator"""
     st.write(text)
 
