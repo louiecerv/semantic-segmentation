@@ -19,28 +19,27 @@ def app():
         X = st.session_state.X
         y = st.session_state.y
                 
-    # Define DBSCAN parameters
-    eps = 0.3  # Maximum distance between points to be considered neighbors
-    min_samples = 10  # Minimum number of neighbors to form a core point
+        # Define DBSCAN parameters
+        eps = 0.3  # Maximum distance between points to be considered neighbors
+        min_samples = 10  # Minimum number of neighbors to form a core point
 
-    # Perform DBSCAN clustering
-    db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
-    labels = db.labels_
+        # Perform DBSCAN clustering
+        db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
+        labels = db.labels_
 
-    # Calculate adjusted Rand score for performance evaluation
-    ari = adjusted_rand_score(labels_true, labels)
-    print(f"Adjusted Rand Index (ARI): {ari:.3f}")
+        # Calculate adjusted Rand score for performance evaluation
+        ari = adjusted_rand_score(labels_true, labels)
+        print(f"Adjusted Rand Index (ARI): {ari:.3f}")
 
-    for i in range(100):
-        # Update progress bar value
-        progress_bar.progress(i + 1)
-        # Simulate some time-consuming task (e.g., sleep)
-        time.sleep(0.01)
+        for i in range(100):
+            # Update progress bar value
+            progress_bar.progress(i + 1)
+            # Simulate some time-consuming task (e.g., sleep)
+            time.sleep(0.01)
 
-    st.session_state.new_clusters = False
+        st.session_state.new_clusters = False
 
     # Define the number of clusters (k)
-
     k = st.slider(
         label="Select the number of centroids:",
         min_value=2,
