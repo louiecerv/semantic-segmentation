@@ -16,7 +16,7 @@ def app():
     if "new_clusters" not in st.session_state:
         st.session_state.new_clusters = False
 
-    text = """The K-Means Clustering Algorithm"""
+    text = """The Heirarchical Clustering Algorithm"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
