@@ -16,7 +16,7 @@ def app():
     if "reset_app" not in st.session_state:
         st.session_state.reset_app = False
 
-    text = """The K-Mean Clustering Algorithm"""
+    text = """The K-Means Clustering Algorithm"""
     st.subheader(text)
 
     # Use session state to track the current form
