@@ -16,7 +16,7 @@ def app():
     X = st.session_state.X
     clf = KMeans(n_clusters=n_clusters)
     clf.fit(X)
-    y_means = kmeans.predict(X)
+    y_means = clf.predict(X)
 
     centers, labels = find_clusters(X, n_clusters)
 
