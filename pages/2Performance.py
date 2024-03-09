@@ -64,7 +64,6 @@ def app():
         # Create the figure and axes
         fig, ax = plt.subplots()
 
-
         # Scatter plot the data with labels as color
         ax.scatter(X[:, 0], X[:, 1], c=labels)
 
