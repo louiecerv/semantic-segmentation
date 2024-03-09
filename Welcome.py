@@ -5,13 +5,9 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
-from sklearn.datasets import fetch_openml
 import time
 
 # Define the Streamlit app
@@ -20,7 +16,7 @@ def app():
     if "reset_app" not in st.session_state:
         st.session_state.reset_app = False
 
-    text = """Insert Your App Title Here"""
+    text = """The K-Mean Clustering Algorithm"""
     st.subheader(text)
 
     # Use session state to track the current form
@@ -53,65 +49,25 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('MNIST.png', caption="Replace he image and replace this text with the description""")
+    st.image('k-means.jpeg', caption="K-Means Clustering Algorithm""")
 
-    if "dataset_ready" not in st.session_state:
-        # Create a progress bar object
-        progress_bar = st.progress(0, text="Loading the dataset please wait...")
+    text = """K-means clustering is a popular unsupervised machine learning algorithm 
+    used for clustering data points into groups or clusters based on their similarity. 
+    The goal of K-means clustering is to partition the data points into K number of 
+    distinct non-overlapping clusters, where K is a pre-defined number specified by the user.
+    \nThe algorithm works by first randomly selecting K centroids, which are the initial 
+    representative points of the clusters. Then, the algorithm iteratively assigns each 
+    data point to the nearest centroid based on the Euclidean distance between the data 
+    point and the centroids. After all data points are assigned to a centroid, 
+    the algorithm updates the centroid by taking the mean of all data points assigned 
+    to it. This process is repeated until convergence, which occurs when the data points 
+    no longer change their assignments to centroids.
+    \nThe final result of K-means clustering is a set of K clusters, where each data 
+    point is assigned to the cluster whose centroid is closest to it. The algorithm is 
+    widely used in various fields, including image segmentation, market segmentation, 
+    and anomaly detection, among others."""
 
-        # replace with your dataset
-        # Load MNIST dataset
-        #st.session_state.mnist = fetch_openml('mnist_784', version=1, data_home=".", return_X_y=True)
-
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
-
-        # Progress bar reaches 100% after the loop completes
-        st.success("Dataset loading completed!")
-        st.session_state.dataset_ready = True
-
- 
-    """
-    # Extract only the specified number of images and labels
-    size = 10000
-    X, y = st.session_state.mnist
-    X = X[:size]
-    y = y[:size]
-
-    # Split data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    #save the values to the session state    
-    st.session_state['X_train'] = X_train
-    st.session_state['X_test'] = X_test
-    st.session_state['y_train'] = y_train
-    st.session_state['y_test'] = y_test    
-    """
-
-    st.sidebar.subheader('Select the classifier')
-
-    # Create the selection of classifier
-    clf = DecisionTreeClassifier()
-    options = ['Decision Tree', 'Random Forest Classifier', 'Extreme Random Forest Classifier', 'K-Nearest Neighbor']
-    selected_option = st.sidebar.selectbox('Select the classifier', options)
-    if selected_option =='Random Forest Classifier':
-        clf = RandomForestClassifier(n_jobs=2, random_state=0)
-        st.session_state['selected_model'] = 1
-    elif selected_option=='Extreme Random Forest Classifier':        
-        clf = ExtraTreesClassifier(n_estimators=100, max_depth=4, random_state=0)
-        st.session_state['selected_model'] = 2
-    elif selected_option == 'K-Nearest Neighbor':
-        clf = KNeighborsClassifier(n_neighbors=5)
-        st.session_state['selected_model'] = 3
-    else:
-        clf = DecisionTreeClassifier()
-        st.session_state['selected_model'] = 0
-
-    # save the clf to the session variable
-    st.session_state['clf'] = clf
+    st.write(text)
     
 #run the app
 if __name__ == "__main__":
