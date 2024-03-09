@@ -114,7 +114,6 @@ def app():
         ax.set_ylabel("Feature 2")
         st.pyplot(fig)
 
-
 #run the app
 if __name__ == "__main__":
     app()
