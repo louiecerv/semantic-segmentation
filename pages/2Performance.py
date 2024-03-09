@@ -23,8 +23,8 @@ def app():
 
     centers, labels, wcss, silhouette = find_clusters(X, n_clusters, y_test_pred)
 
-    st.subheader('WCSS: ' + str(wcss))
-    st.subheader('Silhouette: ' + str(silhouette))
+    st.sidebar.write('WCSS: ' + str(wcss))
+    st.sidebar.write('Silhouette: ' + str(silhouette))
 
 def find_clusters(X, n_clusters, y_test_pred, rseed=42):
     #randomly choose clusters
