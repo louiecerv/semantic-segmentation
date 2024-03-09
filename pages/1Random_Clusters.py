@@ -16,12 +16,20 @@ from sklearn.datasets import make_blobs
 # Define the Streamlit app
 def app():
 
+    if "X" not in st.session_state: 
+        st.session_state.X = []
+    
+    if "y" not in st.session_state: 
+        st.session_state.y = []
+
+    if "n_clusters" not in st.session_state:
+        st.session_state.nclusters = 4
     st.subheader('The Random Cluster Generator')
     text = """Describe the randon cluster generator"""
     st.write(text)
 
     if st.button("Generate"):
-        n_clusters = 3
+        n_clusters = st.session_state.n_clusters
         n_samples = 1000
         cluster_std = 0.7
         random_state = 42
@@ -29,6 +37,9 @@ def app():
         X, y = make_blobs(n_samples=n_samples, n_features=2,
                     cluster_std=cluster_std, centers = centers,
                     random_state=random_state)    
+
+        st.session_state.X = X
+        st.session_state.y = y
 
         #plot the generated points
         # Create the figure and axes objects
