@@ -70,7 +70,7 @@ def app():
             time.sleep(0.01)
 
         # Progress bar reaches 100% after the loop completes
-        st.success("Dataset loading completed!")
+        st.success("Data clusters loading completed!")
 
         #plot the generated points
         # Create the figure and axes objects
