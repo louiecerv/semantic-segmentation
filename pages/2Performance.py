@@ -32,7 +32,7 @@ def find_clusters(X, n_clusters, rseed=42):
     fig, ax = plt.subplots()
 
     # Scatter plot for data points
-    ax.scatter(X[:, 0], X[:, 1], c=y_means, s=50, cmap='bright')
+    ax.scatter(X[:, 0], X[:, 1], c=y_test_pred, s=50, cmap='bright')
 
     # Scatter plot for centers
     ax.scatter(centers[:, 0], centers[:, 1], c='red', s=200, alpha=0.5)
