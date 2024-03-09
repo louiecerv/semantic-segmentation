@@ -75,9 +75,9 @@ def app():
     # Plot the centroids as points
     ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
 
-    ax.title("K-Means Clustering")
-    ax.xlabel("Feature 1")
-    ax.ylabel("Feature 2")
+    ax.set_title("K-Means Clustering")
+    ax.set_xlabel("Feature 1")
+    ax.set_ylabel("Feature 2")
     st.pyplot(fig)
 
 
