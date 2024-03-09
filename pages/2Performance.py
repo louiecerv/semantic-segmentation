@@ -17,76 +17,24 @@ def app():
     if st.session_state.new_clusters == True:
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating performance report, please wait...")
-        n_clusters = st.session_state.n_clusters
+       
         X = st.session_state.X
         y = st.session_state.y
-        
-        # WCSS (Within Cluster Sum of Squares) list
-        wcss_list = []
+                
+        linkage_matrix = linkage(X, 'ward')  # Use Ward linkage for minimizing variance
 
-        # Silhouette score list
-        silhouette_scores = []
-
-        # Try different numbers of clusters
-        for k in range(2, 11):
-            # Create KMeans object
-            kmeans = KMeans(n_clusters=k, random_state=0)
-
-            # Fit the model to the data
-            kmeans.fit(X)
-
-            # Calculate WCSS
-            wcss = kmeans.inertia_
-            wcss_list.append(wcss)
-
-            # Calculate Silhouette score
-            silhouette_score_val = silhouette_score(X, kmeans.labels_)
-            silhouette_scores.append(silhouette_score_val)
-
-        # Progress bar reaches 100% after the loop completes
-        st.success("Performance data loading completed!")
-
-        # WCSS vs Number of Clusters plot
+        # Create a figure and an axes object
         fig, ax = plt.subplots()
-        ax.plot(range(2, 11), wcss_list)
-        ax.set_xlabel("Number of Clusters")
-        ax.set_ylabel("WCSS")
-        ax.set_title("WCSS vs Number of Clusters")
-        st.pyplot(fig)
-        text = """In the k-means algorithm, WCSS (Within Cluster Sum of 
-        Squares) is a measure of how well the clusters represent the data 
-        within themselves. It refers to the sum of squared distances 
-        between each data point and its assigned cluster centroid.
-        \nLower WCSS generally indicates better clustering:
-        \nTight clusters with small distances between data points and 
-        their centroids will contribute less to the WCSS.
-        \nConversely, spread-out clusters with larger distances 
-        will lead to a higher WCSS."""
-        st.write(text)
 
-        # Silhouette Score vs Number of Clusters plot
-        fig, ax = plt.subplots()
-        ax.plot(range(2, 11), silhouette_scores)
-        ax.set_xlabel("Number of Clusters")
-        ax.set_ylabel("Silhouette Score")
-        ax.set_title("Silhouette Score vs Number of Clusters")
-        st.pyplot(fig)
+        # Plot the dendrogram on the axes object
+        dendrogram(linkage_matrix, ax=ax)
 
-        text = """The Silhouette Score in k-means clustering is a metric 
-        that evaluates how well data points are separated into clusters. 
-        It considers both cohesion (similarity within a cluster) 
-        and separation (difference between clusters).
-        \nRange: -1 to 1
-        \nInterpretation:
-        \n1: Best case - Data points are tightly packed within 
-        their cluster and far from points in other clusters.
-        \n0: Indicates indifference - Clusters might overlap or data points 
-        aren't clearly separated.
-        \n-1: Worst case - Points are assigned to the wrong cluster.
-        \nThe Silhouette Score helps you assess the quality of k-means 
-        clustering, especially in high-dimensional datasets where 
-        visualization isn't feasible."""
-        st.write(text)
+        # Set title and labels using the axes object
+        ax.set_title("Dendrogram")
+        ax.set_xlabel("Data points")
+        ax.set_ylabel("Euclidean distance")
+
+        st.pyplot(fig)
 
         for i in range(100):
             # Update progress bar value
@@ -97,7 +45,6 @@ def app():
         st.session_state.new_clusters = False
 
     # Define the number of clusters (k)
-    k = 4
 
     k = st.slider(
         label="Select the number of centroids:",
@@ -109,31 +56,21 @@ def app():
     if st.button('Plot'):
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
-        # Create a KMeans object
-        kmeans = KMeans(n_clusters=k)
-        # Fit the data to the KMeans model
-        X = st.session_state.X
-        kmeans.fit(X)
+ 
+         # Perform agglomerative clustering with desired number of clusters
+        clustering = AgglomerativeClustering(n_clusters=k, affinity='euclidean', linkage='ward')
+        labels = clustering.fit_predict(X)
 
-        # Get the cluster labels
-        predicted_labels = kmeans.labels_
-
-        # Progress bar reaches 100% after the loop completes
-        st.success("Centroids plot completed!")
-
+        # Create the figure and axes
         fig, ax = plt.subplots()
 
-        # Plot the data with colors corresponding to the predicted labels
-        ax.scatter(X[:, 0], X[:, 1], c=predicted_labels)
+        # Scatter plot the data with labels as color
+        ax.scatter(X[:, 0], X[:, 1], c=labels)
 
-        # Plot the centroids as points
-        ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
+        # Add title to the plot
+        ax.set_title('Heirarchical Clustering with ' + str(k) + ' clusters')
 
-        ax.set_title("K-Means Clustering")
-        ax.set_xlabel("Feature 1")
-        ax.set_ylabel("Feature 2")
         st.pyplot(fig)
-        st.write('K-Means Clustering with ' + str(k) + ' clusters')
 
         for i in range(100):
             # Update progress bar value

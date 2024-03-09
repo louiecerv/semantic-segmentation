@@ -53,7 +53,7 @@ def app():
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
 
         n_clusters = st.session_state.n_clusters
-        n_samples = 1000
+        n_samples = 100
         cluster_std = 0.7
         random_state = 42
         centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
