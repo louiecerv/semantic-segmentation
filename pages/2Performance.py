@@ -47,6 +47,27 @@ def app():
         score = silhouette_score(X, labels)
         st.write(f"Silhouette Score: {score:.3f}")
 
+        text = """The Adjusted Rand Index (ARI) is a metric used to 
+        evaluate the performance of DBSCAN clustering against a ground 
+        truth labeling of the data. It measures the agreement between 
+        the clustering produced by DBSCAN and the known correct clustering.
+        \nHere's how it works in the context of DBSCAN:
+        \nAgreement between pairs: ARI considers all pairs of data 
+        points. For each pair, it checks if they are assigned to the 
+        same cluster in both the DBSCAN results and the ground 
+        truth labels.
+        \nAdjusted for chance: Unlike the raw Rand Index, ARI accounts 
+        for the agreement expected by random chance. This is important 
+        because with a large number of data points or clusters, some 
+        agreement by chance is inevitable.
+        \nScore interpretation: The ARI score ranges from -0.5 to 1. 
+        \nA score of 1 indicates perfect agreement between the 
+        DBSCAN clustering and the ground truth.
+        \nA score close to 0 suggests agreement no better than random clustering.
+        \nScores below 0 indicate a particularly bad clustering, where 
+        the DBSCAN assignments are significantly worse than random."""
+        st.write(text)
+        
         # Create the figure and axes objects
         fig, ax = plt.subplots()
 
