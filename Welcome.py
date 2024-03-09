@@ -19,7 +19,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """The Heirarchical Clustering Algorithm"""
+    text = """The DBSCAN, or Density-Based Spatial Clustering of Applications with Noise Clustering Algorithm"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
