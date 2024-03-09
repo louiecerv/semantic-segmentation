@@ -62,7 +62,7 @@ def app():
     kmeans = KMeans(n_clusters=k)
 
     # Fit the data to the KMeans model
-    kmeans.fit(data)
+    kmeans.fit(X)
 
     # Get the cluster labels
     predicted_labels = kmeans.labels_
@@ -70,7 +70,7 @@ def app():
     fig, ax = plt.subplots()
 
     # Plot the data with colors corresponding to the predicted labels
-    ax.scatter(data[:, 0], data[:, 1], c=predicted_labels)
+    ax.scatter(X[:, 0], X[:, 1], c=predicted_labels)
 
     # Plot the centroids as points
     ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
