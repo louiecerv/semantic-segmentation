@@ -53,7 +53,7 @@ def app():
     ax.set_xlabel("Number of Clusters")
     ax.set_ylabel("Silhouette Score")
     ax.set_title("Silhouette Score vs Number of Clusters")
-    st.pylot(fig)
+    st.pyplot(fig)
 
 #run the app
 if __name__ == "__main__":
