@@ -44,7 +44,7 @@ def find_clusters(X, n_clusters, rseed=42):
 
         #check for convergence
         if np.all(centers==new_centers):
-        break
+            break
         centers = new_centers
     return centers, labels
 
