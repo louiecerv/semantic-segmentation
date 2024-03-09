@@ -80,31 +80,39 @@ def app():
     clustering, especially in high-dimensional datasets where 
     visualization isn't feasible."""
     st.write(text)
-    
+
     # Define the number of clusters (k)
     k = 4
 
-    # Create a KMeans object
-    kmeans = KMeans(n_clusters=k)
+    k = st.slider(
+        label="Try number of clusters:",
+        min_value=2,
+        max_value=10,
+        value=4,  # Initial value
+    )
 
-    # Fit the data to the KMeans model
-    kmeans.fit(X)
+    if st.button('Plot'):
+        # Create a KMeans object
+        kmeans = KMeans(n_clusters=k)
 
-    # Get the cluster labels
-    predicted_labels = kmeans.labels_
+        # Fit the data to the KMeans model
+        kmeans.fit(X)
 
-    fig, ax = plt.subplots()
+        # Get the cluster labels
+        predicted_labels = kmeans.labels_
 
-    # Plot the data with colors corresponding to the predicted labels
-    ax.scatter(X[:, 0], X[:, 1], c=predicted_labels)
+        fig, ax = plt.subplots()
 
-    # Plot the centroids as points
-    ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
+        # Plot the data with colors corresponding to the predicted labels
+        ax.scatter(X[:, 0], X[:, 1], c=predicted_labels)
 
-    ax.set_title("K-Means Clustering")
-    ax.set_xlabel("Feature 1")
-    ax.set_ylabel("Feature 2")
-    st.pyplot(fig)
+        # Plot the centroids as points
+        ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
+
+        ax.set_title("K-Means Clustering")
+        ax.set_xlabel("Feature 1")
+        ax.set_ylabel("Feature 2")
+        st.pyplot(fig)
 
 
 #run the app
