@@ -55,6 +55,32 @@ def app():
     ax.set_title("Silhouette Score vs Number of Clusters")
     st.pyplot(fig)
 
+    # Define the number of clusters (k)
+    k = 4
+
+    # Create a KMeans object
+    kmeans = KMeans(n_clusters=k)
+
+    # Fit the data to the KMeans model
+    kmeans.fit(data)
+
+    # Get the cluster labels
+    predicted_labels = kmeans.labels_
+
+    fig, ax = plt.subplots()
+
+    # Plot the data with colors corresponding to the predicted labels
+    ax.scatter(data[:, 0], data[:, 1], c=predicted_labels)
+
+    # Plot the centroids as points
+    ax.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], s=100, c='red')
+
+    ax.title("K-Means Clustering")
+    ax.xlabel("Feature 1")
+    ax.ylabel("Feature 2")
+    st.pyplot(fig)
+
+
 #run the app
 if __name__ == "__main__":
     app()
