@@ -58,7 +58,7 @@ def app():
         X = st.session_state.X
 
         # Perform agglomerative clustering with desired number of clusters
-        clustering = AgglomerativeClustering(n_clusters=3, linkage='ward')
+        clustering = AgglomerativeClustering(n_clusters=k, linkage='ward')
         labels = clustering.fit_predict(X)
 
         # Create the figure and axes
