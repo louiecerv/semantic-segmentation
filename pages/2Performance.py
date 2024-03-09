@@ -47,7 +47,7 @@ def app():
         fig, ax = plt.subplots()
 
         # Create the scatter plot using ax
-        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='set3')
+        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='bright')
 
         # Add title, labels, and show the plot
         ax.set_title(f"DBSCAN Clustering (ARI: {ari:.3f})")
