@@ -85,7 +85,7 @@ def app():
     k = 4
 
     k = st.slider(
-        label="Try number of clusters:",
+        label="Select the number of centroids:",
         min_value=2,
         max_value=10,
         value=4,  # Initial value
