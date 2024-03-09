@@ -20,8 +20,7 @@ def app():
     text = """Describe the randon cluster generator"""
     st.write(text)
 
-    if st.button("Generate")
-
+    if st.button("Generate"):
         n_clusters = 3
         n_samples = 1000
         cluster_std = 0.7
