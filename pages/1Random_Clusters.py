@@ -89,8 +89,7 @@ def app():
 
         st.write('Click the Generate button to generate new data clusters.')
         st.write('Navigate to the Performance Page in the sidebar to view the perforance report.')
-
-        
+        st.session_state.new_clusters = True
 
 def generate_random_points_in_square(x_min, x_max, y_min, y_max, num_points):
     """

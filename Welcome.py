@@ -13,8 +13,8 @@ import time
 # Define the Streamlit app
 def app():
 
-    if "reset_app" not in st.session_state:
-        st.session_state.reset_app = False
+    if "new_clusters" not in st.session_state:
+        st.session_state.new_clusters = False
 
     text = """The K-Means Clustering Algorithm"""
     st.subheader(text)
