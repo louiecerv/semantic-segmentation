@@ -22,8 +22,6 @@ def app():
     if "y" not in st.session_state: 
         st.session_state.y = []
 
-    if "n_clusters" not in st.session_state:
-        st.session_state.nclusters = 4
     st.subheader('The Random Cluster Generator')
     text = """Describe the randon cluster generator"""
     st.write(text)
