@@ -13,6 +13,9 @@ from sklearn.metrics import silhouette_score
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the K-Means Classifier')
+
+    # Create a progress bar object
+    progress_bar = st.progress(0, text="Generating performance report, please wait...")
     n_clusters = st.session_state.n_clusters
     X = st.session_state.X
     y = st.session_state.y
@@ -38,6 +41,15 @@ def app():
         # Calculate Silhouette score
         silhouette_score_val = silhouette_score(X, kmeans.labels_)
         silhouette_scores.append(silhouette_score_val)
+
+        for i in range(100):
+            # Update progress bar value
+            progress_bar.progress(i + 1)
+            # Simulate some time-consuming task (e.g., sleep)
+            time.sleep(0.01)
+
+        # Progress bar reaches 100% after the loop completes
+        st.success("Performance data loading completed!")
 
     # WCSS vs Number of Clusters plot
     fig, ax = plt.subplots()
