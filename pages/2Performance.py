@@ -12,32 +12,41 @@ import time
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the DBSCAN Cluster Classifier')
-    if st.session_state.new_clusters == True:
-        # Create a progress bar object
-        progress_bar = st.progress(0, text="Generating performance report, please wait...")
-       
-        X = st.session_state.X
-        y = st.session_state.y
-                
-        # Define DBSCAN parameters
-        eps = 0.3  # Maximum distance between points to be considered neighbors
-        min_samples = 10  # Minimum number of neighbors to form a core point
 
-        # Perform DBSCAN clustering
-        db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
-        labels = db.labels_
+    # Create a progress bar object
+    progress_bar = st.progress(0, text="Generating performance report, please wait...")
+    
+    X = st.session_state.X
+    y = st.session_state.y
+            
+    # Define DBSCAN parameters
+    eps = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
+        label="Select the number of eps:",
+        min_value=0.1,
+        max_value=1.0,
+        value=0.3,  # Initial value
+    )
 
-        # Calculate adjusted Rand score for performance evaluation
-        ari = adjusted_rand_score(y, labels)
-        print(f"Adjusted Rand Index (ARI): {ari:.3f}")
+    min_samples = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+        label="Select the number of eps:",
+        min_value=5,
+        max_value=20,
+        value=10,  # In1.0itial value
+    )
 
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
+    # Perform DBSCAN clustering
+    db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
+    labels = db.labels_
 
-        st.session_state.new_clusters = False
+    # Calculate adjusted Rand score for performance evaluation
+    ari = adjusted_rand_score(y, labels)
+    print(f"Adjusted Rand Index (ARI): {ari:.3f}")
+
+    for i in range(100):
+        # Update progress bar value
+        progress_bar.progress(i + 1)
+        # Simulate some time-consuming task (e.g., sleep)
+        time.sleep(0.01)
 
         # Create the figure and axes objects
         fig, ax = plt.subplots()
