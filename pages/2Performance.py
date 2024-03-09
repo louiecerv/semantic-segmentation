@@ -46,6 +46,16 @@ def app():
     ax.set_ylabel("WCSS")
     ax.set_title("WCSS vs Number of Clusters")
     st.pyplot(fig)
+    text = """In the k-means algorithm, WCSS (Within Cluster Sum of 
+    Squares) is a measure of how well the clusters represent the data 
+    within themselves. It refers to the sum of squared distances 
+    between each data point and its assigned cluster centroid.
+    \nLower WCSS generally indicates better clustering:
+    \nTight clusters with small distances between data points and 
+    their centroids will contribute less to the WCSS.
+    \nConversely, spread-out clusters with larger distances 
+    will lead to a higher WCSS."""
+    st.write(text)
 
     # Silhouette Score vs Number of Clusters plot
     fig, ax = plt.subplots()
@@ -55,6 +65,22 @@ def app():
     ax.set_title("Silhouette Score vs Number of Clusters")
     st.pyplot(fig)
 
+    text = """The Silhouette Score in k-means clustering is a metric 
+    that evaluates how well data points are separated into clusters. 
+    It considers both cohesion (similarity within a cluster) 
+    and separation (difference between clusters).
+    \nRange: -1 to 1
+    \nInterpretation:
+    \n1: Best case - Data points are tightly packed within 
+    their cluster and far from points in other clusters.
+    \n0: Indicates indifference - Clusters might overlap or data points 
+    aren't clearly separated.
+    \n-1: Worst case - Points are assigned to the wrong cluster.
+    \nThe Silhouette Score helps you assess the quality of k-means 
+    clustering, especially in high-dimensional datasets where 
+    visualization isn't feasible."""
+    st.write(text)
+    
     # Define the number of clusters (k)
     k = 4
 
