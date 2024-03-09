@@ -26,7 +26,24 @@ def app():
         st.session_state.n_clusters = 4
 
     st.subheader('The Random Cluster Generator')
-    text = """Describe the randon cluster generator"""
+    text = """Generating random cluster centers:
+    \nUses a function named generate_random_points_in_square that 
+    creates evenly spaced points within a square area. Creates
+    n_clusters random centers within a square with 
+    boundaries -4 to 4 in both dimensions.
+    \nGenerating data points with clusters:
+    \nUses make_blobs function from scikit-learn to 
+    generate sample data with desired characteristics:
+    \nn_samples: 1000 data points.
+    \nn_features: 2 features, representing a 2-dimensional dataset.
+    \ncluster_std: 0.7 standard deviation for cluster dispersion.
+    \ncenters: The generated random centers for each cluster.
+    \nrandom_state: 42 for reproducibility.
+    \nOutput:
+    \nX: A 2-dimensional array containing the generated data points, 
+    where each row represents a data point with 2 features.
+    \ny: An array containing the assigned cluster labels for 
+    each data point, corresponding to the n_clusters clusters."""
     st.write(text)
 
     if st.button("Generate"):
