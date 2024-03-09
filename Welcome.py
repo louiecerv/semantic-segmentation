@@ -19,10 +19,6 @@ def app():
     text = """The K-Means Clustering Algorithm"""
     st.subheader(text)
 
-    # Use session state to track the current form
-    if "n_clusters" not in st.session_state:
-        st.session_state.n_clusters = 4
-    
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
     CCS 229 - Intelligent Systems
     Computer Science Department
