@@ -118,7 +118,7 @@ def app():
 
         # Progress bar reaches 100% after the loop completes
         st.success("Centroids plot completed!")
-        
+
         fig, ax = plt.subplots()
 
         # Plot the data with colors corresponding to the predicted labels
@@ -131,6 +131,7 @@ def app():
         ax.set_xlabel("Feature 1")
         ax.set_ylabel("Feature 2")
         st.pyplot(fig)
+        st.write('K-Means Clustering with ' + str(n_clusters + ' clusters')
 
         for i in range(100):
             # Update progress bar value
