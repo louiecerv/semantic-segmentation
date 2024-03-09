@@ -21,6 +21,9 @@ def app():
     st.write(text)
 
     n_clusters = 5
+    n_samples = 1000
+    cluster_std = 0.7
+    random_state = 42
     centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
     X, y = make_blobs(n_samples=n_samples, n_features=2,
                 cluster_std=cluster_std, centers = centers,
