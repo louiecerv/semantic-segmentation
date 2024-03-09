@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.cluster import DBSCAN
 from sklearn.metrics import adjusted_rand_score
+from sklearn.metrics import silhouette_score
 import time
 
 # Define the Streamlit app
@@ -15,14 +16,14 @@ def app():
 
     # Define DBSCAN parameters
     eps = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
-        label="Select the number of eps:",
+        label="Select the epsilon radius:",
         min_value=0.1,
         max_value=1.0,
         value=0.3,  # Initial value
     )
 
     min_samples = st.sidebar.slider(   # Minimum number of neighbors to form a core point
-        label="Select the minimum neighbors:",
+        label="Select the minimum samples:",
         min_value=5,
         max_value=20,
         value=10,  # In1.0itial value
@@ -41,7 +42,10 @@ def app():
 
         # Calculate adjusted Rand score for performance evaluation
         ari = adjusted_rand_score(y, labels)
-        print(f"Adjusted Rand Index (ARI): {ari:.3f}")
+        st.write(f"Adjusted Rand Index (ARI): {ari:.3f}")
+        # Calculate silhouette score
+        score = silhouette_score(X, labels)
+        sti.write(f"Silhouette Score: {score:.3f}")
 
         # Create the figure and axes objects
         fig, ax = plt.subplots()
