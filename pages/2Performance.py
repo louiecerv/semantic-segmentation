@@ -11,7 +11,7 @@ import time
 
 # Define the Streamlit app
 def app():
-    st.subheader('Performance of the K-Means Classifier')
+    st.subheader('Performance of the Heirarchical Cluster Classifier')
     if st.session_state.new_clusters == True:
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating performance report, please wait...")
