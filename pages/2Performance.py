@@ -11,7 +11,7 @@ import time
 
 # Define the Streamlit app
 def app():
-    st.subheader('Performance of the Heirarchical Cluster Classifier')
+    st.subheader('Performance of the DBSCAN Cluster Classifier')
     if st.session_state.new_clusters == True:
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating performance report, please wait...")
@@ -19,20 +19,18 @@ def app():
         X = st.session_state.X
         y = st.session_state.y
                 
-        linkage_matrix = linkage(X, 'ward')  # Use Ward linkage for minimizing variance
+    # Define DBSCAN parameters
+    eps = 0.3  # Maximum distance between points to be considered neighbors
+    min_samples = 10  # Minimum number of neighbors to form a core point
 
-        # Create a figure and an axes object
-        fig, ax = plt.subplots()
+    # Perform DBSCAN clustering
+    db = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
+    labels = db.labels_
 
-        # Plot the dendrogram on the axes object
-        dendrogram(linkage_matrix, ax=ax)
+    # Calculate adjusted Rand score for performance evaluation
+    ari = adjusted_rand_score(labels_true, labels)
+    print(f"Adjusted Rand Index (ARI): {ari:.3f}")
 
-        # Set title and labels using the axes object
-        ax.set_title("Dendrogram")
-        ax.set_xlabel("Data points")
-        ax.set_ylabel("Euclidean distance")
-
-        st.pyplot(fig)
 
         for i in range(100):
             # Update progress bar value
