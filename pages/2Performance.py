@@ -26,7 +26,6 @@ def app():
     st.subheader('WCSS: ' + str(wcss))
     st.subheader('Silhouette: ' + str(silhouette))
 
-
 def find_clusters(X, n_clusters, y_test_pred, rseed=42):
     #randomly choose clusters
     rng = np.random.RandomState(rseed)
