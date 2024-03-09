@@ -20,29 +20,31 @@ def app():
     text = """Describe the randon cluster generator"""
     st.write(text)
 
-    n_clusters = 3
-    n_samples = 1000
-    cluster_std = 0.7
-    random_state = 42
-    centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
-    X, y = make_blobs(n_samples=n_samples, n_features=2,
-                cluster_std=cluster_std, centers = centers,
-                random_state=random_state)    
+    if st.button("Generate")
 
-    #plot the generated points
-    # Create the figure and axes objects
-    fig, ax = plt.subplots()
+        n_clusters = 3
+        n_samples = 1000
+        cluster_std = 0.7
+        random_state = 42
+        centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
+        X, y = make_blobs(n_samples=n_samples, n_features=2,
+                    cluster_std=cluster_std, centers = centers,
+                    random_state=random_state)    
 
-    # Create the scatter plot using the ax object
-    ax.scatter(X[:, 0], X[:, 1], s=50)
+        #plot the generated points
+        # Create the figure and axes objects
+        fig, ax = plt.subplots()
 
-    # Customize the plot (optional)
-    ax.set_xlabel("X-axis")
-    ax.set_ylabel("Y-axis")
-    ax.set_title("Scatter Plot Using fig and ax")
+        # Create the scatter plot using the ax object
+        ax.scatter(X[:, 0], X[:, 1], s=50)
 
-    # Show the plot
-    st.pyplot(fig)
+        # Customize the plot (optional)
+        ax.set_xlabel("X-axis")
+        ax.set_ylabel("Y-axis")
+        ax.set_title("Scatter Plot Using fig and ax")
+
+        # Show the plot
+        st.pyplot(fig)
 
         
 
