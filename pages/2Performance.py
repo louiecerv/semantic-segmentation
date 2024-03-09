@@ -43,12 +43,6 @@ def app():
         silhouette_score_val = silhouette_score(X, kmeans.labels_)
         silhouette_scores.append(silhouette_score_val)
 
-    for i in range(100):
-        # Update progress bar value
-        progress_bar.progress(i + 1)
-        # Simulate some time-consuming task (e.g., sleep)
-        time.sleep(0.01)
-
     # Progress bar reaches 100% after the loop completes
     st.success("Performance data loading completed!")
 
@@ -93,6 +87,12 @@ def app():
     clustering, especially in high-dimensional datasets where 
     visualization isn't feasible."""
     st.write(text)
+
+    for i in range(100):
+        # Update progress bar value
+        progress_bar.progress(i + 1)
+        # Simulate some time-consuming task (e.g., sleep)
+        time.sleep(0.01)
 
     # Define the number of clusters (k)
     k = 4
