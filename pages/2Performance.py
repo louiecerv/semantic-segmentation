@@ -27,7 +27,7 @@ def app():
         max_value=20,
         value=10,  # In1.0itial value
     )
-    
+
     if st.button('Start'):
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating performance report, please wait...")
@@ -47,7 +47,7 @@ def app():
         fig, ax = plt.subplots()
 
         # Create the scatter plot using ax
-        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
+        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='set3')
 
         # Add title, labels, and show the plot
         ax.set_title(f"DBSCAN Clustering (ARI: {ari:.3f})")
