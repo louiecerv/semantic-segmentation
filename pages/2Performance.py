@@ -111,7 +111,6 @@ def app():
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
         # Create a KMeans object
         kmeans = KMeans(n_clusters=k)
-
         # Fit the data to the KMeans model
         X = st.session_state.X
         kmeans.fit(X)
@@ -134,7 +133,7 @@ def app():
         ax.set_xlabel("Feature 1")
         ax.set_ylabel("Feature 2")
         st.pyplot(fig)
-        st.write('K-Means Clustering with ' + str(n_clusters) + ' clusters')
+        st.write('K-Means Clustering with ' + str(k) + ' clusters')
 
         for i in range(100):
             # Update progress bar value
