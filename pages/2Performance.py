@@ -116,6 +116,9 @@ def app():
         # Get the cluster labels
         predicted_labels = kmeans.labels_
 
+        # Progress bar reaches 100% after the loop completes
+        st.success("Centroids plot completed!")
+        
         fig, ax = plt.subplots()
 
         # Plot the data with colors corresponding to the predicted labels
@@ -135,8 +138,7 @@ def app():
             # Simulate some time-consuming task (e.g., sleep)
             time.sleep(0.01)
         
-        # Progress bar reaches 100% after the loop completes
-        st.success("Centroids plot completed!")
+
 
 #run the app
 if __name__ == "__main__":
