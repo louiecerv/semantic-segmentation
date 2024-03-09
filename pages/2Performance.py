@@ -55,12 +55,15 @@ def app():
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
  
+        X = st.session_state.X
+
         # Perform agglomerative clustering with desired number of clusters
         clustering = AgglomerativeClustering(n_clusters=3, linkage='ward')
         labels = clustering.fit_predict(X)
 
         # Create the figure and axes
         fig, ax = plt.subplots()
+
 
         # Scatter plot the data with labels as color
         ax.scatter(X[:, 0], X[:, 1], c=labels)
