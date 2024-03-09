@@ -20,7 +20,7 @@ def app():
     text = """Describe the randon cluster generator"""
     st.write(text)
 
-    n_clusters = 5
+    n_clusters = 3
     n_samples = 1000
     cluster_std = 0.7
     random_state = 42
