@@ -20,28 +20,9 @@ def app():
     st.subheader(text)
 
     # Use session state to track the current form
-
-    if "clf" not in st.session_state: 
-        st.session_state["clf"] = []
-
-    if "X_train" not in st.session_state: 
-        st.session_state["X_train"] = []
-
-    if "X_test" not in st.session_state: 
-        st.session_state["X_test"] = []
+    if "n_clusters" not in st.session_state:
+        st.session_state.n_clusters = 4
     
-    if "y_train" not in st.session_state: 
-        st.session_state["X_train"] = []
-    
-    if "y_test" not in st.session_state: 
-        st.session_state["y_yest"] = []
-
-    if "selected_model" not in st.session_state: 
-        st.session_state["selected_model"] = 0
-    
-    if "mnist" not in st.session_state: 
-        st.session_state["mnist"] = []
-
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
     CCS 229 - Intelligent Systems
     Computer Science Department
