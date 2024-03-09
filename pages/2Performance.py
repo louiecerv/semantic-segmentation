@@ -22,7 +22,7 @@ def app():
     )
 
     min_samples = st.sidebar.slider(   # Minimum number of neighbors to form a core point
-        label="Select the number of eps:",
+        label="Select the minimum neighbors:",
         min_value=5,
         max_value=20,
         value=10,  # In1.0itial value
