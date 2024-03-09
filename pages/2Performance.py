@@ -9,6 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin
 from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.metrics import silhouette_score
+import time
 
 # Define the Streamlit app
 def app():
