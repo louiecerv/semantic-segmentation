@@ -88,6 +88,7 @@ def app():
         st.pyplot(fig)
 
         st.write('Click the Generate button to generate new data clusters.')
+        st.write('Navigate to the Performance Page in the sidebar to view the perforance report.')
 
         
 
