@@ -113,6 +113,7 @@ def app():
         kmeans = KMeans(n_clusters=k)
 
         # Fit the data to the KMeans model
+        X = st.session_state.X
         kmeans.fit(X)
 
         # Get the cluster labels
