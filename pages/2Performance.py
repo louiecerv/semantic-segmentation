@@ -136,7 +136,7 @@ def app():
             time.sleep(0.01)
         
         # Progress bar reaches 100% after the loop completes
-        st.success("Centroid prediction completed!")
+        st.success("Centroids plot completed!")
 
 #run the app
 if __name__ == "__main__":
