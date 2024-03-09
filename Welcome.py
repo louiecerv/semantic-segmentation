@@ -28,21 +28,26 @@ def app():
 
     st.image('k-means.jpeg', caption="K-Means Clustering Algorithm""")
 
-    text = """K-means clustering is a popular unsupervised machine learning algorithm 
-    used for clustering data points into groups or clusters based on their similarity. 
-    The goal of K-means clustering is to partition the data points into K number of 
-    distinct non-overlapping clusters, where K is a pre-defined number specified by the user.
-    \nThe algorithm works by first randomly selecting K centroids, which are the initial 
-    representative points of the clusters. Then, the algorithm iteratively assigns each 
-    data point to the nearest centroid based on the Euclidean distance between the data 
-    point and the centroids. After all data points are assigned to a centroid, 
-    the algorithm updates the centroid by taking the mean of all data points assigned 
-    to it. This process is repeated until convergence, which occurs when the data points 
-    no longer change their assignments to centroids.
-    \nThe final result of K-means clustering is a set of K clusters, where each data 
-    point is assigned to the cluster whose centroid is closest to it. The algorithm is 
-    widely used in various fields, including image segmentation, market segmentation, 
-    and anomaly detection, among others."""
+    text = """Agglomerative clustering, also known as hierarchical 
+    clustering, is a type of clustering that builds a 
+    hierarchy of clusters. It follows a bottom-up approach:
+    \nStart with individual points: Each data point begins as 
+    its own separate cluster.
+    \nMerge similar clusters: In each step, the algorithm merges the 
+    two most similar clusters based on a distance metric. Repeat until 
+    all data points are combined: This continues until all data points 
+    are merged into a single cluster. The result is a tree-like 
+    structure called a dendrogram that shows how clusters are 
+    formed at different levels of similarity. This allows you to 
+    decide on a desired level of granularity for your clusters.
+    \nBottom-up approach: Starts with individual points and merges 
+    them together. Hierarchical structure: Creates a hierarchy of 
+    clusters represented by a dendrogram. Doesn't require pre-defined 
+    cluster number: You don't need to specify the number of clusters 
+    beforehand.
+    \nThis clustering method is useful for exploratory 
+    data analysis when you want to understand the inherent structure 
+    of your data without having to guess the number of clusters upfront."""
 
     st.write(text)
     
