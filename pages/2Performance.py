@@ -12,7 +12,7 @@ from sklearn.metrics.pairwise import pairwise_distances
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the K-Means Classifier')
-    n_clusters = st.session_state.nclusters
+    n_clusters = st.session_state.n_clusters
     X = st.session_state.X
     clf = KMeans(n_clusters=n_clusters)
     clf.fit(X)
