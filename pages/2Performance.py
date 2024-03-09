@@ -28,7 +28,7 @@ def app():
         labels = db.labels_
 
         # Calculate adjusted Rand score for performance evaluation
-        ari = adjusted_rand_score(labels_true, labels)
+        ari = adjusted_rand_score(y, labels)
         print(f"Adjusted Rand Index (ARI): {ari:.3f}")
 
         for i in range(100):
