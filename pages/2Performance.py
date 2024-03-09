@@ -47,6 +47,19 @@ def app():
         score = silhouette_score(X, labels)
         st.write(f"Silhouette Score: {score:.3f}")
 
+        # Create the figure and axes objects
+        fig, ax = plt.subplots()
+
+        # Create the scatter plot using ax
+        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
+
+        # Add title, labels, and show the plot
+        ax.set_title(f"DBSCAN Clustering (ARI: {ari:.3f})")
+        ax.set_xlabel("Feature 1")
+        ax.set_ylabel("Feature 2")
+
+        st.pyplot(fig)
+        
         text = """The Adjusted Rand Index (ARI) is a metric used to 
         evaluate the performance of DBSCAN clustering against a ground 
         truth labeling of the data. It measures the agreement between 
@@ -67,19 +80,6 @@ def app():
         \nScores below 0 indicate a particularly bad clustering, where 
         the DBSCAN assignments are significantly worse than random."""
         st.write(text)
-        
-        # Create the figure and axes objects
-        fig, ax = plt.subplots()
-
-        # Create the scatter plot using ax
-        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
-
-        # Add title, labels, and show the plot
-        ax.set_title(f"DBSCAN Clustering (ARI: {ari:.3f})")
-        ax.set_xlabel("Feature 1")
-        ax.set_ylabel("Feature 2")
-
-        st.pyplot(fig)
 
         for i in range(100):
             # Update progress bar value
