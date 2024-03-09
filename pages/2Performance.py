@@ -43,14 +43,14 @@ def app():
         silhouette_score_val = silhouette_score(X, kmeans.labels_)
         silhouette_scores.append(silhouette_score_val)
 
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
+    for i in range(100):
+        # Update progress bar value
+        progress_bar.progress(i + 1)
+        # Simulate some time-consuming task (e.g., sleep)
+        time.sleep(0.01)
 
-        # Progress bar reaches 100% after the loop completes
-        st.success("Performance data loading completed!")
+    # Progress bar reaches 100% after the loop completes
+    st.success("Performance data loading completed!")
 
     # WCSS vs Number of Clusters plot
     fig, ax = plt.subplots()
