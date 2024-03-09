@@ -105,6 +105,8 @@ def app():
     )
 
     if st.button('Plot'):
+        # Create a progress bar object
+        progress_bar = st.progress(0, text="Generating random data clusters please wait...")
         # Create a KMeans object
         kmeans = KMeans(n_clusters=k)
 
@@ -126,6 +128,15 @@ def app():
         ax.set_xlabel("Feature 1")
         ax.set_ylabel("Feature 2")
         st.pyplot(fig)
+
+        for i in range(100):
+            # Update progress bar value
+            progress_bar.progress(i + 1)
+            # Simulate some time-consuming task (e.g., sleep)
+            time.sleep(0.01)
+        
+        # Progress bar reaches 100% after the loop completes
+        st.success("Centroid prediction completed!")
 
 #run the app
 if __name__ == "__main__":
