@@ -26,7 +26,7 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('k-means.jpeg', caption="K-Means Clustering Algorithm""")
+    st.image('heirarchical-clustering.jpg', caption="Heirarchical Clustering Algorithm""")
 
     text = """Agglomerative clustering, also known as hierarchical 
     clustering, is a type of clustering that builds a 
