@@ -5,8 +5,8 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.cluster import AgglomerativeClustering
-from scipy.cluster.hierarchy import dendrogram, linkage
+from sklearn.cluster import DBSCAN
+from sklearn.metrics import adjusted_rand_score
 import time
 
 # Define the Streamlit app
