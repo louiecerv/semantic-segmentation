@@ -14,6 +14,8 @@ def app():
     st.subheader('Performance of the K-Means Classifier')
     n_clusters = st.session_state.n_clusters
     X = st.session_state.X
+    y = st.session_state.y
+    
     clf = KMeans(n_clusters=n_clusters)
     clf.fit(X)
     y_test_pred = clf.predict(X)
