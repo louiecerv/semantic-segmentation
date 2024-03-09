@@ -8,6 +8,7 @@ import seaborn as sns
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin
 from sklearn.metrics.pairwise import pairwise_distances
+from sklearn.metrics import silhouette_score
 
 # Define the Streamlit app
 def app():
@@ -20,7 +21,11 @@ def app():
     clf.fit(X)
     y_test_pred = clf.predict(X)
 
-    centers, labels = find_clusters(X, n_clusters, y_test_pred)
+    centers, labels, wcss, silhouette = find_clusters(X, n_clusters, y_test_pred)
+
+    st.subheader('WCSS: ' + str(wcss))
+    st.subheader('Silhouette: ' + str(silhouette))
+
 
 def find_clusters(X, n_clusters, y_test_pred, rseed=42):
     #randomly choose clusters
@@ -48,7 +53,12 @@ def find_clusters(X, n_clusters, y_test_pred, rseed=42):
         if np.all(centers==new_centers):
             break
         centers = new_centers
-    return centers, labels
+
+    # Calculate within-cluster sum of squared errors (WCSS)
+    wcss = np.sum([(X[labels == i] - centers[i])**2 for i in range(n_clusters)]).sum()
+    silhouette = silhouette_score(X, labels)
+
+    return centers, labels, wcss, silhouette
 
 #run the app
 if __name__ == "__main__":
