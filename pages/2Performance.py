@@ -31,14 +31,13 @@ def app():
     ari = adjusted_rand_score(labels_true, labels)
     print(f"Adjusted Rand Index (ARI): {ari:.3f}")
 
+    for i in range(100):
+        # Update progress bar value
+        progress_bar.progress(i + 1)
+        # Simulate some time-consuming task (e.g., sleep)
+        time.sleep(0.01)
 
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
-
-        st.session_state.new_clusters = False
+    st.session_state.new_clusters = False
 
     # Define the number of clusters (k)
 
@@ -55,18 +54,16 @@ def app():
  
         X = st.session_state.X
 
-        # Perform agglomerative clustering with desired number of clusters
-        clustering = AgglomerativeClustering(n_clusters=k, linkage='ward')
-        labels = clustering.fit_predict(X)
-
-        # Create the figure and axes
+        # Create the figure and axes objects
         fig, ax = plt.subplots()
 
-        # Scatter plot the data with labels as color
-        ax.scatter(X[:, 0], X[:, 1], c=labels)
+        # Create the scatter plot using ax
+        ax.scatter(X[:, 0], X[:, 1], c=labels, cmap='viridis')
 
-        # Add title to the plot
-        ax.set_title('Heirarchical Clustering with ' + str(k) + ' clusters')
+        # Add title, labels, and show the plot
+        ax.set_title(f"DBSCAN Clustering (ARI: {ari:.3f})")
+        ax.set_xlabel("Feature 1")
+        ax.set_ylabel("Feature 2")
 
         st.pyplot(fig)
 
