@@ -5,10 +5,8 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.cluster import KMeans
-from sklearn.metrics import pairwise_distances_argmin
-from sklearn.metrics.pairwise import pairwise_distances
-from sklearn.metrics import silhouette_score
+from sklearn.cluster import AgglomerativeClustering
+from scipy.cluster.hierarchy import dendrogram, linkage
 import time
 
 # Define the Streamlit app
