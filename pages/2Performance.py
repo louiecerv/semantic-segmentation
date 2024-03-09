@@ -45,7 +45,7 @@ def app():
         st.write(f"Adjusted Rand Index (ARI): {ari:.3f}")
         # Calculate silhouette score
         score = silhouette_score(X, labels)
-        sti.write(f"Silhouette Score: {score:.3f}")
+        st.write(f"Silhouette Score: {score:.3f}")
 
         # Create the figure and axes objects
         fig, ax = plt.subplots()
