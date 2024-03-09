@@ -20,9 +20,9 @@ def app():
     clf.fit(X)
     y_test_pred = clf.predict(X)
 
-    centers, labels = find_clusters(X, n_clusters)
+    centers, labels = find_clusters(X, n_clusters, y_test_pred)
 
-def find_clusters(X, n_clusters, rseed=42):
+def find_clusters(X, n_clusters, y_test_pred, rseed=42):
     #randomly choose clusters
     rng = np.random.RandomState(rseed)
     i = rng.permutation(X.shape[0])[:n_clusters]
