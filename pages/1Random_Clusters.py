@@ -47,6 +47,9 @@ def app():
     st.write(text)
 
     if st.button("Generate"):
+        # Create a progress bar object
+        progress_bar = st.progress(0, text="Generating random data clusters please wait...")
+
         n_clusters = st.session_state.n_clusters
         n_samples = 1000
         cluster_std = 0.7
@@ -58,6 +61,15 @@ def app():
 
         st.session_state.X = X
         st.session_state.y = y
+
+        for i in range(100):
+            # Update progress bar value
+            progress_bar.progress(i + 1)
+            # Simulate some time-consuming task (e.g., sleep)
+            time.sleep(0.01)
+
+        # Progress bar reaches 100% after the loop completes
+        st.success("Dataset loading completed!")
 
         #plot the generated points
         # Create the figure and axes objects
