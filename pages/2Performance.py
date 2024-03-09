@@ -35,7 +35,7 @@ def find_clusters(X, n_clusters, y_test_pred, rseed=42):
     ax.scatter(X[:, 0], X[:, 1], c=y_test_pred, s=50, cmap='CMRmap')
 
     # Scatter plot for centers
-    ax.scatter(centers[:, 0], centers[:, 1], c='black', s=200, alpha=0.5)
+    ax.scatter(centers[:, 0], centers[:, 1], c='black', s=100, alpha=0.5)
 
     # Display the plot using Streamlit
     st.pyplot(fig)
