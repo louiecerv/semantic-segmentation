@@ -39,20 +39,6 @@ def app():
 
         st.session_state.new_clusters = False
 
-    # Define the number of clusters (k)
-    k = st.slider(
-        label="Select the number of centroids:",
-        min_value=2,
-        max_value=10,
-        value=4,  # Initial value
-    )
-
-    if st.button('Plot'):
-        # Create a progress bar object
-        progress_bar = st.progress(0, text="Generating random data clusters please wait...")
- 
-        X = st.session_state.X
-
         # Create the figure and axes objects
         fig, ax = plt.subplots()
 
@@ -65,13 +51,6 @@ def app():
         ax.set_ylabel("Feature 2")
 
         st.pyplot(fig)
-
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
-        
 
 
 #run the app
