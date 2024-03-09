@@ -48,6 +48,7 @@ def app():
     st.write(text)
 
     if st.button("Generate"):
+
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
 
