@@ -12,6 +12,7 @@ from sklearn.metrics import confusion_matrix
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report
 from sklearn.datasets import make_blobs
+import time
 
 # Define the Streamlit app
 def app():
