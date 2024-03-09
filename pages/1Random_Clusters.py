@@ -40,7 +40,7 @@ def app():
         # Customize the plot (optional)
         ax.set_xlabel("X-axis")
         ax.set_ylabel("Y-axis")
-        ax.set_title("Scatter Plot Using fig and ax")
+        ax.set_title("Randomly generated cluster of points")
 
         # Show the plot
         st.pyplot(fig)
