@@ -55,8 +55,8 @@ def app():
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
  
-         # Perform agglomerative clustering with desired number of clusters
-        clustering = AgglomerativeClustering(n_clusters=k, affinity='euclidean', linkage='ward')
+        # Perform agglomerative clustering with desired number of clusters
+        clustering = AgglomerativeClustering(n_clusters=3, linkage='ward')
         labels = clustering.fit_predict(X)
 
         # Create the figure and axes
