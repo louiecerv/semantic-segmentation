@@ -87,6 +87,8 @@ def app():
         # Show the plot
         st.pyplot(fig)
 
+        st.write('Click the Generate button to generate new data clusters.')
+
         
 
 def generate_random_points_in_square(x_min, x_max, y_min, y_max, num_points):
