@@ -23,9 +23,6 @@ def app():
     if "y" not in st.session_state: 
         st.session_state.y = []
 
-    if "n_clusters" not in st.session_state:
-        st.session_state.n_clusters = 4
-
     st.subheader('The Random Cluster Generator')
     text = """Generating random cluster centers:
     \nUses a function named generate_random_points_in_square that 
@@ -47,6 +44,13 @@ def app():
     each data point, corresponding to the n_clusters clusters."""
     st.write(text)
 
+    n_clusters = st.sidebar.slider(
+    label="Number of clusters:",
+    min_value= 2,
+    max_value= 10,
+    value=4,  # Initial value
+    )
+
     n_samples = st.sidebar.slider(
     label="Select the number of samples:",
     min_value=10,
@@ -66,7 +70,7 @@ def app():
         # Create a progress bar object
         progress_bar = st.progress(0, text="Generating random data clusters please wait...")
 
-        n_clusters = st.session_state.n_clusters
+        st.session_state.n_clusters = n_clusters
         random_state = 42
         centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
         X, y = make_blobs(n_samples=n_samples, n_features=2,

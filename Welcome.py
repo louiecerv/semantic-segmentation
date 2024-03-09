@@ -16,6 +16,9 @@ def app():
     if "new_clusters" not in st.session_state:
         st.session_state.new_clusters = False
 
+    if "n_clusters" not in st.session_state:
+        st.session_state.n_clusters = 4
+
     text = """The Heirarchical Clustering Algorithm"""
     st.subheader(text)
 
