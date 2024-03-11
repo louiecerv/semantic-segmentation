@@ -26,7 +26,7 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('dbscan.png', caption="DBSCAN Clustering Algorithm""")
+    st.image(mlp.png', caption="Multilayer Perceptron Neural Network""")
 
     text = """DBSCAN, or Density-Based Spatial Clustering of Applications 
     with Noise, is a popular clustering algorithm used for grouping 
