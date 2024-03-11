@@ -28,34 +28,23 @@ def app():
 
     st.image(mlp.png', caption="Multilayer Perceptron Neural Network""")
 
-    text = """DBSCAN, or Density-Based Spatial Clustering of Applications 
-    with Noise, is a popular clustering algorithm used for grouping 
-    data points. Unlike K-Means, which requires specifying the 
-    number of clusters beforehand, DBSCAN works by identifying 
-    dense regions of data points and classifying outliers.
-    \nCore points: These are points with a high density of neighbors 
-    within a specific radius (epsilon, ε). Imagine a circle around a 
-    data point. If the circle contains at least a minimum number of 
-    points (minPts), it's a core point.
-    \nBorder points: These are points on the fringes of clusters, 
-    within the ε distance of a core point, but don't have enough 
-    neighbors themselves to be considered core points.
-    \nNoise points: These are data points that are far away from any dense 
-    region and aren't considered part of any cluster.
-    The algorithm iterates through the data points, classifying 
-    them as core points, border points, or noise. Here's a simplified 
-    view of the process:
-    \nPick an unvisited data point.
-    \nIf it's a core point, create a new cluster and recursively add 
-    its dense neighbors (including border points) to the cluster.
-    If it's not a core point (either a border or noise point), 
-    mark it as visited and move on.
-    \nDBSCAN is effective for finding clusters of various shapes 
-    and sizes, especially in datasets with noise and outliers. 
-    It's a good choice when the number of clusters is unknown 
-    beforehand. However, it requires setting two parameters: ε 
-    (radius) and minPts (minimum neighbors), which can impact the 
-    clustering results."""
+    text = """SKlearn's MLP classifier, also called  Multi-layer Perceptron 
+    Classifier (MLPClassifier), is a tool for building artificial neural networks 
+    for classification tasks. 
+    \nCore functionality: Implements a Multi-layer Perceptron (MLP) algorithm, 
+    a type of artificial neural network. Learns a function that maps input data 
+    to a specific category during training on a dataset.
+    \nKey characteristics:
+    Uses backpropagation for training, an iterative process to adjust the 
+    network's internal parameters.  Supports only the cross-entropy loss function, 
+    suitable for tasks with multiple class outputs. 
+    Applies softmax activation for the output layer, enabling probability 
+    estimations for each class.
+    \nAdvantages:
+    Can learn complex relationships between features and target variables, 
+    making it suitable for non-linear problems.
+    \nComputationally expensive to train compared to simpler algorithms.
+    \nRequires careful hyperparameter tuning to achieve optimal performance."""
 
     st.write(text)
     
