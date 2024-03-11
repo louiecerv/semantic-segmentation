@@ -26,7 +26,7 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image(mlp.png', caption="Multilayer Perceptron Neural Network""")
+    st.image('mlp.png', caption="Multilayer Perceptron Neural Network")
 
     text = """SKlearn's MLP classifier, also called  Multi-layer Perceptron 
     Classifier (MLPClassifier), is a tool for building artificial neural networks 
