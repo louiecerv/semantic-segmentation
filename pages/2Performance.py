@@ -23,8 +23,8 @@ def app():
     options = ["lbfgs", "sgd"]
     solver = st.sidebar.selectbox('Select the solver:', options)
 
-    hidden_layers = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
-        label="Select the hidden layer:",
+    hidden_layers = st.sidebar.slider(      
+        label="How many hidden layers? :",
         min_value=5,
         max_value=10,
         value=8,  # Initial value
