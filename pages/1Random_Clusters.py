@@ -43,14 +43,14 @@ def app():
     n_samples = st.sidebar.slider(
     label="Select the number of samples:",
     min_value=10,
-    max_value=1000,
+    max_value=4000,
     value=500,  # Initial value
     )
 
     cluster_std = st.sidebar.slider(
     label="Select the cluster std:",
     min_value= 0.2,
-    max_value= 1.0,
+    max_value= 2.0,
     value=0.5,  # Initial value
     )
 
