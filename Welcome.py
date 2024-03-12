@@ -14,7 +14,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """Multi-Layer Perceptron Clustering Algorithm"""
+    text = """Multi-Layer Perceptron Artificial Neural Network"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
