@@ -5,12 +5,6 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn import tree
-from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
-from sklearn.neighbors import KNeighborsClassifier
-from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import train_test_split
-from sklearn.metrics import classification_report
 from sklearn.datasets import make_blobs
 import time
 
