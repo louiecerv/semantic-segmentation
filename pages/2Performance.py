@@ -21,7 +21,7 @@ def app():
     activation = st.sidebar.selectbox('Select the activation function:', options)
 
     options = ["lbfgs", "sgd"]
-    solver = st.sidebar.selectbox('Select the activation function:', options)
+    solver = st.sidebar.selectbox('Select the solver:', options)
 
     hidden_layer = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
         label="Select the hidden layer:",
@@ -30,7 +30,7 @@ def app():
         value=8,  # Initial value
     )
 
-    alpha = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+    alpha = st.sidebar.slider(   
         label="Set the alpha:",
         min_value=.00001,
         max_value=1.0,
@@ -51,7 +51,9 @@ def app():
         X = st.session_state.X
         y = st.session_state.y
 
-        clf = MLPClassifier(hidden_layer_sizes=(100,), solver=solver, max_iter=max_iter, random_state=42)
+        clf = MLPClassifier(hidden_layer_sizes=(100,), 
+            solver=solver, activation=activation, 
+            max_iter=max_iter, random_state=42)
 
         # Split the dataset into training and testing sets
         X_train, X_test, y_train, y_test = train_test_split(X, y, \
