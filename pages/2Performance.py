@@ -5,28 +5,43 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.cluster import DBSCAN
-from sklearn.metrics import adjusted_rand_score
-from sklearn.metrics import silhouette_score
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import confusion_matrix
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import classification_report
 import time
 
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the DBSCAN Cluster Classifier')
 
-    # Define DBSCAN parameters
-    eps = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
-        label="Select the epsilon radius:",
-        min_value=0.1,
-        max_value=1.0,
-        value=0.3,  # Initial value
+    # Define MLP parameters
+
+    options = ["relu", "tanh", "logistic"]
+    activation = st.sidebar.selectbox('Select the activation function:', options)
+
+    options = ["lbfgs", "sgd"]
+    solver = st.sidebar.selectbox('Select the activation function:', options)
+
+    hidden_layer = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
+        label="Select the hidden layer:",
+        min_value=5,
+        max_value=10,
+        value=8,  # Initial value
     )
 
-    min_samples = st.sidebar.slider(   # Minimum number of neighbors to form a core point
-        label="Select the minimum samples:",
-        min_value=5,
-        max_value=20,
-        value=10,  # In1.0itial value
+    alpha = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+        label="Set the alpha:",
+        min_value=.00001,
+        max_value=1.0,
+        value=0.001,  # In1.0itial value
+    )
+
+    max_iter = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+        label="Set the max iterations:",
+        min_value=100,
+        max_value=10000,
+        value=100,  # In1.0itial value
     )
 
     if st.button('Start'):
