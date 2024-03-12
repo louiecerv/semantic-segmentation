@@ -26,11 +26,11 @@ def app():
     \nGenerating data points with clusters:
     \nUses make_blobs function from scikit-learn to 
     generate sample data with desired characteristics:
-    \nn_samples: 1000 data points.
-    \nn_features: 2 features, representing a 2-dimensional dataset.
-    \ncluster_std: 0.7 standard deviation for cluster dispersion.
-    \ncenters: The generated random centers for each cluster.
-    \nrandom_state: 42 for reproducibility.
+    n_samples: 1000 data points.
+    n_features: 2 features, representing a 2-dimensional dataset.
+    cluster_std: 0.7 standard deviation for cluster dispersion.
+    centers: The generated random centers for each cluster.
+    random_state: 42 for reproducibility.
     \nOutput:
     \nX: A 2-dimensional array containing the generated data points, 
     where each row represents a data point with 2 features.
