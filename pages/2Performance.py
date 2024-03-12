@@ -23,7 +23,7 @@ def app():
     options = ["lbfgs", "sgd"]
     solver = st.sidebar.selectbox('Select the solver:', options)
 
-    hidden_layer = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
+    hidden_layers = st.sidebar.slider(      # Maximum distance between points to be considered neighbors
         label="Select the hidden layer:",
         min_value=5,
         max_value=10,
@@ -51,7 +51,7 @@ def app():
         X = st.session_state.X
         y = st.session_state.y
 
-        clf = MLPClassifier(hidden_layer_sizes=(100,), 
+        clf = MLPClassifier(hidden_layer_sizes=(hidden_layers,), 
             solver=solver, activation=activation, 
             max_iter=max_iter, random_state=42)
 
