@@ -13,7 +13,7 @@ import time
 
 # Define the Streamlit app
 def app():
-    st.subheader('Performance of the DBSCAN Cluster Classifier')
+    st.subheader('Performance of the Multi-Layer Perceptron Classifier')
 
     # Define MLP parameters
 
