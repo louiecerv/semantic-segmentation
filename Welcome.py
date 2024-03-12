@@ -17,7 +17,7 @@ def app():
     text = """Multi-Layer Perceptron Artificial Neural Network Classifier"""
     st.subheader(text)
 
-    text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n\n
+    text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n
     CCS 229 - Intelligent Systems
     Computer Science Department
     College of Information and Communications Technology
