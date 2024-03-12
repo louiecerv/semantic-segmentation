@@ -51,7 +51,7 @@ def app():
         X = st.session_state.X
         y = st.session_state.y
 
-        clf = MLPClassifier(hidden_layer_sizes=(100,), max_iter=300, random_state=42)
+        clf = MLPClassifier(hidden_layer_sizes=(100,), solver=solver, max_iter=max_iter, random_state=42)
 
         # Split the dataset into training and testing sets
         X_train, X_test, y_train, y_test = train_test_split(X, y, \
