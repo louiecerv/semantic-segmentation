@@ -26,21 +26,21 @@ def app():
     hidden_layers = st.sidebar.slider(      
         label="How many hidden layers? :",
         min_value=5,
-        max_value=10,
-        value=8,  # Initial value
+        max_value=25,
+        value=10,  # Initial value
     )
 
     alpha = st.sidebar.slider(   
         label="Set the alpha:",
-        min_value=.00001,
+        min_value=.001,
         max_value=1.0,
-        value=0.001,  # In1.0itial value
+        value=0.1,  # In1.0itial value
     )
 
     max_iter = st.sidebar.slider(   # Minimum number of neighbors to form a core point
         label="Set the max iterations:",
         min_value=100,
-        max_value=10000,
+        max_value=1000,
         value=100,  # In1.0itial value
     )
 
