@@ -18,11 +18,7 @@ def app():
         st.session_state.y = []
 
     st.subheader('The Random Cluster Generator')
-    text = """Generating random cluster centers:
-    \nUses a function to creates evenly spaced points within a square area. Creates
-    n_clusters random centers within a square with 
-    boundaries -4 to 4 in both dimensions.
-    \nGenerating data points with clusters:
+    text = """Generating data points with clusters:
     \nUses make_blobs function from scikit-learn to 
     generate sample data with desired characteristics:
     n_samples: number of data points.
@@ -31,9 +27,9 @@ def app():
     centers: The generated random centers for each cluster.
     random_state: 42 for reproducibility.
     \nOutput:
-    \nX: A 2-dimensional array containing the generated data points, 
+    X: A 2-dimensional array containing the generated data points, 
     where each row represents a data point with 2 features.
-    \ny: An array containing the assigned cluster labels for 
+    y: An array containing the assigned cluster labels for 
     each data point, corresponding to the n_clusters clusters."""
     st.write(text)
 
