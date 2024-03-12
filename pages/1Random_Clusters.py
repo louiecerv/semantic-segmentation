@@ -19,16 +19,15 @@ def app():
 
     st.subheader('The Random Cluster Generator')
     text = """Generating random cluster centers:
-    \nUses a function named generate_random_points_in_square that 
-    creates evenly spaced points within a square area. Creates
+    \nUses a function to creates evenly spaced points within a square area. Creates
     n_clusters random centers within a square with 
     boundaries -4 to 4 in both dimensions.
     \nGenerating data points with clusters:
     \nUses make_blobs function from scikit-learn to 
     generate sample data with desired characteristics:
-    n_samples: 1000 data points.
+    n_samples: number of data points.
     n_features: 2 features, representing a 2-dimensional dataset.
-    cluster_std: 0.7 standard deviation for cluster dispersion.
+    cluster_std: standard deviation for cluster dispersion.
     centers: The generated random centers for each cluster.
     random_state: 42 for reproducibility.
     \nOutput:
