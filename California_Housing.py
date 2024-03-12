@@ -14,7 +14,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """Multi-Layer Perceptron Artificial Neural Network Classifier"""
+    text = """Multi-Layer Perceptron on the California Housing Dataset"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n
@@ -24,25 +24,27 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('mlp.png', caption="Multilayer Perceptron Neural Network")
+    st.image('california.jpg', caption="California Housing Dataset")
 
-    text = """SKlearn's MLP classifier, also called  Multi-layer Perceptron 
-    Classifier (MLPClassifier), is a tool for building artificial neural networks 
-    for classification tasks. 
-    \nCore functionality: Implements a Multi-layer Perceptron (MLP) algorithm, 
-    a type of artificial neural network. Learns a function that maps input data 
-    to a specific category during training on a dataset.
-    \nKey characteristics:
-    Uses backpropagation for training, an iterative process to adjust the 
-    network's internal parameters.  Supports only the cross-entropy loss function, 
-    suitable for tasks with multiple class outputs. 
-    Applies softmax activation for the output layer, enabling probability 
-    estimations for each class.
-    \nAdvantages:
-    Can learn complex relationships between features and target variables, 
-    making it suitable for non-linear problems.
-    \nComputationally expensive to train compared to simpler algorithms.
-    \nRequires careful hyperparameter tuning to achieve optimal performance."""
+    text = """This app leverages a machine learning model to predict housing prices 
+    based on various factors influencing the California housing market.
+    \nPredict house prices using a trained MLP model. Explore the 
+    influence of different features on the predicted price.
+    \nSource: Derived from the 1990 U.S. Census data for California [1].
+    Size: Contains 20,640 data points, each representing a census block group.
+    Features:
+    8 independent variables:
+    MedInc: Median income in the block group.
+    HouseAge: Median age of houses in the block group.
+    AveRooms: Average number of rooms per household.
+    AveBedrms: Average number of bedrooms per household.
+    Population: Population of the block group.
+    AveOccup: Average number of household members.
+    Latitude: Geographical latitude of the block group centroid.
+    Longitude: Geographical longitude of the block group centroid.
+    Target variable:
+    Median house value in dollars (scaled by dividing by 100,000).
+    """
 
     st.write(text)
     
