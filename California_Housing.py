@@ -33,17 +33,17 @@ def app():
     \nSource: Derived from the 1990 U.S. Census data for California [1].
     Size: Contains 20,640 data points, each representing a census block group.
     Features:
-    8 independent variables:
-    MedInc: Median income in the block group.
-    HouseAge: Median age of houses in the block group.
-    AveRooms: Average number of rooms per household.
-    AveBedrms: Average number of bedrooms per household.
-    Population: Population of the block group.
-    AveOccup: Average number of household members.
-    Latitude: Geographical latitude of the block group centroid.
-    Longitude: Geographical longitude of the block group centroid.
-    Target variable:
-    Median house value in dollars (scaled by dividing by 100,000).
+    \n8 independent variables:
+    \nMedInc: Median income in the block group.
+    \nHouseAge: Median age of houses in the block group.
+    \nAveRooms: Average number of rooms per household.
+    \nAveBedrms: Average number of bedrooms per household.
+    \nPopulation: Population of the block group.
+    \nAveOccup: Average number of household members.
+    \nLatitude: Geographical latitude of the block group centroid.
+    \nLongitude: Geographical longitude of the block group centroid.
+    \nTarget variable:
+    \nMedian house value in dollars (scaled by dividing by 100,000).
     """
 
     st.write(text)
