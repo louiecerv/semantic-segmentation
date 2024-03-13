@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.datasets import make_blobs
 from sklearn.neural_network import MLPRegressor
+from sklearn.preprocessing import StandardScaler
+
 import time
 
 # Define the Streamlit app
