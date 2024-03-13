@@ -75,7 +75,7 @@ def app():
 
     st.text(text)
 
-    Text = """Scikit-learn's MLPRegressor is a tool for building multi-layer 
+    text = """Scikit-learn's MLPRegressor is a tool for building multi-layer 
     perceptron (MLP) models for regression tasks. Unlike linear regression, 
     MLPs can model non-linear relationships between features and the target variable.
     
