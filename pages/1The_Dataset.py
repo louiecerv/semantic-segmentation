@@ -13,6 +13,14 @@ import time
 # Define the Streamlit app
 def app():
 
+    text = """The California housing dataset is a popular benchmark dataset frequently 
+    used in the field of regression analysis for real estate price prediction. 
+    It contains information about various features that potentially influence 
+    housing prices in California.
+    Data Description:
+    Source: Publicly available from https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html
+    Size: Contains 20,640 data points, each representing a block in California."""
+    st.write(text)
     # Load the California housing data
     data = fetch_california_housing()
 

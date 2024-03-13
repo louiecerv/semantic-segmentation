@@ -10,7 +10,7 @@ import time
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the Multi-Layer Perceptron Regressor')
-
+    
     if st.button('Start'):
         X_test_scaled = st.session_state.X_test_scaled
 
