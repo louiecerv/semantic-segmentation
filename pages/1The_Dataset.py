@@ -18,7 +18,7 @@ def app():
     It contains information about various features that potentially influence 
     housing prices in California.
     Data Description:
-    Source: Publicly available from https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html
+    \nSource: Publicly available from https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html
     Size: Contains 20,640 data points, each representing a block in California."""
     st.write(text)
     # Load the California housing data
