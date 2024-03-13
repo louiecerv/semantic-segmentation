@@ -11,7 +11,7 @@ import time
 def app():
     st.subheader('Performance of the Multi-Layer Perceptron Regressor')
     text = """Test the performance of the MLP Regressor using the 20% of the dataset that was
-    set aside for testing. Mean squarer Errir (MSE) and the R-sqaured are the selected metrics."""
+    set aside for testing. The Mean Squared Error (MSE) and the R-squared value are the performance metrics."""
     st.write(text)
     
     if st.button('Begin Test'):
