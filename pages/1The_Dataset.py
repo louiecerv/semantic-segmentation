@@ -8,7 +8,7 @@ import seaborn as sns
 from sklearn.datasets import make_blobs
 from sklearn.neural_network import MLPRegressor
 from sklearn.preprocessing import StandardScaler
-
+from sklearn.datasets import fetch_california_housing
 import time
 
 # Define the Streamlit app
