@@ -151,6 +151,7 @@ def app():
             time.sleep(0.01)
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
+        st.write("Use the sidebar to open the Performance page.")
     
     text = """The model is cached to make the App more responsive.  
     But if you changed any of the settings of the MLP Regressor, 
