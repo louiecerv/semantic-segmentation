@@ -113,6 +113,11 @@ def app():
                  "Average Bed Rooms", 
                  "Median House Value (Thousands USD", 
                  "Average Bed Rooms vs. Median House Value")
+    
+    plot_feature(df["Population"], df["target"], 
+                 "Average Bed Rooms", 
+                 "Median House Value (Thousands USD", 
+                 "Average Bed Rooms vs. Median House Value")
 
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
