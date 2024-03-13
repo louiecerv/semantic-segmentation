@@ -141,8 +141,6 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
 
-
-
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
     fig, ax = plt.subplots(figsize=(10, 6))
