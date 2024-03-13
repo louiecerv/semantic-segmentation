@@ -78,10 +78,13 @@ def app():
                         activation='relu',  # Choose an activation function
                         random_state=42)
 
-    
+    #store the clf object for later use
+    st.session_state.clf = clf
+
     progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
     # Train the model
-    #clf.fit(X_train_scaled, y_train)
+    train_model(X_train_scaled, y_train)
+
     # update the progress bar
     for i in range(100):
         # Update progress bar value
@@ -90,9 +93,6 @@ def app():
         time.sleep(0.01)
     # Progress bar reaches 100% after the loop completes
     st.success("Regressor training completed!") 
-
-    #store the clf object for later use
-    st.session_state.clf = clf
 
     plot_feature(df["MedInc"], df["target"], 
                  "Median Income (Thousands USD)", 
@@ -146,6 +146,15 @@ def plot_feature(feature, target, labelx, labely, title):
     # Add grid
     ax.grid(True)
     st.pyplot(fig)
+
+@st.cache_resource  # 👈 Add the caching decorator
+def train_model(X_train_scaled, y_train):
+    clf = st.session_state.clf 
+    clf.fit(X_train_scaled, y_train)
+    st.session_state.clf = clf
+
+
+
 
 #run the app
 if __name__ == "__main__":
