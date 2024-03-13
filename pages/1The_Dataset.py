@@ -9,7 +9,6 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 import time
-from 2Performance import app as perf_app
 
 # Define the Streamlit app
 def app():
@@ -154,9 +153,6 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
-
-        # load the performance page
-        perf_app()
         
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
