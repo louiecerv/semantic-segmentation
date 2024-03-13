@@ -11,15 +11,13 @@ import time
 def app():
     st.subheader('Performance of the Multi-Layer Perceptron Regressor')
 
-
-
     if st.button('Start'):
         X_test_scaled = st.session_state.X_test_scaled
 
         # Make predictions on the test set
         y_test_pred = st.session_state.clf.predict(X_test_scaled)
         y_test = st.session_state.y_test
-        
+
         # Evaluate performance using appropriate metrics (e.g., mean squared error, R-squared)
         mse = mean_squared_error(y_test, y_test_pred)
         r2 = r2_score(y_test, y_test_pred)
