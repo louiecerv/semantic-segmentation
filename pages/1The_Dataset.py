@@ -97,50 +97,51 @@ def app():
     #store the clf object for later use
     st.session_state.clf = clf
 
-    plot_feature(df["MedInc"], df["target"], 
-                 "Median Income (Thousands USD)", 
-                 "Median House Value (Thousands USD", 
-                 "Median Income vs. Median House Value")
-
-    plot_feature(df["HouseAge"], df["target"], 
-                 "House Age in years", 
-                 "Median House Value (Thousands USD", 
-                 "House Age vs. Median House Value")
+    if st.button("Show Grpahs"):
+        plot_feature(df["MedInc"], df["target"], 
+                     "Median Income (Thousands USD)", 
+                     "Median House Value (Thousands USD", 
+                     "Median Income vs. Median House Value")
     
-    plot_feature(df["AveRooms"], df["target"], 
-                 "Average Rooms", 
-                 "Median House Value (Thousands USD", 
-                 "Average vs. Median House Value")
+        plot_feature(df["HouseAge"], df["target"], 
+                     "House Age in years", 
+                     "Median House Value (Thousands USD", 
+                     "House Age vs. Median House Value")
         
-    plot_feature(df["AveBedrms"], df["target"], 
-                 "Average Bed Rooms", 
-                 "Median House Value (Thousands USD", 
-                 "Average Bed Rooms vs. Median House Value")
+        plot_feature(df["AveRooms"], df["target"], 
+                     "Average Rooms", 
+                     "Median House Value (Thousands USD", 
+                     "Average vs. Median House Value")
+            
+        plot_feature(df["AveBedrms"], df["target"], 
+                     "Average Bed Rooms", 
+                     "Median House Value (Thousands USD", 
+                     "Average Bed Rooms vs. Median House Value")
+        
+        plot_feature(df["Population"], df["target"], 
+                     "Population", 
+                     "Median House Value (Thousands USD", 
+                     "Population vs. Median House Value")
+        
+        plot_feature(df["AveOccup"], df["target"], 
+                     "Average Occupancy", 
+                     "Median House Value (Thousands USD", 
+                     "Average Occupancy vs. Median House Value")
+        
+        plot_feature(df["Latitude"], df["target"], 
+                     "Latitude", 
+                     "Median House Value (Thousands USD", 
+                     "Latitude vs. Median House Value")
     
-    plot_feature(df["Population"], df["target"], 
-                 "Population", 
-                 "Median House Value (Thousands USD", 
-                 "Population vs. Median House Value")
-    
-    plot_feature(df["AveOccup"], df["target"], 
-                 "Average Occupancy", 
-                 "Median House Value (Thousands USD", 
-                 "Average Occupancy vs. Median House Value")
-    
-    plot_feature(df["Latitude"], df["target"], 
-                 "Latitude", 
-                 "Median House Value (Thousands USD", 
-                 "Latitude vs. Median House Value")
+        plot_feature(df["Longitude"], df["target"], 
+                     "Longitude", 
+                     "Median House Value (Thousands USD", 
+                     "Longitude vs. Median House Value")
 
-    plot_feature(df["Longitude"], df["target"], 
-                 "Longitude", 
-                 "Median House Value (Thousands USD", 
-                 "Longitude vs. Median House Value")
-
-    if st.button('Start'):
+    if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
 
-        # Train the model
+        # Train the model 
         train_model(X_train_scaled, y_train)
 
         # update the progress bar
