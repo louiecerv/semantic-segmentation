@@ -9,7 +9,7 @@ import time
 
 # Define the Streamlit app
 def app():
-    st.subheader('Performance of the Multi-Layer Perceptron Regressor')
+    st.subheader('Performance of the MLP-ANN on the California Housing Dataset')
     text = """Test the performance of the MLP Regressor using the 20% of the dataset that was
     set aside for testing. The Mean Squared Error (MSE) and the R-squared value are the performance metrics."""
     st.write(text)
