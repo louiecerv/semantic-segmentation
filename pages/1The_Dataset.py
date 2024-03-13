@@ -99,17 +99,17 @@ def app():
                  "Median House Value (Thousands USD", 
                  "Median Income vs. Median House Value")
 
-    plot_feature(df["houseage"], df["target"], 
+    plot_feature(df["HouseAge"], df["target"], 
                  "House Age in years", 
                  "Median House Value (Thousands USD", 
                  "House Age vs. Median House Value")
     
-    plot_feature(df["averooms"], df["target"], 
+    plot_feature(df["AveRooms"], df["target"], 
                  "Average Rooms", 
                  "Median House Value (Thousands USD", 
                  "Average vs. Median House Value")
         
-    plot_feature(df["avebedrms"], df["target"], 
+    plot_feature(df["AveBedrms"], df["target"], 
                  "Average Bed Rooms", 
                  "Median House Value (Thousands USD", 
                  "Average Bed Rooms vs. Median House Value")
