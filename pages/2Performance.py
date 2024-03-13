@@ -39,6 +39,17 @@ def app():
         # Display the plot
         st.pyplot(fig)
 
+        text = """An R-squared of 0.71 on the California housing dataset indicates that 71% of the variance 
+        in the median house prices can be explained by the features included in the model. In other words, 
+        the model captures a significant portion of the factors influencing housing prices in California.
+        The model can be used to predict median house prices based on the features it considers. However, 
+        it's important to understand the limitations of relying solely on R-squared:
+        Higher R-squared doesn't guarantee perfect predictions: A value of 0.71 signifies a good fit, 
+        but there's still 29% of the variance unexplained by the model. This means the model's predictions 
+        will not be completely accurate and will have some degree of error."""
+
+        st.write(text)
+
 
 
 #run the app
