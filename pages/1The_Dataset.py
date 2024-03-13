@@ -78,7 +78,7 @@ def app():
                         random_state=42)
 
     
-    progress_bar = st.progress(0, text="Generating random data clusters please wait...")
+    progress_bar = st.progress(0, text="Training theMLP regressor please wait...")
     # Train the model
     clf.fit(X_train_scaled, y_train)
     # update the progress bar
@@ -88,7 +88,7 @@ def app():
         # Simulate some time-consuming task (e.g., sleep)
         time.sleep(0.01)
     # Progress bar reaches 100% after the loop completes
-    st.success("Data clusters loading completed!")    
+    st.success("Regressor training completed!") 
 
     #store the clf object for later use
     st.session_state.clf = clf
@@ -99,7 +99,7 @@ def app():
                  "Median Income vs. Median House Value")
     
 
-def plot_feature(feature, target, labelx, labely):
+def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
     fig, ax = plt.subplots(figsize=(10, 6))
     # Scatter plot
