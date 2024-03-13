@@ -162,9 +162,6 @@ def train_model(X_train_scaled, y_train):
     clf.fit(X_train_scaled, y_train)
     st.session_state.clf = clf
 
-
-
-
 #run the app
 if __name__ == "__main__":
     app()
