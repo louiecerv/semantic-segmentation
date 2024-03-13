@@ -83,8 +83,8 @@ def app():
     max_iter = st.sidebar.slider(   
         label="Set the max iterations:",
         min_value=100,
-        max_value=1000,
-        value=300,  
+        max_value=300,
+        value=120,  
         step=10
     )
 
