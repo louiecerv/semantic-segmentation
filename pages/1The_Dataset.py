@@ -70,7 +70,7 @@ def app():
         value=0.1,  # In1.0itial value
     )
 
-    max_iter = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+    max_iter = st.sidebar.slider(   
         label="Set the max iterations:",
         min_value=100,
         max_value=1000,
@@ -79,7 +79,7 @@ def app():
 
     # Define the MLP regressor model
     clf = MLPRegressor(solver=solver, 
-                        hidden_layer_sizes=(hidden_layers),  # Adjust hidden layer sizes
+                        hidden_layer_sizes=(hidden_layers),  
                         activation=activation, 
                         max_iter=max_iter, random_state=42)
 
