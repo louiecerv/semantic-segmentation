@@ -15,34 +15,7 @@ import time
 def app():
     st.subheader('Performance of the Multi-Layer Perceptron Classifier')
 
-    # Define MLP parameters
 
-    options = ["relu", "tanh", "logistic"]
-    activation = st.sidebar.selectbox('Select the activation function:', options)
-
-    options = ["lbfgs", "sgd"]
-    solver = st.sidebar.selectbox('Select the solver:', options)
-
-    hidden_layers = st.sidebar.slider(      
-        label="How many hidden layers? :",
-        min_value=5,
-        max_value=25,
-        value=10,  # Initial value
-    )
-
-    alpha = st.sidebar.slider(   
-        label="Set the alpha:",
-        min_value=.001,
-        max_value=1.0,
-        value=0.1,  # In1.0itial value
-    )
-
-    max_iter = st.sidebar.slider(   # Minimum number of neighbors to form a core point
-        label="Set the max iterations:",
-        min_value=100,
-        max_value=1000,
-        value=100,  # In1.0itial value
-    )
 
     if st.button('Start'):
         # Create a progress bar object

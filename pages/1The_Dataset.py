@@ -72,27 +72,42 @@ def app():
     # save the scaler object for later use
     st.session_state["scaler"] = scaler
 
+   # Define MLP parameters    
+    options = ["relu", "tanh", "logistic"]
+    activation = st.sidebar.selectbox('Select the activation function:', options)
+
+    options = ["adam", "lbfgs", "sgd"]
+    solver = st.sidebar.selectbox('Select the solver:', options)
+
+    hidden_layers = st.sidebar.slider(      
+        label="How many hidden layers? :",
+        min_value=5,
+        max_value=25,
+        value=10,  # Initial value
+    )
+
+    alpha = st.sidebar.slider(   
+        label="Set the alpha:",
+        min_value=.001,
+        max_value=1.0,
+        value=0.1,  # In1.0itial value
+    )
+
+    max_iter = st.sidebar.slider(   # Minimum number of neighbors to form a core point
+        label="Set the max iterations:",
+        min_value=100,
+        max_value=1000,
+        value=100,  # In1.0itial value
+    )
+
     # Define the MLP regressor model
     clf = MLPRegressor(solver='lbfgs',  # Choose a suitable solver (e.g., 'adam')
-                        hidden_layer_sizes=(100, 50),  # Adjust hidden layer sizes
-                        activation='relu',  # Choose an activation function
-                        random_state=42)
+                        hidden_layer_sizes=(hidden_layers),  # Adjust hidden layer sizes
+                        solver=solver, activation=activation, 
+                        max_iter=max_iter, random_state=42)
 
     #store the clf object for later use
     st.session_state.clf = clf
-
-    progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
-    # Train the model
-    train_model(X_train_scaled, y_train)
-
-    # update the progress bar
-    for i in range(100):
-        # Update progress bar value
-        progress_bar.progress(i + 1)
-        # Simulate some time-consuming task (e.g., sleep)
-        time.sleep(0.01)
-    # Progress bar reaches 100% after the loop completes
-    st.success("Regressor training completed!") 
 
     plot_feature(df["MedInc"], df["target"], 
                  "Median Income (Thousands USD)", 
@@ -133,6 +148,23 @@ def app():
                  "Longitude", 
                  "Median House Value (Thousands USD", 
                  "Longitude vs. Median House Value")
+
+ 
+    if st.button('Start'):
+        progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
+        # Train the model
+        train_model(X_train_scaled, y_train)
+
+        # update the progress bar
+        for i in range(100):
+            # Update progress bar value
+            progress_bar.progress(i + 1)
+            # Simulate some time-consuming task (e.g., sleep)
+            time.sleep(0.01)
+        # Progress bar reaches 100% after the loop completes
+        st.success("Regressor training completed!") 
+
+
 
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
