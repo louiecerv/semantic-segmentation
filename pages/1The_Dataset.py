@@ -83,7 +83,7 @@ def app():
     #store the clf object for later use
     st.session_state.clf = clf
 
-    plot_feature(df["Median Income"], df["Median House Value"], 
+    plot_feature(df["MedInc"], df["target"], 
                  "Median Income (Thousands USD)", 
                  "Median House Value (Thousands USD", 
                  "Median Income vs. Median House Value")
