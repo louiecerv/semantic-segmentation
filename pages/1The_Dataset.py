@@ -81,22 +81,27 @@ def app():
     #store the clf object for later use
     st.session_state.clf = clf
 
-    # Display the plots
-    fig, ax = plt.subplots(figsize=(10, 6))
-    # Scatter plot
-    ax.scatter(df["Median Income"], df["Median House Value"])
-    # Add labels and title
-    ax.set_xlabel("Median Income (Thousands USD)")
-    ax.set_ylabel("Median House Value (Thousands USD)")
-    ax.set_title("Median Income vs. Median House Value")
-    # Add grid
-    ax.grid(True)
-    st.pyplot(fig)
-
+    plot_feature(df["Median Income"], df["Median House Value"], 
+                 "Median Income (Thousands USD)", 
+                 "Median House Value (Thousands USD", 
+                 "Median Income vs. Median House Value")
+    
 # Display the plot
 plt.grid(True)
 plt.show()        
 
+def plot_feature(feature, target, labelx, labely):
+    # Display the plots
+    fig, ax = plt.subplots(figsize=(10, 6))
+    # Scatter plot
+    ax.scatter(feature, target)
+    # Add labels and title
+    ax.set_xlabel(labelx)
+    ax.set_ylabel(labely)
+    ax.set_title(title)
+    # Add grid
+    ax.grid(True)
+    st.pyplot(fig)
 
 #run the app
 if __name__ == "__main__":
