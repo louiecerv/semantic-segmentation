@@ -18,12 +18,15 @@ def app():
 
     # Convert data features to a DataFrame
     feature_names = data.feature_names
-    st.write(feature_names)
+    
     df = pd.DataFrame(data.data, columns=feature_names)
     df['target'] = data.target
     
-    st.write('The California Housing Dataset')
+    st.subheader('The California Housing Dataset')
     st.write(df)
+
+    st.write('Data Description')
+    st.write(df.describe().T)
 
     # Separate features and target variable
     X = df.drop('target', axis=1)  # Target variable column name
@@ -125,7 +128,6 @@ def app():
                  "Median House Value (Thousands USD", 
                  "Longitude vs. Median House Value")
 
- 
     if st.button('Start'):
         progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
         # Train the model
@@ -139,6 +141,12 @@ def app():
             time.sleep(0.01)
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
+    
+    st.write('Click clear cache to reset the model')
+    # Button to clear cache
+    if st.button("Clear Cache"):
+        st.cache_resource.clear()  # This clears the cache of get_cached_data
+
 
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
