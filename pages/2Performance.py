@@ -10,8 +10,10 @@ import time
 # Define the Streamlit app
 def app():
     st.subheader('Performance of the Multi-Layer Perceptron Regressor')
+    text = """Test the performance of the MLP Regressor using the 20% of the dataset that was
+    set aside for testing. Mean squarer Errir (MSE) and the R-sqaured are the metrics,"
     
-    if st.button('Start'):
+    if st.button('Begin Test'):
         
         X_test_scaled = st.session_state.X_test_scaled
         # Make predictions on the test set
