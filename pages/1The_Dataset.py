@@ -139,7 +139,7 @@ def app():
                      "Longitude vs. Median House Value")
 
     if st.button('Start Training'):
-        progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
+        progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
 
         # Train the model 
         train_model(X_train_scaled, y_train)
