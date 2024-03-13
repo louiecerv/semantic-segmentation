@@ -6,6 +6,7 @@ import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.datasets import make_blobs
+from sklearn.neural_network import MLPRegressor
 import time
 
 # Define the Streamlit app
@@ -17,104 +18,89 @@ def app():
     if "y" not in st.session_state: 
         st.session_state.y = []
 
-    st.subheader('The Random Cluster Generator')
-    text = """Generating data points with clusters:
-    \nUses make_blobs function from scikit-learn to 
-    generate sample data with desired characteristics:
-    n_samples: number of data points.
-    n_features: 2 features, representing a 2-dimensional dataset.
-    cluster_std: standard deviation for cluster dispersion.
-    centers: The generated random centers for each cluster.
-    random_state: 42 for reproducibility.
-    \nOutput:
-    X: A 2-dimensional array containing the generated data points, 
-    where each row represents a data point with 2 features.
-    y: An array containing the assigned cluster labels for 
-    each data point, corresponding to the n_clusters clusters."""
-    st.write(text)
+    if "scaler" not in st.session_state:
+        st.session_state["scaler"] = StandardScaler()
 
-    n_clusters = st.sidebar.slider(
-    label="Number of clusters:",
-    min_value= 2,
-    max_value= 10,
-    value=4,  # Initial value
-    )
+    if "clf" not in st.session_state:
+        st.session_state.clf = []
 
-    n_samples = st.sidebar.slider(
-    label="Select the number of samples:",
-    min_value=10,
-    max_value=4000,
-    value=500,  # Initial value
-    )
+    if "X_train" not in st.session_state:
+        st.session_state.X_train = []
 
-    cluster_std = st.sidebar.slider(
-    label="Select the cluster std:",
-    min_value= 0.2,
-    max_value= 2.0,
-    value=0.5,  # Initial value
-    )
+    if "X_test" not in st.session_state:
+            st.session_state.X_test = []
 
-    if st.button("Generate"):
+    if "y_train" not in st.session_state:
+            st.session_state.y_train = []
 
-        # Create a progress bar object
-        progress_bar = st.progress(0, text="Generating random data clusters please wait...")
+    if "y_test" not in st.session_state:
+            st.session_state.y_test = []
 
-        st.session_state.n_clusters = n_clusters
-        random_state = 42
-        centers = generate_random_points_in_square(-4, 4, -4, 4, n_clusters)
-        X, y = make_blobs(n_samples=n_samples, n_features=2,
-                    cluster_std=cluster_std, centers = centers,
-                    random_state=random_state)    
 
-        st.session_state.X = X
-        st.session_state.y = y
+    # Load the California housing data
+    data = fetch_california_housing()
 
-        for i in range(100):
-            # Update progress bar value
-            progress_bar.progress(i + 1)
-            # Simulate some time-consuming task (e.g., sleep)
-            time.sleep(0.01)
+    # Convert data features to a DataFrame
+    feature_names = data.feature_names
+    df = pd.DataFrame(data.data, columns=feature_names)
+    df['target'] = data.target
+    
+    st.write('The California Housing Dataset')
+    st.write(df)
 
-        # Progress bar reaches 100% after the loop completes
-        st.success("Data clusters loading completed!")
 
-        #plot the generated points
-        # Create the figure and axes objects
-        fig, ax = plt.subplots()
+    submit2 = form2.form_submit_button("Train")
+    if submit2:        
+        # Separate features and target variable
+        X = df.drop('target', axis=1)  # Target variable column name
+        y = df['target']
 
-        # Create the scatter plot using the ax object
-        ax.scatter(X[:, 0], X[:, 1], s=50)
+        # Split data into training and testing sets
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # Customize the plot (optional)
-        ax.set_xlabel("X-axis")
-        ax.set_ylabel("Y-axis")
-        ax.set_title("Randomly generated cluster of points")
+        # store for later use
+        st.session_state.X_train = X_train
+        st.session_state.X_test = X_test
+        st.session_state.y_train = y_train
+        st.session_state.y_test = y_test
 
-        # Show the plot
+        # Standardize features using StandardScaler (recommended)
+        scaler = st.session_state["scaler"] 
+        X_train_scaled = scaler.fit_transform(X_train)
+        X_test_scaled = scaler.transform(X_test)
+
+        # save the scaler object for later use
+        st.session_state["scaler"] = scaler
+
+        # Define the MLP regressor model
+        clf = MLPRegressor(solver='lbfgs',  # Choose a suitable solver (e.g., 'adam')
+                            hidden_layer_sizes=(100, 50),  # Adjust hidden layer sizes
+                            activation='relu',  # Choose an activation function
+                            random_state=42)
+
+        # Train the model
+        clf.fit(X_train, y_train)
+
+        #store the clf object for later use
+        st.session_state.clf = clf
+
+        # Display the plots
+        fig, ax = plt.subplots(figsize=(10, 6))
+        # Scatter plot
+        ax.scatter(df["Median Income"], df["Median House Value"])
+        # Add labels and title
+        ax.set_xlabel("Median Income (Thousands USD)")
+        ax.set_ylabel("Median House Value (Thousands USD)")
+        ax.set_title("Median Income vs. Median House Value")
         st.pyplot(fig)
+        
 
-        st.write('Click the Generate button to generate new data clusters.')
-        st.write('Navigate to the Performance Page in the sidebar to view the perforance report.')
+# Add grid
+ax.grid(True)
 
-def generate_random_points_in_square(x_min, x_max, y_min, y_max, num_points):
-    """
-    Generates a NumPy array of random points within a specified square region.
-
-    Args:
-        x_min (float): Minimum x-coordinate of the square.
-        x_max (float): Maximum x-coordinate of the square.
-        y_min (float): Minimum y-coordinate of the square.
-        y_max (float): Maximum y-coordinate of the square.
-        num_points (int): Number of points to generate.
-
-    Returns:
-        numpy.ndarray: A 2D NumPy array of shape (num_points, 2) containing the generated points.
-    """
-
-    # Generate random points within the defined square region
-    points = np.random.uniform(low=[x_min, y_min], high=[x_max, y_max], size=(num_points, 2))
-
-    return points
+# Display the plot
+plt.grid(True)
+plt.show()        
 
 
 #run the app
