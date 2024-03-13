@@ -44,6 +44,7 @@ def app():
 
     # Convert data features to a DataFrame
     feature_names = data.feature_names
+    st.write(feature_names)
     df = pd.DataFrame(data.data, columns=feature_names)
     df['target'] = data.target
     
@@ -80,7 +81,7 @@ def app():
     
     progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
     # Train the model
-    clf.fit(X_train_scaled, y_train)
+    #clf.fit(X_train_scaled, y_train)
     # update the progress bar
     for i in range(100):
         # Update progress bar value
