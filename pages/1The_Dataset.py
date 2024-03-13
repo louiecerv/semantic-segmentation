@@ -38,6 +38,9 @@ def app():
     if "y_test" not in st.session_state:
             st.session_state.y_test = []
 
+    if "X_test_scaled" not in st.session_state:
+            st.session_state.X_test_scaled = []
+
 
     # Load the California housing data
     data = fetch_california_housing()
@@ -68,6 +71,7 @@ def app():
     scaler = st.session_state["scaler"] 
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
+    st.session_state.X_test_scaled = X_test_scaled
 
     # save the scaler object for later use
     st.session_state["scaler"] = scaler
