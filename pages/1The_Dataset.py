@@ -77,8 +77,18 @@ def app():
                         activation='relu',  # Choose an activation function
                         random_state=42)
 
+    
+    progress_bar = st.progress(0, text="Generating random data clusters please wait...")
     # Train the model
-    clf.fit(X_train, y_train)
+    clf.fit(X_train_scaled, y_train)
+    # update the progress bar
+    for i in range(100):
+        # Update progress bar value
+        progress_bar.progress(i + 1)
+        # Simulate some time-consuming task (e.g., sleep)
+        time.sleep(0.01)
+    # Progress bar reaches 100% after the loop completes
+    st.success("Data clusters loading completed!")    
 
     #store the clf object for later use
     st.session_state.clf = clf
