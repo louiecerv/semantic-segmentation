@@ -84,7 +84,7 @@ def app():
         label="Set the max iterations:",
         min_value=100,
         max_value=1000,
-        value=100,  # In1.0itial value
+        value=300,  
         step=10
     )
 
