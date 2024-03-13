@@ -73,6 +73,7 @@ def app():
     st.session_state["scaler"] = scaler
 
    # Define MLP parameters    
+    st.sidebar.subheader('Set the MLP Parameters')
     options = ["relu", "tanh", "logistic"]
     activation = st.sidebar.selectbox('Select the activation function:', options)
 
