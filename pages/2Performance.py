@@ -37,7 +37,7 @@ def app():
         ax.set_title("Real vs Predicted Housing Prices")
 
         # Display the plot
-        form2.pyplot(fig)
+        st.pyplot(fig)
 
 
 
