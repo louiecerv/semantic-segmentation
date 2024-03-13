@@ -74,6 +74,22 @@ def app():
     """
 
     st.write(text)
+
+    Text = """Scikit-learn's MLPRegressor is a tool for building multi-layer 
+    perceptron (MLP) models for regression tasks. Unlike linear regression, 
+    MLPs can model non-linear relationships between features and the target variable.
+    
+    \nFunction: Learns a non-linear mapping between input data and continuous target values.
+    Architecture: Includes an input layer, one or more hidden layers with non-linear 
+    activation functions, and an output layer.
+    \nTraining: Optimizes the squared error using learning algorithms like LBFGS 
+    or stochastic gradient descent.
+    Uses: Suitable for complex regression problems where linear models might not 
+    perform well."""
+
+    st.write(text)
+
+st.write(text)
     
 #run the app
 if __name__ == "__main__":
