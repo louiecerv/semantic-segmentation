@@ -55,9 +55,9 @@ def app():
 
     text = """This app leverages a machine learning model to predict housing prices 
     based on various factors influencing the California housing market.
-    \nPredict house prices using a trained MLP model. Explore the 
+    Predict house prices using a trained MLP model. Explore the 
     influence of different features on the predicted price.
-    \nSource: Derived from the 1990 U.S. Census data for California [1].
+    Source: Derived from the 1990 U.S. Census data for California [1].
     Size: Contains 20,640 data points, each representing a census block group.
     Features:
     8 independent variables:
@@ -70,7 +70,7 @@ def app():
     Latitude: Geographical latitude of the block group centroid.
     Longitude: Geographical longitude of the block group centroid.
     Target variable:
-    \nMedian house value in dollars (scaled by dividing by 100,000).
+    Median house value in dollars (scaled by dividing by 100,000).
     """
 
     st.text(text)
