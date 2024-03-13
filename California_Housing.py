@@ -41,7 +41,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """Multi-Layer Perceptron on the California Housing Dataset"""
+    text = """Multi-Layer Perceptron Regressor on the California Housing Dataset"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n
