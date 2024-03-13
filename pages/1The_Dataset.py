@@ -101,9 +101,9 @@ def app():
     )
 
     # Define the MLP regressor model
-    clf = MLPRegressor(solver='lbfgs',  # Choose a suitable solver (e.g., 'adam')
+    clf = MLPRegressor(solver=solver, 
                         hidden_layer_sizes=(hidden_layers),  # Adjust hidden layer sizes
-                        solver=solver, activation=activation, 
+                        activation=activation, 
                         max_iter=max_iter, random_state=42)
 
     #store the clf object for later use
