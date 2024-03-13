@@ -88,9 +88,6 @@ def app():
                  "Median House Value (Thousands USD", 
                  "Median Income vs. Median House Value")
     
-# Display the plot
-plt.grid(True)
-plt.show()        
 
 def plot_feature(feature, target, labelx, labely):
     # Display the plots
