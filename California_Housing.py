@@ -10,6 +10,32 @@ import time
 
 # Define the Streamlit app
 def app():
+    if "X" not in st.session_state: 
+        st.session_state.X = []
+    
+    if "y" not in st.session_state: 
+        st.session_state.y = []
+
+    if "scaler" not in st.session_state:
+        st.session_state["scaler"] = StandardScaler()
+
+    if "clf" not in st.session_state:
+        st.session_state.clf = []
+
+    if "X_train" not in st.session_state:
+        st.session_state.X_train = []
+
+    if "X_test" not in st.session_state:
+            st.session_state.X_test = []
+
+    if "y_train" not in st.session_state:
+            st.session_state.y_train = []
+
+    if "y_test" not in st.session_state:
+            st.session_state.y_test = []
+
+    if "X_test_scaled" not in st.session_state:
+            st.session_state.X_test_scaled = []
 
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
