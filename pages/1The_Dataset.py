@@ -153,6 +153,9 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
+
+        import 2Performance
+        2Performance.app()
         
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
