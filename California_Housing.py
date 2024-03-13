@@ -53,7 +53,8 @@ def app():
 
     st.image('california.jpg', caption="California Housing Dataset")
 
-    text = """This app leverages a machine learning model to predict housing prices 
+    text = """
+    This app leverages a machine learning model to predict housing prices 
     based on various factors influencing the California housing market.
     Predict house prices using a trained MLP model. Explore the 
     influence of different features on the predicted price.
