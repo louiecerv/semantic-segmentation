@@ -69,7 +69,7 @@ def app():
     hidden_layers = st.sidebar.slider(      
         label="How many hidden layers? :",
         min_value=5,
-        max_value=25,
+        max_value=250,
         value=10,  # Initial value
     )
 
@@ -85,6 +85,7 @@ def app():
         min_value=100,
         max_value=1000,
         value=100,  # In1.0itial value
+        step=10
     )
 
     # Define the MLP regressor model
@@ -138,6 +139,7 @@ def app():
 
     if st.button('Start'):
         progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
+
         # Train the model
         train_model(X_train_scaled, y_train)
 
