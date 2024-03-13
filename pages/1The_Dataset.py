@@ -152,17 +152,7 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
-    
-    text = """The model is cached to make the App more responsive.  
-    But if you changed any of the settings of the MLP Regressor, 
-    you need to clear the cache to update the model. 
-    Click clear cache button to reset the model."""
-    st.write(text)
-    # Button to clear cache
-    if st.button("Clear Cache"):
-        st.cache_resource.clear()  # This clears the cache of get_cached_data
-
-
+        
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -176,7 +166,6 @@ def plot_feature(feature, target, labelx, labely, title):
     ax.grid(True)
     st.pyplot(fig)
 
-@st.cache_resource  # 👈 Add the caching decorator
 def train_model(X_train_scaled, y_train):
     clf = st.session_state.clf 
     clf.fit(X_train_scaled, y_train)
