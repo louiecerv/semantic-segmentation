@@ -89,7 +89,7 @@ def app():
 
     st.write(text)
 
-st.write(text)
+
     
 #run the app
 if __name__ == "__main__":
