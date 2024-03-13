@@ -48,52 +48,49 @@ def app():
     st.write('The California Housing Dataset')
     st.write(df)
 
+    # Separate features and target variable
+    X = df.drop('target', axis=1)  # Target variable column name
+    y = df['target']
 
-    submit2 = form2.form_submit_button("Train")
-    if submit2:        
-        # Separate features and target variable
-        X = df.drop('target', axis=1)  # Target variable column name
-        y = df['target']
+    # Split data into training and testing sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-        # Split data into training and testing sets
-        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+    # store for later use
+    st.session_state.X_train = X_train
+    st.session_state.X_test = X_test
+    st.session_state.y_train = y_train
+    st.session_state.y_test = y_test
 
-        # store for later use
-        st.session_state.X_train = X_train
-        st.session_state.X_test = X_test
-        st.session_state.y_train = y_train
-        st.session_state.y_test = y_test
+    # Standardize features using StandardScaler (recommended)
+    scaler = st.session_state["scaler"] 
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
 
-        # Standardize features using StandardScaler (recommended)
-        scaler = st.session_state["scaler"] 
-        X_train_scaled = scaler.fit_transform(X_train)
-        X_test_scaled = scaler.transform(X_test)
+    # save the scaler object for later use
+    st.session_state["scaler"] = scaler
 
-        # save the scaler object for later use
-        st.session_state["scaler"] = scaler
+    # Define the MLP regressor model
+    clf = MLPRegressor(solver='lbfgs',  # Choose a suitable solver (e.g., 'adam')
+                        hidden_layer_sizes=(100, 50),  # Adjust hidden layer sizes
+                        activation='relu',  # Choose an activation function
+                        random_state=42)
 
-        # Define the MLP regressor model
-        clf = MLPRegressor(solver='lbfgs',  # Choose a suitable solver (e.g., 'adam')
-                            hidden_layer_sizes=(100, 50),  # Adjust hidden layer sizes
-                            activation='relu',  # Choose an activation function
-                            random_state=42)
+    # Train the model
+    clf.fit(X_train, y_train)
 
-        # Train the model
-        clf.fit(X_train, y_train)
+    #store the clf object for later use
+    st.session_state.clf = clf
 
-        #store the clf object for later use
-        st.session_state.clf = clf
+    # Display the plots
+    fig, ax = plt.subplots(figsize=(10, 6))
+    # Scatter plot
+    ax.scatter(df["Median Income"], df["Median House Value"])
+    # Add labels and title
+    ax.set_xlabel("Median Income (Thousands USD)")
+    ax.set_ylabel("Median House Value (Thousands USD)")
+    ax.set_title("Median Income vs. Median House Value")
+    st.pyplot(fig)
 
-        # Display the plots
-        fig, ax = plt.subplots(figsize=(10, 6))
-        # Scatter plot
-        ax.scatter(df["Median Income"], df["Median House Value"])
-        # Add labels and title
-        ax.set_xlabel("Median Income (Thousands USD)")
-        ax.set_ylabel("Median House Value (Thousands USD)")
-        ax.set_title("Median Income vs. Median House Value")
-        st.pyplot(fig)
-        
 
 # Add grid
 ax.grid(True)
