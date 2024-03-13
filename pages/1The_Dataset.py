@@ -152,7 +152,11 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Regressor training completed!") 
     
-    st.write('Click clear cache to reset the model')
+    text = """The model is cached to make the App more responsive.  
+    But if you changed any of the settings of the MLP Regressor, 
+    you need to clear the cache to update the model. 
+    Click clear cache button to reset the model."""
+    st.write(text)
     # Button to clear cache
     if st.button("Clear Cache"):
         st.cache_resource.clear()  # This clears the cache of get_cached_data
