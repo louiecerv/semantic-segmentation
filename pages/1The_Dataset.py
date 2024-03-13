@@ -81,6 +81,7 @@ def app():
     #store the clf object for later use
     st.session_state.clf = clf
 
+"""
     # Display the plots
     fig, ax = plt.subplots(figsize=(10, 6))
     # Scatter plot
@@ -90,7 +91,7 @@ def app():
     ax.set_ylabel("Median House Value (Thousands USD)")
     ax.set_title("Median Income vs. Median House Value")
     st.pyplot(fig)
-
+"""
 
 # Add grid
 ax.grid(True)
