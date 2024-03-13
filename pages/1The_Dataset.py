@@ -118,6 +118,11 @@ def app():
                  "Population", 
                  "Median House Value (Thousands USD", 
                  "Population vs. Median House Value")
+    
+    plot_feature(df["AveOccup"], df["target"], 
+                 "Average Occupancy", 
+                 "Median House Value (Thousands USD", 
+                 "Average Occupancy vs. Median House Value")
 
 def plot_feature(feature, target, labelx, labely, title):
     # Display the plots
