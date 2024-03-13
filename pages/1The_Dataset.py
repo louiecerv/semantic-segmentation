@@ -9,7 +9,7 @@ from sklearn.neural_network import MLPRegressor
 from sklearn.datasets import fetch_california_housing
 from sklearn.model_selection import train_test_split
 import time
-from _2Performance import app as perf_app
+from 2Performance import app as perf_app
 
 # Define the Streamlit app
 def app():
