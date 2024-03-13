@@ -78,7 +78,7 @@ def app():
                         random_state=42)
 
     
-    progress_bar = st.progress(0, text="Training theMLP regressor please wait...")
+    progress_bar = st.progress(0, text="Training the MLP regressor please wait...")
     # Train the model
     clf.fit(X_train_scaled, y_train)
     # update the progress bar
