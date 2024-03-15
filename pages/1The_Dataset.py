@@ -6,7 +6,7 @@ import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.neural_network import MLPRegressor
-from sklearn.datasets import fetch_california_housing
+from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 import time
 
