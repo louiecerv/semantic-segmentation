@@ -118,9 +118,9 @@ def app():
         st.write("Use the sidebar to open the Performance page.")
 
 @st.cache_resource
-def train_model(model):
+def train_model(_model):
     # Train the model
-    history = model.fit(train_images, train_labels, epochs=10, 
+    history = _model.fit(train_images, train_labels, epochs=10, 
                         validation_data=(test_images, test_labels))
 
 #run the app
