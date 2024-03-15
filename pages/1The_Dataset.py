@@ -2,59 +2,36 @@
 import numpy as np
 import pandas as pd
 import streamlit as st
-import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.datasets import fetch_openml
-from sklearn.model_selection import train_test_split
-from sklearn.neural_network import MLPClassifier
-from sklearn.preprocessing import StandardScaler
+import tensorflow as tf
+import matplotlib.pyplot as plt
+from tensorflow.keras import datasets, layers, models
 import time
 
 # Define the Streamlit app
 def app():
 
-    text = """The California housing dataset is a popular benchmark dataset frequently 
-    used in the field of regression analysis for real estate price prediction. 
-    It contains information about various features that potentially influence 
-    housing prices in California.
-    Data Description:
-    \nSource: Publicly available from https://scikit-learn.org/stable/modules/generated/sklearn.datasets.fetch_california_housing.html
-    Size: Contains 20,640 data points, each representing a block in California."""
+    text = """Replace with description of CIFAR 10"""
     st.write(text)
 
-    # Load CIFAR-10 data
-    cifar = fetch_openml('cifar_10', version=1)
-    X = cifar.data.astype('float32') / 255  # Normalize pixel values
+    # Load the CIFAR-10 dataset
+    (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    # One-hot encode target labels
-    y = cifar.target.astype('int')
-    y = np.eye(10)[y]  # One-hot encoding
+    # Define class names
+    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
+                'dog', 'frog', 'horse', 'ship', 'truck']
 
-    # Split data into training and testing sets
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
-
-    # store for later use
-    st.session_state.X_train = X_train
-    st.session_state.X_test = X_test
-    st.session_state.y_train = y_train
-    st.session_state.y_test = y_test
-
-    # Create a 5x5 grid of subplots
-    fig, axes = plt.subplots(5, 5, figsize=(10, 10))
-
-    # Loop over the subplots and display images
-    for i, ax in enumerate(axes.flat):
-        # Use ax directly for image display and adjustments
-        ax.imshow(X_sample[i])
-        ax.axis('off')
-
-    # Use fig for title and layout adjustments
-    fig.suptitle('First 25 Images from CIFAR-10 Dataset', fontsize=16)
-    fig.tight_layout()
-
-    # Employ fig for displaying the plot
-    st.pyplot(fig)
+    # Print the first 25 images
+    plt.figure(figsize=(6,8))
+    for i in range(25):
+        plt.subplot(5, 5, i+1)
+        plt.xticks([])
+        plt.yticks([])
+        plt.grid(False)
+        plt.imshow(train_images[500+i], cmap=plt.cm.binary)
+        plt.xlabel(class_names[train_labels[i][0]])
+    plt.show()
 
 
    # Define MLP parameters    

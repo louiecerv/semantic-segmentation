@@ -51,7 +51,7 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('streetview.png', caption="Street View House Number")
+    st.image('cifar10.png', caption="CIFAR-10 Dataset")
 
     text = """
     This Streamlit application utilizes a pre-existing dataset called CIFAR-10 
