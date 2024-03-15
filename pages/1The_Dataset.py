@@ -32,10 +32,10 @@ def app():
         ax.set_yticks([])
         ax.grid(False)
 
-    # Display the image
-    ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
-    # Add the image label
-    ax.set_xlabel(class_names[train_labels[i][0]])
+        # Display the image
+        ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
+        # Add the image label
+        ax.set_xlabel(class_names[train_labels[i][0]])
 
     # Show the plot
     plt.tight_layout()  # Adjust spacing between subplots
