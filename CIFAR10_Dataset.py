@@ -88,7 +88,7 @@ def app():
     Test images: Used to evaluate the trained model's performance on unseen data.
     Test labels: Labels corresponding to the classes of the test images.    
     """
-    st.text(text)
+    st.write(text)
     
 #run the app
 if __name__ == "__main__":
