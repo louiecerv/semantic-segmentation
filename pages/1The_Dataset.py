@@ -40,6 +40,23 @@ def app():
     st.session_state.y_train = y_train
     st.session_state.y_test = y_test
 
+    # Create a 5x5 grid of subplots
+    fig, axes = plt.subplots(5, 5, figsize=(10, 10))
+
+    # Loop over the subplots and display images
+    for i, ax in enumerate(axes.flat):
+        # Use ax directly for image display and adjustments
+        ax.imshow(X_sample[i])
+        ax.axis('off')
+
+    # Use fig for title and layout adjustments
+    fig.suptitle('First 25 Images from CIFAR-10 Dataset', fontsize=16)
+    fig.tight_layout()
+
+    # Employ fig for displaying the plot
+    st.pyplot(fig)
+
+
    # Define MLP parameters    
     st.sidebar.subheader('Set the MLP Parameters')
     options = ["relu", "tanh", "logistic"]
