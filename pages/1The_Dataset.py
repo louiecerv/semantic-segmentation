@@ -21,8 +21,9 @@ def app():
 
     # Load the dataset with metadata
     ds, ds_info = tfds.load('cifar10', with_info=True)
+
     # Access feature names directly
-    feature_names = ds_info.features['image'].names
+    feature_names = ds_info.features[0].names
     # Define class names
     #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
     #            'dog', 'frog', 'horse', 'ship', 'truck']
