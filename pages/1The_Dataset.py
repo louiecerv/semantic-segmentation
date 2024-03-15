@@ -81,12 +81,11 @@ def app():
         value=0.1,  # In1.0itial value
     )
 
-    max_iter = st.sidebar.slider(   
-        label="Set the max iterations:",
-        min_value=100,
-        max_value=300,
-        value=120,  
-        step=10
+    epochs = st.sidebar.slider(   
+        label="Set the epochs:",
+        min_value=10,
+        max_value=30,
+        value=10
     )
 
     # Define the CNN architecture
@@ -124,11 +123,11 @@ def app():
         st.write("Use the sidebar to open the Performance page.")
 
 @st.cache_resource
-def train_model(_model):
+def train_model(_model, epochs):
     train_images = st.session_state.train_images
     train_labels = st.session_state.train_labels
     # Train the model
-    history = _model.fit(train_images, train_labels, epochs=10, 
+    history = _model.fit(train_images, train_labels, epochs=epochs, 
                         validation_data=(test_images, test_labels))
 
 #run the app
