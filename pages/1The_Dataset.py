@@ -5,9 +5,10 @@ import streamlit as st
 import altair as alt
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.neural_network import MLPRegressor
 from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
+from sklearn.neural_network import MLPClassifier
+from sklearn.preprocessing import StandardScaler
 import time
 
 # Define the Streamlit app
@@ -22,8 +23,13 @@ def app():
     Size: Contains 20,640 data points, each representing a block in California."""
     st.write(text)
 
-    # Download data (might require internet connection)
-    X, y = fetch_openml('svhn', version=1, return_X_y=True)
+    # Load CIFAR-10 data
+    cifar = fetch_openml('cifar_10', version=1)
+    X = cifar.data.astype('float32') / 255  # Normalize pixel values
+
+    # One-hot encode target labels
+    y = cifar.target.astype('int')
+    y = np.eye(10)[y]  # One-hot encoding
 
     # Split data into training and testing sets
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
