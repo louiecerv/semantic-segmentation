@@ -27,10 +27,10 @@ def app():
 
     # Iterate through the subplots and plot the images
     for i, ax in enumerate(axes.flat):
-    # Turn off ticks and grid
-    ax.set_xticks([])
-    ax.set_yticks([])
-    ax.grid(False)
+        # Turn off ticks and grid
+        ax.set_xticks([])
+        ax.set_yticks([])
+        ax.grid(False)
 
     # Display the image
     ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
