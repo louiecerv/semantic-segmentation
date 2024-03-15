@@ -41,7 +41,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """Multi-Layer Perceptron Regressor on the California Housing Dataset"""
+    text = """Convolutional Neural Network on the CIFAR-10 Dataset"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n
@@ -54,26 +54,41 @@ def app():
     st.image('streetview.png', caption="Street View House Number")
 
     text = """
-    This app utilizes the power of Machine Learning to predict house numbers directly from 
-    street view images.
-    The aoo will koad the images from the SVHN data in sk-learn.
-    Prediction in action: The model built with scikit-learn's MLP Classifier 
-    analyzes the image and predicts the house number.
-    Machine Learning Model: Multi-Layer Perceptron (MLP) Classifier - a 
-    type of artificial neural network trained on a dataset of street view 
-    images with labelled house numbers.
-    Data Processing: The app pre-processes the uploaded image to ensure 
-    compatibility with the model.
-    Real-time prediction: The model analyzes the image and outputs 
-    the predicted house number.    
+    This Streamlit application utilizes a pre-existing dataset called CIFAR-10 
+    for image classification using a Convolutional Neural Network (CNN).
+    Data Source:
+    The application relies on the CIFAR-10 dataset, a well-known benchmark 
+    dataset for image classification tasks.
+    This dataset is publicly available and can be downloaded directly within 
+    the application code using TensorFlow's datasets.cifar10.load_data() function.
+    Data Description:
+    CIFAR-10 consists of 60,000 color images in 32x32 pixel resolution.
+    The images are categorized into 10 mutually exclusive classes:
+    airplane
+    automobile
+    bird
+    cat
+    deer
+    dog
+    frog
+    horse
+    ship
+    truck
+    The data is split into 50,000 training images and 10,000 testing images.
+    This split allows the CNN model to learn from the training data and evaluate 
+    its performance on unseen data (testing data).
+    Data Preprocessing (performed within the application):
+    The application performs minimal preprocessing on the data:
+    Normalization: Pixel values are typically normalized to a range between 0 and 1 
+    for better training efficiency.
+    Data Used in the App:
+    The application utilizes the following data from CIFAR-10:
+    Training images: Used to train the CNN model to recognize patterns and features.
+    Training labels: These labels correspond to the class categories of each training image.
+    Test images: Used to evaluate the trained model's performance on unseen data.
+    Test labels: Labels corresponding to the classes of the test images.    
     """
     st.text(text)
-
-    text = """Describe the MLP Classifier"""
-
-    st.write(text)
-
-
     
 #run the app
 if __name__ == "__main__":
