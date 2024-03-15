@@ -63,6 +63,7 @@ def app():
     the application code using TensorFlow's datasets.cifar10.load_data() function.
     Data Description:
     CIFAR-10 consists of 60,000 color images in 32x32 pixel resolution.
+    
     The images are categorized into 10 mutually exclusive classes:
     airplane
     automobile
@@ -77,11 +78,13 @@ def app():
     The data is split into 50,000 training images and 10,000 testing images.
     This split allows the CNN model to learn from the training data and evaluate 
     its performance on unseen data (testing data).
+    
     Data Preprocessing (performed within the application):
     The application performs minimal preprocessing on the data:
     Normalization: Pixel values are typically normalized to a range between 0 and 1 
     for better training efficiency.
     Data Used in the App:
+    
     The application utilizes the following data from CIFAR-10:
     Training images: Used to train the CNN model to recognize patterns and features.
     Training labels: These labels correspond to the class categories of each training image.
