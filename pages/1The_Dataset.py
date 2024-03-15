@@ -7,6 +7,7 @@ import seaborn as sns
 import tensorflow as tf
 import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, layers, models
+import tensorflow_datasets as tfds
 import time
 
 # Define the Streamlit app
@@ -18,9 +19,13 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
+    # Load the dataset with metadata
+    ds, ds_info = tfds.load('cifar10', with_info=True)
+    # Access feature names directly
+    feature_names = ds_info.features['image'].names
     # Define class names
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
-                'dog', 'frog', 'horse', 'ship', 'truck']
+    #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
+    #            'dog', 'frog', 'horse', 'ship', 'truck']
 
     # Create the figure and a grid of subplots
     fig, axes = plt.subplots(nrows=5, ncols=5, figsize=(6, 8))
@@ -35,7 +40,7 @@ def app():
         # Display the image
         ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
         # Add the image label
-        ax.set_xlabel(class_names[train_labels[i][0]])
+        ax.set_xlabel(feature_names[train_labels[i][0]])
 
     # Show the plot
     plt.tight_layout()  # Adjust spacing between subplots
