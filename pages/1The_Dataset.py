@@ -22,17 +22,28 @@ def app():
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer',
                 'dog', 'frog', 'horse', 'ship', 'truck']
 
-    # Print the first 25 images
-    plt.figure(figsize=(6,8))
-    for i in range(25):
-        plt.subplot(5, 5, i+1)
-        plt.xticks([])
-        plt.yticks([])
-        plt.grid(False)
-        plt.imshow(train_images[500+i], cmap=plt.cm.binary)
-        plt.xlabel(class_names[train_labels[i][0]])
-    plt.show()
+    # Create the figure and a grid of subplots
+    fig, axes = plt.subplots(nrows=5, ncols=5, figsize=(6, 8))
 
+    # Iterate through the subplots and plot the images
+    for i, ax in enumerate(axes.flat):
+    # Turn off ticks and grid
+    ax.set_xticks([])
+    ax.set_yticks([])
+    ax.grid(False)
+
+    # Display the image
+    ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
+    # Add the image label
+    ax.set_xlabel(class_names[train_labels[i][0]])
+
+    # Show the plot
+    plt.tight_layout()  # Adjust spacing between subplots
+    st.pyplot(fig)
+
+
+    # Normalize pixel values to be between 0 and 1
+    train_images, test_images = train_images / 255.0, test_images / 255.0
 
    # Define MLP parameters    
     st.sidebar.subheader('Set the MLP Parameters')
@@ -64,20 +75,31 @@ def app():
         step=10
     )
 
-    # Define the MLP regressor model
-    clf = MLPRegressor(solver=solver, 
-                        hidden_layer_sizes=(hidden_layers),  
-                        activation=activation, 
-                        max_iter=max_iter, random_state=42)
+    # Define the CNN architecture
+    model = models.Sequential()
+    model.add(layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Conv2D(64, (3, 3), activation='relu'))
+    model.add(layers.Flatten())
+    model.add(layers.Dense(64, activation='relu'))
+    model.add(layers.Dense(10))
+
+    # Compile the model
+    model.compile(optimizer='adam',
+                loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+                metrics=['accuracy'])
 
     #store the clf object for later use
-    st.session_state.clf = clf
+    st.session_state.model = model
+
+
 
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
 
-        # Train the model 
-        train_model(X_train, y_train)
+        train_model(model)
 
         # update the progress bar
         for i in range(100):
@@ -89,10 +111,10 @@ def app():
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
 
-def train_model(X_train_scaled, y_train):
-    clf = st.session_state.clf 
-    clf.fit(X_train_scaled, y_train)
-    st.session_state.clf = clf
+def train_model(model):
+    # Train the model
+    history = model.fit(train_images, train_labels, epochs=10, 
+                        validation_data=(test_images, test_labels))
 
 #run the app
 if __name__ == "__main__":

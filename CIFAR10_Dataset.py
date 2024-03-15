@@ -20,8 +20,8 @@ def app():
     if "scaler" not in st.session_state:
         st.session_state["scaler"] = StandardScaler()
 
-    if "clf" not in st.session_state:
-        st.session_state.clf = []
+    if "model" not in st.session_state:
+        st.session_state.model = []
 
     if "X_train" not in st.session_state:
         st.session_state.X_train = []
