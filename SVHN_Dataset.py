@@ -51,42 +51,25 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('california.jpg', caption="California Housing Dataset")
+    st.image('streetview.png', caption="Street View House Number")
 
     text = """
-    This app leverages a machine learning model to predict housing prices 
-    based on various factors influencing the California housing market.
-    Predict house prices using a trained MLP model. Explore the 
-    influence of different features on the predicted price.
-    Source: Derived from the 1990 U.S. Census data for California [1].
-    Size: Contains 20,640 data points, each representing a census block group.
-    Features:
-    8 independent variables:
-    MedInc: Median income in the block group.
-    HouseAge: Median age of houses in the block group.
-    AveRooms: Average number of rooms per household.
-    AveBedrms: Average number of bedrooms per household.
-    Population: Population of the block group.
-    AveOccup: Average number of household members.
-    Latitude: Geographical latitude of the block group centroid.
-    Longitude: Geographical longitude of the block group centroid.
-    Target variable:
-    Median house value in dollars (scaled by dividing by 100,000).
+    This app utilizes the power of Machine Learning to predict house numbers directly from 
+    street view images.
+    The aoo will koad the images from the SVHN data in sk-learn.
+    Prediction in action: The model built with scikit-learn's MLP Classifier 
+    analyzes the image and predicts the house number.
+    Machine Learning Model: Multi-Layer Perceptron (MLP) Classifier - a 
+    type of artificial neural network trained on a dataset of street view 
+    images with labelled house numbers.
+    Data Processing: The app pre-processes the uploaded image to ensure 
+    compatibility with the model.
+    Real-time prediction: The model analyzes the image and outputs 
+    the predicted house number.    
     """
-
     st.text(text)
 
-    text = """Scikit-learn's MLPRegressor is a tool for building multi-layer 
-    perceptron (MLP) models for regression tasks. Unlike linear regression, 
-    MLPs can model non-linear relationships between features and the target variable.
-    
-    \nFunction: Learns a non-linear mapping between input data and continuous target values.
-    Architecture: Includes an input layer, one or more hidden layers with non-linear 
-    activation functions, and an output layer.
-    \nTraining: Optimizes the squared error using learning algorithms like LBFGS 
-    or stochastic gradient descent.
-    Uses: Suitable for complex regression problems where linear models might not 
-    perform well."""
+    text = """Describe the MLP Classifier"""
 
     st.write(text)
 
