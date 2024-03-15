@@ -110,7 +110,12 @@ def app():
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
 
-        train_model(model)
+        train_images = st.session_state.train_images
+        train_labels = st.session_state.train_labels
+        # Train the model
+        history = model.fit(train_images, train_labels, epochs=epochs, 
+                            validation_data=(test_images, test_labels))
+        st.session_state.model = model
 
         # update the progress bar
         for i in range(100):
@@ -122,13 +127,7 @@ def app():
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
 
-@st.cache_resource
-def train_model(_model, epochs):
-    train_images = st.session_state.train_images
-    train_labels = st.session_state.train_labels
-    # Train the model
-    history = _model.fit(train_images, train_labels, epochs=epochs, 
-                        validation_data=(test_images, test_labels))
+
 
 #run the app
 if __name__ == "__main__":
