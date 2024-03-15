@@ -12,6 +12,11 @@ import time
 # Define the Streamlit app
 def app():
 
+    if "train_images" not in st.session_state:
+        st.session_state.train_images = []
+    if "train_labels" not in st.session_state:
+        st.session_state.train_labels = []
+
     text = """Replace with description of CIFAR 10"""
     st.write(text)
 
@@ -29,7 +34,6 @@ def app():
         time.sleep(0.01)
     # Progress bar reaches 100% after the loop completes
     st.success("Image dataset loading completed!") 
-
 
     # Create the figure and a grid of subplots
     fig, axes = plt.subplots(nrows=5, ncols=5, figsize=(6, 8))
@@ -52,6 +56,8 @@ def app():
 
     # Normalize pixel values to be between 0 and 1
     train_images, test_images = train_images / 255.0, test_images / 255.0
+    st.session_state.train_images = train_images
+    st.session_state.train_labels = train_labels
 
    # Define MLP parameters    
     st.sidebar.subheader('Set the CNN Parameters')
@@ -119,6 +125,8 @@ def app():
 
 @st.cache_resource
 def train_model(_model):
+    train_images = st.session_state.train_images
+    train_labels = st.session_state.train_labels
     # Train the model
     history = _model.fit(train_images, train_labels, epochs=10, 
                         validation_data=(test_images, test_labels))
