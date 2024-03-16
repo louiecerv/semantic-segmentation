@@ -111,7 +111,7 @@ def app():
     )
 
     #store the clf object for later use
-    st.session_state.model = model
+    #st.session_state.model = model
 
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
