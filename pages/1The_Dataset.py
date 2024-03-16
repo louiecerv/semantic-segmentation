@@ -12,7 +12,16 @@ from tensorflow.keras import datasets, layers, models
 from tensorflow.keras.datasets import cifar10
 
 import time
-
+# Define a custom callback function to update the Streamlit interface
+class CustomCallback(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs=None):
+        # Get the current loss and accuracy metrics
+        loss = logs['loss']
+        accuracy = logs['accuracy']
+        
+        # Update the Streamlit interface with the current epoch's output
+        st.write(f"Epoch {epoch}: loss = {loss:.4f}, accuracy = {accuracy:.4f}")
+ 
 # Define the Streamlit app
 def app():
 
@@ -135,20 +144,6 @@ def app():
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
 
-# Define a custom callback function to update the Streamlit interface
-class CustomCallback(tf.keras.callbacks.Callback):
-    def on_epoch_end(self, epoch, logs=None):
-        # Get the current loss and accuracy metrics
-        loss = logs['loss']
-        accuracy = logs['accuracy']
-        
-        # Update the Streamlit interface with the current epoch's output
-        st.write(f"Epoch {epoch}: loss = {loss:.4f}, accuracy = {accuracy:.4f}")
-    
-train_images = []
-train_labels = []
-test_images = []
-test_labels = [] 
 
 #run the app
 if __name__ == "__main__":
