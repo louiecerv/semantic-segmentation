@@ -132,10 +132,8 @@ def app():
         #model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
         #          validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
 
-
-       model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
-        #          validation_data=(test_images, test_labels))
-
+        model.fit(train_images, train_labels, batch_size=batch_size, 
+            epochs=epochs, validation_data=(test_images, test_labels))
 
         #st.session_state.model = model
 
