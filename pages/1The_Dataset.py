@@ -6,7 +6,11 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
 import matplotlib.pyplot as plt
+import tensorflow as tf
+from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
+from tensorflow.keras.datasets import cifar10
+
 import time
 
 # Define the Streamlit app
