@@ -29,7 +29,6 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-
     # update the progress bar
     for i in range(100):
         # Update progress bar value
@@ -63,7 +62,7 @@ def app():
     st.session_state.train_images = train_images
     st.session_state.train_labels = train_labels
 
-   # Define MLP parameters    
+   # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
     options = ["relu", "tanh", "logistic"]
     activation = st.sidebar.selectbox('Select the activation function:', options)
@@ -76,13 +75,6 @@ def app():
         min_value=5,
         max_value=250,
         value=10,  # Initial value
-    )
-
-    alpha = st.sidebar.slider(   
-        label="Set the alpha:",
-        min_value=.001,
-        max_value=1.0,
-        value=0.1,  # In1.0itial value
     )
 
     epochs = st.sidebar.slider(   
@@ -129,7 +121,7 @@ def app():
         model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
 
-        st.session_state.model = model
+        #st.session_state.model = model
 
         # update the progress bar
         for i in range(100):
