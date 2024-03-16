@@ -115,7 +115,7 @@ def app():
 
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
-
+        epochs = 10
         # Train the model
         batch_size = 64
         
