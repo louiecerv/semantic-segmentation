@@ -88,21 +88,31 @@ def app():
         value=10
     )
 
+    # Convert class labels to one-hot encoded vectors
+    num_classes = 10
+    train_labels = keras.utils.to_categorical(train_labels, num_classes)
+    test_labels = keras.utils.to_categorical(test_labels, num_classes)
+
     # Define the CNN architecture
-    model = models.Sequential()
-    model.add(layers.Conv2D(32, (3, 3), activation=activation, input_shape=(32, 32, 3)))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation=activation))
-    model.add(layers.MaxPooling2D((2, 2)))
-    model.add(layers.Conv2D(64, (3, 3), activation=activation))
-    model.add(layers.Flatten())
-    model.add(layers.Dense(64, activation=activation))
-    model.add(layers.Dense(10))
+    model = keras.Sequential(
+        [
+            layers.Conv2D(32, (3, 3), activation="relu", input_shape=(32, 32, 3)),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Conv2D(64, (3, 3), activation="relu"),
+            layers.MaxPooling2D(pool_size=(2, 2)),
+            layers.Conv2D(128, (3, 3), activation="relu"),
+            layers.Flatten(),
+            layers.Dense(128, activation="relu"),
+            layers.Dense(num_classes, activation="softmax"),
+        ]
+    )
 
     # Compile the model
-    model.compile(optimizer=optimizer,
-                loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-                metrics=['accuracy'])
+    model.compile(
+        loss="categorical_crossentropy",
+        optimizer="adam",
+        metrics=["accuracy"],
+    )
 
     #store the clf object for later use
     st.session_state.model = model
@@ -110,11 +120,11 @@ def app():
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
 
-        train_images = st.session_state.train_images
-        train_labels = st.session_state.train_labels
         # Train the model
-        history = model.fit(train_images, train_labels, epochs=epochs, 
-                            validation_data=(test_images, test_labels))
+        batch_size = 64
+        model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
+                  validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
+
         st.session_state.model = model
 
         # update the progress bar
@@ -127,7 +137,20 @@ def app():
         st.success("Regressor training completed!") 
         st.write("Use the sidebar to open the Performance page.")
 
-
+# Define a custom callback function to update the Streamlit interface
+class CustomCallback(tf.keras.callbacks.Callback):
+    def on_epoch_end(self, epoch, logs=None):
+        # Get the current loss and accuracy metrics
+        loss = logs['loss']
+        accuracy = logs['accuracy']
+        
+        # Update the Streamlit interface with the current epoch's output
+        st.write(f"Epoch {epoch}: loss = {loss:.4f}, accuracy = {accuracy:.4f}")
+    
+train_images = []
+train_labels = []
+test_images = []
+test_labels = [] 
 
 #run the app
 if __name__ == "__main__":
