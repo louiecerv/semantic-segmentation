@@ -118,6 +118,7 @@ def app():
 
         # Train the model
         batch_size = 64
+        
         model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
 
