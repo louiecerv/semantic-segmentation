@@ -108,7 +108,7 @@ def app():
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the model please wait...")
         # Train the model
-        batch_size = 16
+        batch_size = 64
         
         model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
