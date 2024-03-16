@@ -81,8 +81,8 @@ def app():
 
     # Convert class labels to one-hot encoded vectors
     num_classes = 10
-    train_labels = keras.utils.to_categorical(train_labels, num_classes)
-    test_labels = keras.utils.to_categorical(test_labels, num_classes)
+    #train_labels = keras.utils.to_categorical(train_labels, num_classes)
+    #test_labels = keras.utils.to_categorical(test_labels, num_classes)
 
     # Define the CNN architecture
     model = keras.Sequential(
