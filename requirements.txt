@@ -7,4 +7,3 @@ scikit-learn
 numpy
 tensorflow
 keras
-tensorflow-datasets
