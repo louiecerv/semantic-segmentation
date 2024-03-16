@@ -79,9 +79,9 @@ def app():
 
     epochs = st.sidebar.slider(   
         label="Set the epochs:",
-        min_value=10,
+        min_value=3,
         max_value=30,
-        value=10
+        value=3
     )
 
     # Convert class labels to one-hot encoded vectors
@@ -115,9 +115,8 @@ def app():
 
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
-        epochs = 10
         # Train the model
-        batch_size = 64
+        batch_size = 32
         
         model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
