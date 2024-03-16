@@ -106,9 +106,9 @@ def app():
     )
 
     if st.button('Start Training'):
-        progress_bar = st.progress(0, text="Training the MLP regressor can take up to five minutes please wait...")
+        progress_bar = st.progress(0, text="Training the model please wait...")
         # Train the model
-        batch_size = 32
+        batch_size = 16
         
         #model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
         #          validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
@@ -123,7 +123,7 @@ def app():
             # Simulate some time-consuming task (e.g., sleep)
             time.sleep(0.01)
         # Progress bar reaches 100% after the loop completes
-        st.success("Regressor training completed!") 
+        st.success("Model training completed!") 
         st.write("Use the sidebar to open the Performance page.")
 
 # Define a custom callback function to update the Streamlit interface
