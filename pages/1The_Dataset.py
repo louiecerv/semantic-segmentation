@@ -41,6 +41,8 @@ def app():
     # Create the figure and a grid of subplots
     fig, axes = plt.subplots(nrows=5, ncols=5, figsize=(6, 8))
 
+    # display images starting with index 500
+    start_index = 500
     # Iterate through the subplots and plot the images
     for i, ax in enumerate(axes.flat):
         # Turn off ticks and grid
@@ -49,7 +51,7 @@ def app():
         ax.grid(False)
 
         # Display the image
-        ax.imshow(train_images[500 + i], cmap=plt.cm.binary)
+        ax.imshow(train_images[start_index + i], cmap=plt.cm.binary)
         # Add the image label
         ax.set_xlabel(train_labels[i][0])
 
