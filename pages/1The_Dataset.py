@@ -34,12 +34,12 @@ def app():
     train_labels = to_categorical(train_labels)
     test_labels = to_categorical(test_labels)
 
-    # Define the class names (assuming you know them)
+    # Define the class names 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
     # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
-    predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
-    st.write(class_names[predicted_class])
+    #predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
+    st.write(class_names)
 
     # update the progress bar
     for i in range(100):
