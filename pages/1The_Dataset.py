@@ -38,10 +38,10 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    train_images = tf.convert_to_tensor(train_images)
-    train_labels = tf.convert_to_tensor(train_labels)
-    test_images = tf.convert_to_tensor(test_images)
-    test_labels = tf.convert_to_tensor(test_labels)
+    #train_images = tf.convert_to_tensor(train_images)
+    #train_labels = tf.convert_to_tensor(train_labels)
+    #test_images = tf.convert_to_tensor(test_images)
+    #test_labels = tf.convert_to_tensor(test_labels)
 
     #save objects to session state
     st.session_state.training_images = train_images
