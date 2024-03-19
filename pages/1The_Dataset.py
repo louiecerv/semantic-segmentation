@@ -39,7 +39,7 @@ def app():
 
     # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
     predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
-    print(class_names[predicted_class])
+    st.write(class_names[predicted_class])
 
     # update the progress bar
     for i in range(100):
