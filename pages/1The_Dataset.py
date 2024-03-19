@@ -39,6 +39,7 @@ def app():
 
     # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
     #predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
+    st.write('Object classes found in the CIFAR1o Dataset:')
     st.write(class_names)
 
     # update the progress bar
