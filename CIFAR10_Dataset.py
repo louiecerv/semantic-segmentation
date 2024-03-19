@@ -51,6 +51,18 @@ def app():
     West Visayas State University"""
     st.text(text)
 
+    st.image('tf-keras.png', caption="Tensorflow and Keras")
+    text = """TensorFlow, an open-source library, provides a powerful 
+    end-to-end platform for various machine learning tasks. It offers 
+    low-level computational capabilities, enabling fine-grained control 
+    over model architectures. However, for tasks focused on rapid prototyping 
+    and experimentation with deep neural networks, Keras acts as a 
+    complementary high-level API. Built on top of TensorFlow, 
+    Keras streamlines the development process with a user-friendly 
+    Python interface. It abstracts away intricate low-level operations, 
+    allowing computer scientists to focus on designing model components 
+    like layers, optimizers, and loss functions. """
+    st.write(text)
     st.image('cifar10.png', caption="CIFAR-10 Dataset")
 
     text = """
