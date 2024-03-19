@@ -37,7 +37,8 @@ def present_image(imagefile):
     predicted_class_index = int(predicted_class.numpy()[0])
     st.write(predicted_class_index)
     st.write(class_names[5])
-    st.subheader('Predicted class:' + class_names[predicted_class_index])
+    text = 'Predicted class:' + class_names[predicted_class_index]
+    st.subheader(text)
 
  
 #run the app
