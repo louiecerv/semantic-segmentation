@@ -49,7 +49,7 @@ def app():
 
     # Enumerate the classes
     for i, class_name in enumerate(class_names):
-    st.write(f"Class {i+1}: {class_name}")
+        st.write(f"Class {i+1}: {class_name}")
 
     # Define the class names 
     #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
