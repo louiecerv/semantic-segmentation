@@ -33,7 +33,7 @@ def app():
     low resolution of the images."""
     st.write(text)
 
-    progress_bar = st.progress(0, text="Loading the images, please wait...")
+    progress_bar = st.progress(0, text="Loading 70,000 images, please wait...")
 
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
