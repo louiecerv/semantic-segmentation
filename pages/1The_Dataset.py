@@ -30,16 +30,12 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    # Convert integer labels to one-hot encoded vectors
-    train_labels = to_categorical(train_labels)
-    test_labels = to_categorical(test_labels)
-
     # Define the class names 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
     # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
     #predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
-    st.write('Object classes found in the CIFAR1o Dataset:')
+    st.write('Object classes found in the CIFAR-10 Dataset:')
     st.write(class_names)
 
     # update the progress bar
