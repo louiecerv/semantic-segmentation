@@ -44,26 +44,18 @@ def app():
     train_labels = to_categorical(train_labels)
     test_labels = to_categorical(test_labels)
 
-    # Define CIFAR-10 class names
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+    with st.expander("Click to display the list of classes in the CIFAR-10 Dataset."):
+        # Define CIFAR-10 class names
+        class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
-    # Enumerate the classes
-    for i, class_name in enumerate(class_names):
-        st.write(f"Class {i+1}: {class_name}")
-
-    # Define the class names 
-    #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-
-    # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
-    #predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
-    #st.write('Object classes found in the CIFAR-10 Dataset:')
-    #st.write(class_names)
+        # Enumerate the classes
+        for i, class_name in enumerate(class_names):
+            st.write(f"Class {i+1}: {class_name}")
 
     # update the progress bar
     for i in range(100):
         # Update progress bar value
         progress_bar.progress(i + 1)
-        # Simulate some time-consuming task (e.g., sleep)
         time.sleep(0.01)
     # Progress bar reaches 100% after the loop completes
     st.success("Image dataset loading completed!") 
