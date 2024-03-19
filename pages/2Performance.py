@@ -5,6 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 from tensorflow.keras.preprocessing import image
+import tensorflow as tf
 
 # Define the Streamlit app
 def app():
@@ -20,7 +21,7 @@ def app():
 
 def present_image(imagefile):
     model = st.session_state.model
-    training_images = st.session_state.training_images
+
     st.image(imagefile, caption='Uploaded image')
     test_image = image.load_img(imagefile, target_size=(32, 32))
     test_image = image.img_to_array(test_image)
@@ -28,9 +29,14 @@ def present_image(imagefile):
     result = model.predict(test_image)
 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-    predicted_class = result[0]
+
+    # Get the class with the highest probability
+    predicted_class = tf.math.argmax(result, axis=1)  # Argmax along axis=1 for class index
+
+    # Get the actual integer index (assuming the first element in result)
+    predicted_class_index = int(predicted_class.numpy()[0])
     st.write('Object classes found in the CIFAR-10 Dataset:')
-    st.write(class_names[predicted_class])
+    st.write(class_names[predicted_class_index])
 
     st.subheader('CNN says the image is/has ' + prediction)
  
