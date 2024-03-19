@@ -26,7 +26,6 @@ def present_image(imagefile):
     test_image = image.img_to_array(test_image)
     test_image = np.expand_dims(test_image, axis=0)
     result = model.predict(test_image)
-    training_images.class_indices
 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
     predicted_class = result[0]
