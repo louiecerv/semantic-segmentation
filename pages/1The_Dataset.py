@@ -20,7 +20,7 @@ def app():
         st.session_state.model = []
     
     if "train_images" not in st.session_state:
-        st.session_state.train_images = []
+        st.session_state.training_images = []
 
     text = """The CIFAR-10 dataset is a collection of 60,000 small, 
     colorful images (32x32 pixels) that belong to 10 distinct categories, 
@@ -37,7 +37,7 @@ def app():
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
     #save objects to session state
-    st.session_state.train_images = train_images
+    st.session_state.training_images = train_images
 
     # Define the class names 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
