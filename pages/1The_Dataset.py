@@ -30,11 +30,16 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    # Get the class names from TensorFlow
-    class_names = cifar10.decode_cifar10_labels(train_labels[0])
+    # Convert integer labels to one-hot encoded vectors
+    train_labels = to_categorical(train_labels)
+    test_labels = to_categorical(test_labels)
 
-    # Print the class names
-    print(class_names)
+    # Define the class names (assuming you know them)
+    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+
+    # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
+    predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
+    print(class_names[predicted_class])
 
     # update the progress bar
     for i in range(100):
