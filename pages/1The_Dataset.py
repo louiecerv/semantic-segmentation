@@ -16,13 +16,25 @@ import time
 # Define the Streamlit app
 def app():
 
-    text = """Replace with description of CIFAR 10"""
+    text = """The CIFAR-10 dataset is a collection of 60,000 small, 
+    colorful images (32x32 pixels) that belong to 10 distinct categories, 
+    like airplanes, cars, and animals. It's a popular choice for 
+    training machine learning algorithms, especially those focused on image 
+    recognition, because it's easy to access and allows researchers to 
+    experiment with different approaches quickly due to the relatively 
+    low resolution of the images."""
     st.write(text)
 
     progress_bar = st.progress(0, text="Loading the images, please wait...")
 
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+
+    # Get the class names from TensorFlow
+    class_names = cifar10.decode_cifar10_labels(train_labels[0])
+
+    # Print the class names
+    print(class_names)
 
     # update the progress bar
     for i in range(100):
