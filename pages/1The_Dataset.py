@@ -11,6 +11,8 @@ from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 from tensorflow.keras.datasets import cifar10
 from tensorflow.keras.utils import to_categorical
+
+
 import time
 
 # Define the Streamlit app
@@ -36,16 +38,27 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
+    train_images = tf.convert_to_tensor(train_images)
+    train_labels = tf.convert_to_tensor(train_labels)
+    test_images = tf.convert_to_tensor(test_images)
+    test_labels = tf.convert_to_tensor(test_labels)
+
     #save objects to session state
     st.session_state.training_images = train_images
 
+    train_labels = to_categorical(train_labels)
+    test_labels = to_categorical(test_labels)
+
+    class_indices = dict((v, k) for k, v in enumerate(train_labels[0]))
+    st.write(class_indices)
+
     # Define the class names 
-    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+    #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
     # Print the class name corresponding to the first element in the training set (assuming one-hot encoding)
     #predicted_class = train_labels[0].argmax(axis=0)  # Get index of maximum value
-    st.write('Object classes found in the CIFAR-10 Dataset:')
-    st.write(class_names)
+    #st.write('Object classes found in the CIFAR-10 Dataset:')
+    #st.write(class_names)
 
     # update the progress bar
     for i in range(100):
@@ -104,8 +117,8 @@ def app():
 
     # Convert class labels to one-hot encoded vectors
     num_classes = 10
-    train_labels = keras.utils.to_categorical(train_labels, num_classes)
-    test_labels = keras.utils.to_categorical(test_labels, num_classes)
+    #train_labels = keras.utils.to_categorical(train_labels, num_classes)
+    #test_labels = keras.utils.to_categorical(test_labels, num_classes)
 
     # Define the CNN architecture
     model = keras.Sequential(
