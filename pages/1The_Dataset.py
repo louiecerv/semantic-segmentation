@@ -10,7 +10,7 @@ import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import datasets, layers, models
 from tensorflow.keras.datasets import cifar10
-
+from tensorflow.keras.utils import to_categorical
 import time
 
 # Define the Streamlit app
