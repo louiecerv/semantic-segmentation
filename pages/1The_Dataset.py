@@ -94,17 +94,18 @@ def app():
 
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
-    options = ["relu", "tanh", "logistic"]
-    activation = st.sidebar.selectbox('Select the activation function:', options)
+    options = ["relu", "leaky_relu", "sigmoid"]
+    c_activation = st.sidebar.selectbox('Input activation function:', options)
 
-    options = ["adam", "lbfgs", "sgd"]
-    optimizer = st.sidebar.selectbox('Select the optimizer:', options)
+    options = ["softmax", "relu"]
+    o_activation = st.sidebar.selectbox('Output activation function:', options)
 
     hidden_layers = st.sidebar.slider(      
         label="How many hidden layers? :",
-        min_value=5,
-        max_value=250,
-        value=10,  # Initial value
+        min_value=16,
+        max_value=128,
+        value=64,  # Initial value
+        step=16
     )
 
     epochs = st.sidebar.slider(   
@@ -114,22 +115,17 @@ def app():
         value=3
     )
 
-    # Convert class labels to one-hot encoded vectors
-    num_classes = 10
-    #train_labels = keras.utils.to_categorical(train_labels, num_classes)
-    #test_labels = keras.utils.to_categorical(test_labels, num_classes)
-
     # Define the CNN architecture
     model = keras.Sequential(
         [
-            layers.Conv2D(32, (3, 3), activation="relu", input_shape=(32, 32, 3)),
+            layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
             layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(64, (3, 3), activation="relu"),
+            layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
             layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(128, (3, 3), activation="relu"),
+            layers.Conv2D(128, (3, 3), activation=c_activation),
             layers.Flatten(),
             layers.Dense(128, activation="relu"),
-            layers.Dense(num_classes, activation="softmax"),
+            layers.Dense(10, activation=o_activation),
         ]
     )
 
