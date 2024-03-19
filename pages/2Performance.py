@@ -34,7 +34,7 @@ def present_image(imagefile):
     predicted_class = tf.math.argmax(result, axis=1)  # Argmax along axis=1 for class index
     # Get the actual integer index (assuming the first element in result)
     predicted_class_index = int(predicted_class.numpy()[0])
-    st.write(f'Predicted class: {class_names[predicted_class_index]}')
+    st.subheader(f'Predicted class: {class_names[predicted_class_index]}')
 
  
 #run the app
