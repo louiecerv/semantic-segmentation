@@ -36,9 +36,8 @@ def present_image(imagefile):
     # Get the actual integer index (assuming the first element in result)
     predicted_class_index = int(predicted_class.numpy()[0])
     st.write('Object classes found in the CIFAR-10 Dataset:')
-    st.write(class_names[predicted_class_index])
+    st.subheader('Predicted class:' + class_names[predicted_class_index])
 
-    st.subheader('CNN says the image is/has ' + prediction)
  
 #run the app
 if __name__ == "__main__":
