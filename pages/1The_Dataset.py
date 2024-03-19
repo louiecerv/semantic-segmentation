@@ -16,6 +16,12 @@ import time
 # Define the Streamlit app
 def app():
 
+    if "model" not in st.session_state:
+        st.session_state.model = []
+    
+    if "train_images" not in st.session_state:
+        st.session_state.train_images = []
+
     text = """The CIFAR-10 dataset is a collection of 60,000 small, 
     colorful images (32x32 pixels) that belong to 10 distinct categories, 
     like airplanes, cars, and animals. It's a popular choice for 
@@ -29,6 +35,9 @@ def app():
 
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+
+    #save objects to session state
+    st.session_state.train_images = train_images
 
     # Define the class names 
     class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -127,9 +136,6 @@ def app():
         model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
 
-        #model.fit(train_images, train_labels, batch_size=batch_size, 
-            #epochs=epochs, validation_data=(test_images, test_labels))
-
         # update the progress bar
         for i in range(100):
             # Update progress bar value
@@ -139,6 +145,9 @@ def app():
         # Progress bar reaches 100% after the loop completes
         st.success("Model training completed!") 
         st.write("Use the sidebar to open the Performance page.")
+
+        # Save the trained model to memory
+        st.session_state.model = model
 
 # Define a custom callback function to update the Streamlit interface
 class CustomCallback(tf.keras.callbacks.Callback):
