@@ -38,19 +38,18 @@ def app():
     # Load the CIFAR-10 dataset
     (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    #train_images = tf.convert_to_tensor(train_images)
-    #train_labels = tf.convert_to_tensor(train_labels)
-    #test_images = tf.convert_to_tensor(test_images)
-    #test_labels = tf.convert_to_tensor(test_labels)
-
     #save objects to session state
     st.session_state.training_images = train_images
 
     train_labels = to_categorical(train_labels)
     test_labels = to_categorical(test_labels)
 
-    class_indices = dict((v, k) for k, v in enumerate(train_labels[0]))
-    st.write(class_indices)
+    # Define CIFAR-10 class names
+    class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
+
+    # Enumerate the classes
+    for i, class_name in enumerate(class_names):
+    st.write(f"Class {i+1}: {class_name}")
 
     # Define the class names 
     #class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
