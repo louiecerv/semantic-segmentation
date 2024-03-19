@@ -36,7 +36,7 @@ def present_image(imagefile):
     # Get the actual integer index (assuming the first element in result)
     predicted_class_index = int(predicted_class.numpy()[0])
     st.write(predicted_class_index)
-    st.write('Predicted class:' + class_names[predicted_class_index])
+    st.write('Predicted class:' + str(class_names[predicted_class_index]))
 
  
 #run the app
