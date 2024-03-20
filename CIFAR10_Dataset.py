@@ -41,7 +41,7 @@ def app():
     if "n_clusters" not in st.session_state:
         st.session_state.n_clusters = 4
 
-    text = """Convolutional Neural Network on the CIFAR-10 Dataset"""
+    text = """A Convolutional Neural Network Built on Tensorflow and Keras for the CIFAR-10 Dataset"""
     st.subheader(text)
 
     text = """Louie F. Cervantes, M. Eng. (Information Engineering) \n
