@@ -64,6 +64,7 @@ def app():
     like layers, optimizers, and loss functions. """
     st.write(text)
     st.image('cifar10.png', caption="CIFAR-10 Dataset")
+    st.write("https://www.tensorflow.org/")
 
     with st.expander("Show more information"):
         text = """
