@@ -65,6 +65,7 @@ def app():
     st.write(text)
     st.image('cifar10.png', caption="CIFAR-10 Dataset")
     st.write("https://www.tensorflow.org/")
+    st.write("https://keras.io/")
 
     with st.expander("Show more information"):
         text = """
