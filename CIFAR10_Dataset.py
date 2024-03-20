@@ -52,6 +52,9 @@ def app():
     st.text(text)
 
     st.image('tf-keras.png', caption="Tensorflow and Keras")
+    st.write("https://www.tensorflow.org/")
+    st.write("https://keras.io/")
+
     text = """TensorFlow, an open-source library, provides a powerful 
     end-to-end platform for various machine learning tasks. It offers 
     low-level computational capabilities, enabling fine-grained control 
@@ -64,8 +67,6 @@ def app():
     like layers, optimizers, and loss functions. """
     st.write(text)
     st.image('cifar10.png', caption="CIFAR-10 Dataset")
-    st.write("https://www.tensorflow.org/")
-    st.write("https://keras.io/")
 
     with st.expander("Show more information"):
         text = """
