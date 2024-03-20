@@ -67,6 +67,13 @@ def app():
     like layers, optimizers, and loss functions. """
     st.write(text)
     st.image('cifar10.png', caption="CIFAR-10 Dataset")
+    
+    with st.expander("How to use this App"):
+         text = """Step 1. Go to Training page. Set the parameters of the CNN. Click the button to begin training.
+         \nStep 2.  Go to Performance Testing page and click the button to load the image
+         and get the model's output on the classification task.
+         \nYou can return to the training page to try other combinations of parameters."""
+         st.write(text)
 
     with st.expander("Show more information"):
         text = """
