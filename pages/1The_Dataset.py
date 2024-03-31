@@ -38,7 +38,7 @@ def app():
 
     # Load the CIFAR-10 dataset
     (ds_train, ds_test), ds_info = tfds.load(
-        'mnist',
+        'cifar10',
         split=['train', 'test'],
         shuffle_files=True,
         as_supervised=True,
