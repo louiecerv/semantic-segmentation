@@ -114,7 +114,6 @@ def app():
     # Progress bar reaches 100% after the loop completes
     st.success("Image dataset loading completed!") 
 
-
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
     options = ["relu", "leaky_relu", "sigmoid"]
@@ -160,6 +159,8 @@ def app():
             optimizer="adam",
             metrics=["accuracy"],
         )
+
+        st.write(model.summary())
 
         history = model.fit(
             ds_train,
