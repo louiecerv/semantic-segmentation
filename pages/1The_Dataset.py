@@ -77,8 +77,14 @@ def app():
     # Get a batch of 25 random images
     images, _ = next(iter(ds_train))
 
-    # Display the images in Streamlit
-    st.image(images, width=150)  # Adjust width as needed
+    # Convert TensorFlow images to NumPy arrays
+    images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
+
+    # Reshape NumPy arrays for display
+    images_reshaped = images_np.reshape((25, *images_np.shape[1:4]))  # Reshape to (25, height, width, channels)
+
+    # Display the images using st.image
+    st.image(images_reshaped, width=150)
 
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
