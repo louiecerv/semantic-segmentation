@@ -137,15 +137,16 @@ def app():
         ])
         
         model.compile(
-            optimizer=tf.keras.optimizers.Adam(0.001),
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'accuracy'],
+            loss="categorical_crossentropy",
+            optimizer="adam",
+            metrics=["accuracy"],
         )
 
         history = model.fit(
             ds_train,
             epochs=20,
             validation_data=ds_test,
+            callbacks=[CustomCallback()],
         )
 
         # Evaluate the model on the test data
