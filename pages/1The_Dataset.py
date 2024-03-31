@@ -55,7 +55,15 @@ def app():
     images_reshaped = images_np.reshape((25, *images_np.shape[1:4]))  # Reshape to (25, height, width, channels)
 
     # Display the images using st.image
-    st.image(images_reshaped, width=150)
+    col1, col2, col3, col4, col5 = st.columns(5)  # Create 5 columns for layout
+
+    # Loop through each image and display in a column
+    for i in range(5):
+        for j in range(5):
+            image_index = i * 5 + j
+            if image_index < 25:
+                col = locals()[f'col{j+1}']  # Dynamically access columns
+                col.image(images_reshaped[image_index], width=100)  # Adjust width as needed
 
 
     ds_train = ds_train.map(
