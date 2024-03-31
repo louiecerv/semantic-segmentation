@@ -58,13 +58,14 @@ def app():
     # Display the images using st.image
     col1, col2, col3, col4, col5 = st.columns(5)  # Create 5 columns for layout
 
-    # Loop through each image and display in a column
+    # Loop through each image and display with label
     for i in range(5):
         for j in range(5):
             image_index = i * 5 + j
             if image_index < 25:
                 col = locals()[f'col{j+1}']  # Dynamically access columns
-                col.image(images_reshaped[image_index], width=100)  # Adjust width as needed
+                col.image(images_reshaped[image_index], width=100)  # Display image
+                col.caption(f"Label: {class_names[labels[image_index]]}")  # Display label below image
 
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
