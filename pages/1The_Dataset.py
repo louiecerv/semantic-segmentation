@@ -45,6 +45,19 @@ def app():
         with_info=True,
     )
 
+    # Get a batch of 25 random images
+    images, _ = next(iter(ds_train))
+
+    # Convert TensorFlow images to NumPy arrays
+    images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
+
+    # Reshape NumPy arrays for display
+    images_reshaped = images_np.reshape((25, *images_np.shape[1:4]))  # Reshape to (25, height, width, channels)
+
+    # Display the images using st.image
+    st.image(images_reshaped, width=150)
+
+
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
     ds_train = ds_train.cache()
@@ -74,17 +87,7 @@ def app():
     # Progress bar reaches 100% after the loop completes
     st.success("Image dataset loading completed!") 
 
-    # Get a batch of 25 random images
-    images, _ = next(iter(ds_train))
 
-    # Convert TensorFlow images to NumPy arrays
-    images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
-
-    # Reshape NumPy arrays for display
-    images_reshaped = images_np.reshape((25, *images_np.shape[1:4]))  # Reshape to (25, height, width, channels)
-
-    # Display the images using st.image
-    st.image(images_reshaped, width=150)
 
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
