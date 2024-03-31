@@ -44,9 +44,9 @@ def app():
         as_supervised=True,
         with_info=True,
     )
-    ds_train = ds_train.batch(25)  # Batch for efficient loading
+    ds_train1 = ds_train.batch(25)  # Batch for efficient loading
     # Get a batch of 25 random images
-    images, _ = next(iter(ds_train))
+    images, _ = next(iter(ds_train1))
 
     # Convert TensorFlow images to NumPy arrays
     images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
@@ -64,7 +64,6 @@ def app():
             if image_index < 25:
                 col = locals()[f'col{j+1}']  # Dynamically access columns
                 col.image(images_reshaped[image_index], width=100)  # Adjust width as needed
-
 
     ds_train = ds_train.map(
         normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
