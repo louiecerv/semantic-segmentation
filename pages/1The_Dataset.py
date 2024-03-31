@@ -44,7 +44,7 @@ def app():
         as_supervised=True,
         with_info=True,
     )
-
+    ds_train = ds_train.batch(25)  # Batch for efficient loading
     # Get a batch of 25 random images
     images, _ = next(iter(ds_train))
 
