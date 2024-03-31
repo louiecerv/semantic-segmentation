@@ -136,7 +136,7 @@ def app():
         model.compile(
             optimizer=tf.keras.optimizers.Adam(0.001),
             loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'accuracy']
+            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'loss', 'accuracy']
         )
 
         history = model.fit(
@@ -147,8 +147,8 @@ def app():
         )
 
         # Evaluate the model on the test data
-        SparseCategoricalAccuracy = model.evaluate(ds_test)
-        st.write("Test accuracy:", SparseCategoricalAccuracy)
+        loss, accuracy = model.evaluate(ds_test)
+        st.write("Test accuracy:", accuracy)
 
         # Extract loss and accuracy values from history
         train_loss = history.history['loss']
