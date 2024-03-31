@@ -13,8 +13,28 @@ import matplotlib.pyplot as plt
 import time
 
 def normalize_img(image, label):
-    """Normalizes images: `uint8` -> `float32`."""
-    return tf.cast(image, tf.float32) / 255., label
+    """Normalizes images: `uint8` -> `float32` in the range [0, 1], for 32x32x3 images."""
+
+    # Ensure image is in uint8 format
+    image = tf.cast(image, tf.uint8)  # Ensure uint8 type
+
+    # Reshape if necessary (flexible for different input shapes)
+    if len(image.shape) == 3:  # Assuming image is already (32, 32, 3)
+        image = tf.expand_dims(image, axis=0)  # Add a batch dimension
+    elif len(image.shape) == 2:  # Reshape if grayscale (32, 32)
+        image = tf.expand_dims(image, axis=-1)  # Add channel dimension
+        image = tf.tile(image, [1, 1, 3])  # Replicate for 3 channels
+    else:
+        raise ValueError("Unsupported image shape: {}".format(image.shape))
+
+    # Normalize to [0, 1] range
+    image = tf.cast(image, tf.float32) / 255.0
+
+    # Remove batch dimension if added
+    if image.shape[0] == 1:
+        image = tf.squeeze(image, axis=0)
+
+    return image, label
 
 # Define the Streamlit app
 def app():
