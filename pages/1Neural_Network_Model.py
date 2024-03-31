@@ -51,7 +51,7 @@ def app():
     # Get a batch of 25 random images
     images, labels = next(iter(ds_train1))
 
-    # Convert TensorFlow images to NumPy arrays
+    # Convpythoert TensorFlow images to NumPy arrays
     images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
 
     # Reshape NumPy arrays for display
@@ -107,15 +107,15 @@ def app():
         label="How many hidden layers? :",
         min_value=16,
         max_value=128,
-        value=64,  # Initial value
+        value=128,  # Initial value
         step=16
     )
 
     epochs = st.sidebar.slider(   
         label="Set the epochs:",
-        min_value=3,
+        min_value=5,
         max_value=30,
-        value=3
+        value=10
     )
 
 
@@ -128,7 +128,7 @@ def app():
             tf.keras.layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
             tf.keras.layers.MaxPooling2D((2, 2)),
             tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(128, activation=c_activation),
+            tf.keras.layers.Dense(hidden_layers, activation=c_activation),
             tf.keras.layers.Dense(10, activation=o_activation)
         ])
 
