@@ -13,28 +13,9 @@ import matplotlib.pyplot as plt
 import time
 
 def normalize_img(image, label):
-    """Normalizes images: `uint8` -> `float32` in the range [0, 1], for 32x32x3 images."""
+  """Normalizes images: `uint8` -> `float32`."""
+  return tf.cast(image, tf.float32) / 255., label
 
-    # Ensure image is in uint8 format
-    image = tf.cast(image, tf.uint8)  # Ensure uint8 type
-
-    # Reshape if necessary (flexible for different input shapes)
-    if len(image.shape) == 3:  # Assuming image is already (32, 32, 3)
-        image = tf.expand_dims(image, axis=0)  # Add a batch dimension
-    elif len(image.shape) == 2:  # Reshape if grayscale (32, 32)
-        image = tf.expand_dims(image, axis=-1)  # Add channel dimension
-        image = tf.tile(image, [1, 1, 3])  # Replicate for 3 channels
-    else:
-        raise ValueError("Unsupported image shape: {}".format(image.shape))
-
-    # Normalize to [0, 1] range
-    image = tf.cast(image, tf.float32) / 255.0
-
-    # Remove batch dimension if added
-    if image.shape[0] == 1:
-        image = tf.squeeze(image, axis=0)
-
-    return image, label
 
 # Define the Streamlit app
 def app():
@@ -56,7 +37,6 @@ def app():
 
     progress_bar = st.progress(0, text="Loading 70,000 images, please wait...")
 
-    # Load the CIFAR-10 dataset
     (ds_train, ds_test), ds_info = tfds.load(
         'cifar10',
         split=['train', 'test'],
@@ -64,6 +44,7 @@ def app():
         as_supervised=True,
         with_info=True,
     )
+
     ds_train1 = ds_train.batch(25)  # Batch for efficient loading
     # Get a batch of 25 random images
     images, _ = next(iter(ds_train1))
@@ -93,10 +74,11 @@ def app():
     ds_train = ds_train.prefetch(tf.data.AUTOTUNE)
 
     ds_test = ds_test.map(
-    normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
+        normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
     ds_test = ds_test.batch(128)
     ds_test = ds_test.cache()
     ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
+
 
     with st.expander("Click to display the list of classes in the CIFAR-10 Dataset."):
         # Define CIFAR-10 class names
@@ -144,35 +126,30 @@ def app():
         batch_size = 64
 
         model = tf.keras.models.Sequential([
-            tf.keras.layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
-            tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-            tf.keras.layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
-            tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
-            tf.keras.layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
+            tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)),
+            tf.keras.layers.MaxPooling2D((2, 2)),
             tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(128, activation="relu"),
-            tf.keras.layers.Dense(10, activation=o_activation),
+            tf.keras.layers.Dense(128, activation='relu'),
+            tf.keras.layers.Dense(10)
         ])
-        
-        model.compile(
-            loss="categorical_crossentropy",
-            optimizer="adam",
-            metrics=["accuracy"],
-        )
 
-        st.write(model.summary())
+        model.compile(
+            optimizer=tf.keras.optimizers.Adam(0.001),
+            loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+            metrics=[tf.keras.metrics.SparseCategoricalAccuracy()]
+        )
 
         history = model.fit(
             ds_train,
-            batch_size=128,
-            epochs=epochs,
+            epochs=20,
             validation_data=ds_test,
             callbacks=[CustomCallback()],
         )
 
+
         # Evaluate the model on the test data
-        accuracy = model.evaluate(test_images, test_labels)
-        st.write("Test accuracy:", accuracy)
+        SparseCategoricalAccuracy = model.evaluate(ds_test)
+        st.write("Test accuracy:", SparseCategoricalAccuracy)
 
         # Extract loss and accuracy values from history
         train_loss = history.history['loss']
