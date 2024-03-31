@@ -16,7 +16,10 @@ def normalize_img(image, label):
   """Normalizes images: `uint8` -> `float32`."""
   return tf.cast(image, tf.float32) / 255., label
 
+# Define CIFAR-10 class names
+class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
+ 
 # Define the Streamlit app
 def app():
 
@@ -80,11 +83,7 @@ def app():
     ds_test = ds_test.cache()
     ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
 
-
     with st.expander("Click to display the list of classes in the CIFAR-10 Dataset."):
-        # Define CIFAR-10 class names
-        class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
-
         # Enumerate the classes
         for i, class_name in enumerate(class_names):
             st.write(f"Class {i+1}: {class_name}")
