@@ -137,7 +137,7 @@ def app():
                   validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
         
         # Evaluate the model on the test data
-        loss, accuracy = model.evaluate(X_test, y_test)
+        loss, accuracy = model.evaluate(test_images, test_labels)
         st.write("Test accuracy:", accuracy)
 
         # Extract loss and accuracy values from history
