@@ -114,7 +114,7 @@ def app():
             layers.MaxPooling2D(pool_size=(2, 2)),
             layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
             layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(128, (3, 3), activation=c_activation),
+            layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
             layers.Flatten(),
             layers.Dense(128, activation="relu"),
             layers.Dense(10, activation=o_activation),
