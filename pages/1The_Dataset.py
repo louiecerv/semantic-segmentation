@@ -5,15 +5,16 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
-import matplotlib.pyplot as plt
-import tensorflow as tf
 from tensorflow import keras
-from tensorflow.keras import datasets, layers, models
-from tensorflow.keras.datasets import cifar10
-from tensorflow.keras.utils import to_categorical
+import tensorflow_datasets as tfds
+import matplotlib.pyplot as plt
 
 
 import time
+
+def normalize_img(image, label):
+    """Normalizes images: `uint8` -> `float32`."""
+    return tf.cast(image, tf.float32) / 255., label
 
 # Define the Streamlit app
 def app():
@@ -36,13 +37,26 @@ def app():
     progress_bar = st.progress(0, text="Loading 70,000 images, please wait...")
 
     # Load the CIFAR-10 dataset
-    (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
+    (ds_train, ds_test), ds_info = tfds.load(
+        'mnist',
+        split=['train', 'test'],
+        shuffle_files=True,
+        as_supervised=True,
+        with_info=True,
+    )
 
-    #save objects to session state
-    st.session_state.training_images = train_images
+    ds_train = ds_train.map(
+        normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
+    ds_train = ds_train.cache()
+    ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
+    ds_train = ds_train.batch(128)
+    ds_train = ds_train.prefetch(tf.data.AUTOTUNE)
 
-    train_labels = to_categorical(train_labels)
-    test_labels = to_categorical(test_labels)
+    ds_test = ds_test.map(
+    normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
+    ds_test = ds_test.batch(128)
+    ds_test = ds_test.cache()
+    ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
 
     with st.expander("Click to display the list of classes in the CIFAR-10 Dataset."):
         # Define CIFAR-10 class names
@@ -60,29 +74,11 @@ def app():
     # Progress bar reaches 100% after the loop completes
     st.success("Image dataset loading completed!") 
 
-    # Create the figure and a grid of subplots
-    fig, axes = plt.subplots(nrows=5, ncols=5, figsize=(6, 8))
+    # Get a batch of 25 random images
+    images, _ = next(iter(ds_train))
 
-    # display images starting with index 500
-    start_index = 500
-    # Iterate through the subplots and plot the images
-    for i, ax in enumerate(axes.flat):
-        # Turn off ticks and grid
-        ax.set_xticks([])
-        ax.set_yticks([])
-        ax.grid(False)
-
-        # Display the image
-        ax.imshow(train_images[start_index + i], cmap=plt.cm.binary)
-        # Add the image label
-        ax.set_xlabel(train_labels[i][0])
-
-    # Show the plot
-    plt.tight_layout()  # Adjust spacing between subplots
-    st.pyplot(fig)
-
-    # Normalize pixel values to be between 0 and 1
-    train_images, test_images = train_images / 255.0, test_images / 255.0
+    # Display the images in Streamlit
+    st.image(images, width=150)  # Adjust width as needed
 
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
@@ -132,12 +128,27 @@ def app():
         progress_bar = st.progress(0, text="Training the model please wait...")
         # Train the model
         batch_size = 64
+
+        model = tf.keras.models.Sequential([
+        tf.keras.layers.Flatten(input_shape=(28, 28)),
+        tf.keras.layers.Dense(128, activation='relu'),
+        tf.keras.layers.Dense(10)
+        ])
         
-        history = model.fit(train_images, train_labels, batch_size=batch_size, epochs=epochs, 
-                  validation_data=(test_images, test_labels), callbacks=[CustomCallback()])
-        
+        model.compile(
+            optimizer=tf.keras.optimizers.Adam(0.001),
+            loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'accuracy'],
+        )
+
+        history = model.fit(
+            ds_train,
+            epochs=20,
+            validation_data=ds_test,
+        )
+
         # Evaluate the model on the test data
-        loss, accuracy = model.evaluate(test_images, test_labels)
+        accuracy = model.evaluate(test_images, test_labels)
         st.write("Test accuracy:", accuracy)
 
         # Extract loss and accuracy values from history
@@ -146,29 +157,27 @@ def app():
         train_acc = history.history['accuracy']
         val_acc = history.history['val_accuracy']
 
-        # Create the figure and axes
-        fig, ax1 = plt.subplots()
+        # Create the figure with two side-by-side subplots
+        fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 6))  # Adjust figsize for better visualization
 
-        # Plot loss on primary axis (ax1)
+        # Plot loss on the first subplot (ax1)
         ax1.plot(train_loss, label='Training Loss')
         ax1.plot(val_loss, label='Validation Loss')
-
-        # Create a twin axis for accuracy (ax2)
-        ax2 = ax1.twinx()
-
-        # Plot accuracy on the twin axis (ax2)
-        ax2.plot(train_acc, 'g--', label='Training Accuracy')
-        ax2.plot(val_acc, 'r--', label='Validation Accuracy')
-
-        # Set labels and title
         ax1.set_xlabel('Epoch')
         ax1.set_ylabel('Loss')
-        ax2.set_ylabel('Accuracy')
-        fig.suptitle('Training and Validation Loss & Accuracy')
+        ax1.legend()
 
-        # Add legends
-        ax1.legend(loc='upper left')
-        ax2.legend(loc='upper right') 
+        # Plot accuracy on the second subplot (ax2)
+        ax2.plot(train_acc, 'g--', label='Training Accuracy')
+        ax2.plot(val_acc, 'r--', label='Validation Accuracy')
+        ax2.set_xlabel('Epoch')
+        ax2.set_ylabel('Accuracy')
+        ax2.legend()
+
+        # Set the main title (optional)
+        fig.suptitle('Training and Validation Performance')
+
+        plt.tight_layout()  # Adjust spacing between subplots
         st.pyplot(fig)   
 
         # update the progress bar
