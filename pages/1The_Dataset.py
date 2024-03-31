@@ -144,7 +144,7 @@ def app():
 
         history = model.fit(
             ds_train,
-            epochs=20,
+            epochs=epochs,
             validation_data=ds_test,
             callbacks=[CustomCallback()],
         )
