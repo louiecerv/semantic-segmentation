@@ -19,7 +19,6 @@ def normalize_img(image, label):
 # Define CIFAR-10 class names
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
- 
 # Define the Streamlit app
 def app():
 
