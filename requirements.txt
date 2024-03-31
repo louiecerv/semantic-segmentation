@@ -6,4 +6,4 @@ scikit-learn
 numpy
 tensorflow
 keras
-tensorflow_dataset
+tensorflow_datasets
