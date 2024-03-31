@@ -126,9 +126,14 @@ def app():
         batch_size = 64
 
         model = tf.keras.models.Sequential([
-        tf.keras.layers.Flatten(input_shape=(28, 28)),
-        tf.keras.layers.Dense(128, activation='relu'),
-        tf.keras.layers.Dense(10)
+            tf.keras.layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
+            tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+            tf.keras.layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
+            tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
+            tf.keras.layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
+            tf.keras.layers.Flatten(),
+            tf.keras.layers.Dense(128, activation="relu"),
+            tf.keras.layers.Dense(10, activation=o_activation),
         ])
         
         model.compile(
