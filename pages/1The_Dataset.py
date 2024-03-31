@@ -126,11 +126,11 @@ def app():
         batch_size = 64
 
         model = tf.keras.models.Sequential([
-            tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(32, 32, 3)),
+            tf.keras.layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
             tf.keras.layers.MaxPooling2D((2, 2)),
             tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(128, activation='relu'),
-            tf.keras.layers.Dense(10)
+            tf.keras.layers.Dense(128, activation=c_activation),
+            tf.keras.layers.Dense(10, activation=o_activation)
         ])
 
         model.compile(
@@ -141,11 +141,10 @@ def app():
 
         history = model.fit(
             ds_train,
-            epochs=20,
+            epochs=epochs,
             validation_data=ds_test,
             callbacks=[CustomCallback()],
         )
-
 
         # Evaluate the model on the test data
         SparseCategoricalAccuracy = model.evaluate(ds_test)
