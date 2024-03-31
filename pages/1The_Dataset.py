@@ -96,7 +96,6 @@ def app():
     st.success("Image dataset loading completed!") 
 
 
-
    # Define CNN parameters    
     st.sidebar.subheader('Set the CNN Parameters')
     options = ["relu", "leaky_relu", "sigmoid"]
@@ -120,26 +119,6 @@ def app():
         value=3
     )
 
-    # Define the CNN architecture
-    model = keras.Sequential(
-        [
-            layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
-            layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
-            layers.MaxPooling2D(pool_size=(2, 2)),
-            layers.Conv2D(hidden_layers, (3, 3), activation=c_activation),
-            layers.Flatten(),
-            layers.Dense(128, activation="relu"),
-            layers.Dense(10, activation=o_activation),
-        ]
-    )
-
-    # Compile the model
-    model.compile(
-        loss="categorical_crossentropy",
-        optimizer="adam",
-        metrics=["accuracy"],
-    )
 
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the model please wait...")
