@@ -49,7 +49,7 @@ def app():
 
     ds_train1 = ds_train.batch(25)  # Batch for efficient loading
     # Get a batch of 25 random images
-    images, _ = next(iter(ds_train1))
+    images, labels = next(iter(ds_train1))
 
     # Convert TensorFlow images to NumPy arrays
     images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
