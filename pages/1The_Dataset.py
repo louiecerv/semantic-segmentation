@@ -136,7 +136,7 @@ def app():
         model.compile(
             optimizer=tf.keras.optimizers.Adam(0.001),
             loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-            metrics=[tf.keras.metrics.SparseCategoricalAccuracy()]
+            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'accuracy']
         )
 
         history = model.fit(
