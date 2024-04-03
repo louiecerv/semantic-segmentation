@@ -1,13 +1,5 @@
 #Input the relevant libraries
-import numpy as np
-import pandas as pd
 import streamlit as st
-import altair as alt
-import matplotlib.pyplot as plt
-import seaborn as sns
-from sklearn.preprocessing import StandardScaler
-
-import time
 
 # Define the Streamlit app
 def app():
