@@ -13,6 +13,9 @@ import time
 # Define CIFAR-10 class names
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
 
+def get_class(label):
+    return class_names[label]
+
 # Define the Streamlit app
 def app():
 
@@ -22,13 +25,19 @@ def app():
     if "train_images" not in st.session_state:
         st.session_state.training_images = []
 
-    text = """The CIFAR-10 dataset is a collection of 60,000 small, 
-    colorful images (32x32 pixels) that belong to 10 distinct categories, 
-    like airplanes, cars, and animals. It's a popular choice for 
-    training machine learning algorithms, especially those focused on image 
-    recognition, because it's easy to access and allows researchers to 
-    experiment with different approaches quickly due to the relatively 
-    low resolution of the images."""
+    st.header("A Convolutional Neural Network for CIFAR-10 Image Classification")
+    text = """This data app trains a Convolutional Neural Network (CNN) on the CIFAR-10 image dataset 
+    using TensorFlow. CIFAR-10 consists of 60,000 small colored images from 10 classes, like 
+    airplanes and cats. 
+    \nThe app will:
+    * **Load the CIFAR-10 dataset:** It automatically downloads and prepares the data for training.
+    * **Build a CNN model:** You can define the architecture of your CNN, including the number of convolutional layers, filters, and pooling operations.
+    * **Train the model:** The app trains the CNN on the training data and monitors its performance. 
+    * **Evaluate the model:**  See how well the trained CNN performs on the unseen test data.
+    \nThis app is a great tool for:
+    * **Learning CNNs:** Experiment with different CNN architectures and understand how they work for image classification.
+    * **Getting started with TensorFlow:**  Learn the basics of building and training deep learning models with TensorFlow.
+    * **CIFAR-10 image classification research:**  Easily train and evaluate different CNN models on the CIFAR-10 dataset."""
     st.write(text)
 
     progress_bar = st.progress(0, text="Loading 70,000 images, please wait...")
@@ -52,7 +61,7 @@ def app():
 
         # Display the image and label on the current subplot
         axes[i // 5, i % 5].imshow(image)
-        axes[i // 5, i % 5].set_title(f"Class: {label}")
+        axes[i // 5, i % 5].set_title(get_class(label))
         axes[i // 5, i % 5].axis('off')  # Hide axes for better visualization
 
     # Show the entire plot
@@ -81,6 +90,9 @@ def app():
 
     options = ["softmax", "relu"]
     o_activation = st.sidebar.selectbox('Output activation function:', options)
+    
+    options = ["adam", "adagrad", "sgd"]
+    optimizer = st.sidebar.selectbox('Select the optimizer:', options)
 
     hidden_layers = st.sidebar.slider(      
         label="How many hidden layers? :",
@@ -102,20 +114,26 @@ def app():
         # Train the model
 
         model = models.Sequential([
-            layers.Flatten(input_shape=(32, 32, 3)),  # Flatten input images
-            layers.Dense(512, activation='relu'),  # First dense layer with ReLU activation
-            layers.Dense(10, activation='softmax')  # Output layer with 10 classes (CIFAR-10 categories)
+            layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),  # First convolutional layer
+            layers.MaxPooling2D((2, 2)),  # Downsampling with max pooling
+            layers.Conv2D(64, (3, 3), activation=c_activation),  # Second convolutional layer
+            layers.MaxPooling2D((2, 2)),  # Further downsampling
+            layers.Flatten(),  # Flattening for dense layers
+            layers.Dense(hidden_layers, activation='relu'),  # Dense layer for classification
+            layers.Dense(10, activation=o_activation)  # Output layer with 10 classes
         ])
 
-        model.compile(optimizer='adam',
-              loss='sparse_categorical_crossentropy',
-              metrics=['accuracy']
-        )
+        model.compile(optimizer=optimizer,
+                      loss='sparse_categorical_crossentropy',
+                      metrics=['accuracy'])
 
-        model.fit(train_images, train_labels, epochs=epochs, batch_size=64, callbacks=[CustomCallback()],)
+        history = model.fit(train_images, train_labels, 
+            epochs=epochs, batch_size=64, 
+            validation_data=(test_images, test_labels), 
+            callbacks=[CustomCallback()],)
 
         # Evaluate the model on the test data
-        accuracy = model.evaluate(test_images)
+        accuracy = model.evaluate(test_images, test_labels)
         st.write("Test accuracy:", accuracy)
 
         # Extract loss and accuracy values from history

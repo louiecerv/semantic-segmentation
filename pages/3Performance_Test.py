@@ -10,7 +10,7 @@ import tensorflow as tf
 # Define the Streamlit app
 def app():
 
-    st.subheader('Testing the Performance of the CNN Classification Model')
+    st.subheader('Testing the Performance of the Trained Model')
     text = """We test our trained model by presenting it with a classification task."""
     st.write(text)
     
