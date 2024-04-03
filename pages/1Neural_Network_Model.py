@@ -6,15 +6,9 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import tensorflow as tf
 from tensorflow import keras
-import tensorflow_datasets as tfds
 import matplotlib.pyplot as plt
-
-
+from tensorflow.keras import datasets, layers, models
 import time
-
-def normalize_img(image, label):
-  """Normalizes images: `uint8` -> `float32`."""
-  return tf.cast(image, tf.float32) / 255., label
 
 # Define CIFAR-10 class names
 class_names = ['airplane', 'automobile', 'bird', 'cat', 'deer', 'dog', 'frog', 'horse', 'ship', 'truck']
@@ -39,48 +33,33 @@ def app():
 
     progress_bar = st.progress(0, text="Loading 70,000 images, please wait...")
 
-    (ds_train, ds_test), ds_info = tfds.load(
-        'cifar10',
-        split=['train', 'test'],
-        shuffle_files=True,
-        as_supervised=True,
-        with_info=True,
-    )
+    (train_images, train_labels), (test_images, test_labels) = datasets.cifar10.load_data()
 
-    ds_train1 = ds_train.batch(25)  # Batch for efficient loading
-    # Get a batch of 25 random images
-    images, labels = next(iter(ds_train1))
+    # Define number of images to display (maximum 25)
+    num_images = min(25, train_images.shape[0])
 
-    # Convpythoert TensorFlow images to NumPy arrays
-    images_np = images.numpy()  # Assuming images are in the format (batch_size, height, width, channels)
+    # Create a grid of subplots
+    fig, axes = plt.subplots(5, 5, figsize=(10, 10))  # Adjust figsize for better visualization
 
-    # Reshape NumPy arrays for display
-    images_reshaped = images_np.reshape((25, *images_np.shape[1:4]))  # Reshape to (25, height, width, channels)
+    # Reshape images to remove the extra dimension for color channels (assuming RGB)
+    train_images_flat = train_images.reshape((train_images.shape[0], -1))
 
-    # Display the images using st.image
-    col1, col2, col3, col4, col5 = st.columns(5)  # Create 5 columns for layout
+    # Loop through the first num_images and display them on the subplots
+    for i in range(num_images):
+        # Get the current image and its label
+        image = train_images_flat[i].reshape((32, 32, 3))
+        label = train_labels[i][0]  # Assuming one-hot encoded labels, extract the class index
 
-    # Loop through each image and display with label
-    for i in range(5):
-        for j in range(5):
-            image_index = i * 5 + j
-            if image_index < 25:
-                col = locals()[f'col{j+1}']  # Dynamically access columns
-                col.image(images_reshaped[image_index], width=100)  # Display image
-                col.caption(f"Label: {class_names[labels[image_index]]}")  # Display label below image
+        # Display the image and label on the current subplot
+        axes[i // 5, i % 5].imshow(image)
+        axes[i // 5, i % 5].set_title(f"Class: {label}")
+        axes[i // 5, i % 5].axis('off')  # Hide axes for better visualization
 
-    ds_train = ds_train.map(
-        normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
-    ds_train = ds_train.cache()
-    ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
-    ds_train = ds_train.batch(128)
-    ds_train = ds_train.prefetch(tf.data.AUTOTUNE)
+    # Show the entire plot
+    plt.tight_layout()
+    st.pyplot(fig)
 
-    ds_test = ds_test.map(
-        normalize_img, num_parallel_calls=tf.data.AUTOTUNE)
-    ds_test = ds_test.batch(128)
-    ds_test = ds_test.cache()
-    ds_test = ds_test.prefetch(tf.data.AUTOTUNE)
+    train_images, test_images = train_images / 255.0, test_images / 255.0  # Normalize pixel values
 
     with st.expander("Click to display the list of classes in the CIFAR-10 Dataset."):
         # Enumerate the classes
@@ -118,35 +97,25 @@ def app():
         value=10
     )
 
-
     if st.button('Start Training'):
         progress_bar = st.progress(0, text="Training the model please wait...")
         # Train the model
-        batch_size = 64
 
-        model = tf.keras.models.Sequential([
-            tf.keras.layers.Conv2D(32, (3, 3), activation=c_activation, input_shape=(32, 32, 3)),
-            tf.keras.layers.MaxPooling2D((2, 2)),
-            tf.keras.layers.Flatten(),
-            tf.keras.layers.Dense(hidden_layers, activation=c_activation),
-            tf.keras.layers.Dense(10, activation=o_activation)
+        model = models.Sequential([
+            layers.Flatten(input_shape=(32, 32, 3)),  # Flatten input images
+            layers.Dense(512, activation='relu'),  # First dense layer with ReLU activation
+            layers.Dense(10, activation='softmax')  # Output layer with 10 classes (CIFAR-10 categories)
         ])
 
-        model.compile(
-            optimizer=tf.keras.optimizers.Adam(0.001),
-            loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-            metrics=[tf.keras.metrics.SparseCategoricalAccuracy(), 'accuracy']
+        model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy']
         )
 
-        history = model.fit(
-            ds_train,
-            epochs=epochs,
-            validation_data=ds_test,
-            callbacks=[CustomCallback()],
-        )
+        model.fit(train_images, train_labels, epochs=epochs, batch_size=64, callbacks=[CustomCallback()],)
 
         # Evaluate the model on the test data
-        accuracy = model.evaluate(ds_test)
+        accuracy = model.evaluate(test_images)
         st.write("Test accuracy:", accuracy)
 
         # Extract loss and accuracy values from history
