@@ -3,7 +3,7 @@ import streamlit as st
 
 # Define the Streamlit app
 def app():
-    text = """A Convolutional Neural Network Built Using Tensorflow and Keras for the CIFAR-10 Dataset"""
+    text = """Comparison of Basic Feed-Forward ANN and Convolutional Neural Network Built Using Tensorflow and Keras for the CIFAR-10 Dataset"""
     st.subheader(text)
 
     text = """Prof. Louie F. Cervantes, M. Eng. (Information Engineering) \n
