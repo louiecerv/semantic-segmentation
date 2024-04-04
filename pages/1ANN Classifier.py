@@ -109,8 +109,8 @@ def app():
     options = ["adam", "adagrad", "sgd"]
     optimizer = st.sidebar.selectbox('Select the optimizer:', options)
 
-    hidden_layers = st.sidebar.slider(      
-        label="How many hidden layers? :",
+    n_neurons = st.sidebar.slider(      
+        label="How many neurons? :",
         min_value=16,
         max_value=128,
         value=128,  # Initial value
@@ -130,7 +130,7 @@ def app():
 
         model = models.Sequential([
             layers.Flatten(input_shape=(32, 32, 3)),  # Flatten input images
-            layers.Dense(hidden_layers, activation=c_activation),  # First dense layer with ReLU activation
+            layers.Dense(n_neurons, activation=c_activation),  # First dense layer with ReLU activation
             layers.Dense(10, activation=o_activation)  # Output layer with 10 classes (CIFAR-10 categories)
         ])
 
@@ -139,7 +139,10 @@ def app():
               metrics=['accuracy']
         )
 
-        history = model.fit(train_images, train_labels, epochs=epochs, batch_size=64, validation_data=(test_images, test_labels), callbacks=[CustomCallback()],)
+        history = model.fit(train_images, train_labels, epochs=epochs, 
+                batch_size=64, 
+                validation_data=(test_images, test_labels), 
+                callbacks=[CustomCallback()],)
 
         # Evaluate the model on the test data
         accuracy = model.evaluate(test_images, test_labels)
