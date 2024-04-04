@@ -94,8 +94,8 @@ def app():
     options = ["adam", "adagrad", "sgd"]
     optimizer = st.sidebar.selectbox('Select the optimizer:', options)
 
-    hidden_layers = st.sidebar.slider(      
-        label="How many hidden layers? :",
+    n_neurons = st.sidebar.slider(      
+        label="How many neurons? :",
         min_value=16,
         max_value=128,
         value=128,  # Initial value
@@ -119,7 +119,7 @@ def app():
             layers.Conv2D(64, (3, 3), activation=c_activation),  # Second convolutional layer
             layers.MaxPooling2D((2, 2)),  # Further downsampling
             layers.Flatten(),  # Flattening for dense layers
-            layers.Dense(hidden_layers, activation='relu'),  # Dense layer for classification
+            layers.Dense(n_neurons, activation='relu'),  # Dense layer for classification
             layers.Dense(10, activation=o_activation)  # Output layer with 10 classes
         ])
 
