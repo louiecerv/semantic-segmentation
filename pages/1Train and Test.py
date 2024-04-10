@@ -10,7 +10,8 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, layers, models
 import time
 from PIL import Image
-
+import segmentation_models as sm
+from tensorflow.keras.optimizers import Adam  # Or any other optimizer you prefer
 
 # Define the Streamlit app
 def app():
@@ -29,7 +30,10 @@ def app():
     st.pyplot(fig)
 
     epochs = 4
-
+    # Define model parameters
+    n_classes = 23
+    input_height = 416
+    input_width = 608
     from segmentation_models import image_augmentation as ia
 
     train_image_datagen = ia.AugmentationDataGenerator(
@@ -42,25 +46,17 @@ def app():
 
     training_set = train_image_datagen.flow_from_directory(
         "emantic_drone_dataset/original_images",
-        target_size=(418, 608),
+        target_size=(input_height, input_width),
         batch_size=32,
         class_mode=None,
     )
 
     training_mask = train_mask_datagen.flow_from_directory(
         "semantic_drone_dataset/label_images_semantic",
-        target_size=(418, 608),
+        target_size=(input_height, input_width),
         batch_size=32,
         class_mode=None,
     )
-
-    import segmentation_models as sm
-    from tensorflow.keras.optimizers import Adam  # Or any other optimizer you prefer
-
-    # Define model parameters
-    n_classes = 23
-    input_height = 416
-    input_width = 608
 
     # Define the model (using 'resnet34' backbone as an example)
     encoder_name = 'resnet34'  # Choose a suitable encoder (e.g., 'vgg16', 'mobilenetv2')
