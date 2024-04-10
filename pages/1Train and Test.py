@@ -12,6 +12,7 @@ import imgaug.augmenters as ia
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, concatenate, Conv2DTranspose
 from tensorflow.keras.optimizers import Adam
+from keras.preprocessing.image import ImageDataGenerator
 
 # Define the Streamlit app
 def app():
@@ -90,20 +91,18 @@ def app():
     input_height = 416
     input_width = 608
 
-    from imgaug.augmenters import Sequential, Affine, Flipud, Fliplr
+    # Data augmentation
+    train_image_datagen = ImageDataGenerator(
+        rescale=1.0 / 255,
+        rotation_range=20,
+        width_shift_range=0.2,
+        height_shift_range=0.2,
+        shear_range=0.2,
+        zoom_range=0.2,
+        horizontal_flip=True
+    )
 
-    # Data augmentation for training images
-    train_image_datagen = Sequential([
-        Affine(scale=(0.8, 1.2)),  # Scale images to 80%-120% of their original size
-        Flipud(p=0.5),              # Flip images vertically with a probability of 50%
-        Fliplr(p=0.5),              # Flip images horizontally with a probability of 50%
-        # Add more augmentations as needed
-    ])
-
-    # No augmentation for masks
-    train_mask_datagen = Sequential([
-        # No augmentations for masks
-    ])
+    train_mask_datagen = ImageDataGenerator(rescale=1.0 / 255)
 
     # Load training data
     training_set = train_image_datagen.flow_from_directory(
