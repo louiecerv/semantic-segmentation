@@ -87,7 +87,7 @@ def app():
     model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
     # Train the model
-    model.fit(
+    history = model.fit(
         x=training_set,
         y=training_mask,
         batch_size=16,  # Adjust batch size based on GPU memory
