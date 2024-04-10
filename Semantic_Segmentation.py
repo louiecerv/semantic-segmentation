@@ -13,13 +13,12 @@ def app():
     West Visayas State University"""
     st.text(text)
 
-    st.image('semantic-segmentation.jpg', caption="Semantic Segmentation")
+    st.image('semantic-seg.png', caption="Semantic Segmentation")
     st.write("https://www.tensorflow.org/")
     st.write("https://keras.io/")
 
     text = """Replace with Description of Semantic Segmentation"""
     st.write(text)
-    st.image('cifar10.png', caption="CIFAR-10 Dataset")
     
     with st.expander("How to use this App"):
          text = """Step 1. Go to Training page. Set the parameters of the CNN. Click the button to begin training.
