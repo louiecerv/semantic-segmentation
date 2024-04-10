@@ -5,6 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib.pyplot as plt
+import tensorflow as tf
 import time
 from PIL import Image
 import imgaug.augmenters as ia
@@ -89,16 +90,20 @@ def app():
     input_height = 416
     input_width = 608
 
+    from imgaug.augmenters import Sequential, Affine, Flipud, Fliplr
+
     # Data augmentation for training images
-    train_image_datagen = ia.AugmentationDataGenerator(
-        rescale=1.0 / 255,
-        shear_range=0.2,
-        horizontal_flip=True,
-        # Add more augmentation parameters as needed
-    )
+    train_image_datagen = Sequential([
+        Affine(scale=(0.8, 1.2)),  # Scale images to 80%-120% of their original size
+        Flipud(p=0.5),              # Flip images vertically with a probability of 50%
+        Fliplr(p=0.5),              # Flip images horizontally with a probability of 50%
+        # Add more augmentations as needed
+    ])
 
     # No augmentation for masks
-    train_mask_datagen = ia.AugmentationDataGenerator(rescale=1.0 / 255)
+    train_mask_datagen = Sequential([
+        # No augmentations for masks
+    ])
 
     # Load training data
     training_set = train_image_datagen.flow_from_directory(
