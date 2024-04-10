@@ -75,7 +75,7 @@ def learning_rate_schedule(epoch):
 
 def get_unet():
     # Create the learning rate scheduler object
-    learning_rate_scheduler = LearningRateSchedule(learning_rate_schedule)
+    learning_rate_scheduler = LearningRateSchedule()
     # Create the Adam optimizer with the learning rate scheduler
     adam_optimizer = Adam(learning_rate=learning_rate_scheduler)
     inputs = Input((input_height, input_width, 3))
