@@ -9,10 +9,6 @@ import tensorflow as tf
 import time
 from PIL import Image
 import imgaug.augmenters as ia
-from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, concatenate, Conv2DTranspose
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from keras.models import *
 from keras.layers import *
 from keras.optimizers import *
