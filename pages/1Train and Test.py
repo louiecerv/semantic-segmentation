@@ -58,11 +58,11 @@ def app():
         class_mode=None,
     )
 
-    # Define the model (using 'resnet34' backbone as an example)
-    encoder_name = 'resnet34'  # Choose a suitable encoder (e.g., 'vgg16', 'mobilenetv2')
+    # Define the model (using EfficientNetB0 backbone as an example)
+    encoder_name = 'efficientnetb0'  # You can choose other versions like 'efficientnetb1', 'efficientnetb2', etc.
     model = sm.Unet(
         encoder_name=encoder_name,
-        encoder_freeze=False,  # Train all layers (adjust based on your needs)
+        encoder_weights='imagenet',  # You can use 'noisy-student' for better performance but it requires additional installation
         classes=n_classes,
         activation='softmax'  # Adjust activation based on task (e.g., 'sigmoid' for binary)
     )
