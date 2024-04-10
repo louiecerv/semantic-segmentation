@@ -40,8 +40,6 @@ def app():
 
     train_mask_datagen = ia.AugmentationDataGenerator(rescale=1.0 / 255)  # No augmentations for masks
 
-
-
     training_set = train_image_datagen.flow_from_directory(
         "emantic_drone_dataset/original_images",
         target_size=(418, 608),
@@ -55,7 +53,6 @@ def app():
         batch_size=32,
         class_mode=None,
     )
-
 
     import segmentation_models as sm
     from tensorflow.keras.optimizers import Adam  # Or any other optimizer you prefer
@@ -78,7 +75,7 @@ def app():
     optimizer = Adam(learning_rate=0.001)
 
     # Define loss function (replace with your preferred one)
-    loss = sm.losses.binary_crossentropy(label_smoothing=0.1)  # Adjust for multi-class
+    loss = sm.losses.categorical_crossentropy(label_smoothing=0.1)  # For multi-class
 
     # Define metrics (replace with your preferred ones)
     metrics = [sm.metrics.IOUScore(threshold=0.5), sm.metrics.categorical_crossentropy]
@@ -90,9 +87,9 @@ def app():
     history = model.fit(
         x=training_set,
         y=training_mask,
-        batch_size=16,  # Adjust batch size based on GPU memory
+        batch_size=32,  # Adjust based on GPU memory
         epochs=epochs,
-        validation_split=0.2  # Split training data for validation
+        validation_split=0.2
     )
 
     # Save the trained model (optional)
