@@ -10,8 +10,9 @@ import matplotlib.pyplot as plt
 from tensorflow.keras import datasets, layers, models
 import time
 from PIL import Image
-import segmentation_models as sm
-from segmentation_models import image_augmentation as ia
+import imgaug.augmenters as ia
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, concatenate, Conv2DTranspose
 from tensorflow.keras.optimizers import Adam
 
 # Define the Streamlit app
@@ -29,6 +30,61 @@ def app():
     axs[1].imshow(label_image_semantic)
     axs[1].grid(False)
     st.pyplot(fig)
+
+    # Define U-Net model
+    def unet(input_height, input_width, n_classes):
+        inputs = Input((input_height, input_width, 3))
+        
+        # Encoder
+        conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(inputs)
+        conv1 = Conv2D(32, (3, 3), activation='relu', padding='same')(conv1)
+        pool1 = MaxPooling2D(pool_size=(2, 2))(conv1)
+
+        conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(pool1)
+        conv2 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv2)
+        pool2 = MaxPooling2D(pool_size=(2, 2))(conv2)
+
+        conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(pool2)
+        conv3 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv3)
+        pool3 = MaxPooling2D(pool_size=(2, 2))(conv3)
+
+        conv4 = Conv2D(256, (3, 3), activation='relu', padding='same')(pool3)
+        conv4 = Conv2D(256, (3, 3), activation='relu', padding='same')(conv4)
+        drop4 = Dropout(0.5)(conv4)
+        pool4 = MaxPooling2D(pool_size=(2, 2))(drop4)
+
+        # Bottom
+        conv5 = Conv2D(512, (3, 3), activation='relu', padding='same')(pool4)
+        conv5 = Conv2D(512, (3, 3), activation='relu', padding='same')(conv5)
+        drop5 = Dropout(0.5)(conv5)
+
+        # Decoder
+        up6 = Conv2DTranspose(256, (2, 2), strides=(2, 2), padding='same')(drop5)
+        up6 = concatenate([up6, drop4], axis=3)
+        conv6 = Conv2D(256, (3, 3), activation='relu', padding='same')(up6)
+        conv6 = Conv2D(256, (3, 3), activation='relu', padding='same')(conv6)
+
+        up7 = Conv2DTranspose(128, (2, 2), strides=(2, 2), padding='same')(conv6)
+        up7 = concatenate([up7, conv3], axis=3)
+        conv7 = Conv2D(128, (3, 3), activation='relu', padding='same')(up7)
+        conv7 = Conv2D(128, (3, 3), activation='relu', padding='same')(conv7)
+
+        up8 = Conv2DTranspose(64, (2, 2), strides=(2, 2), padding='same')(conv7)
+        up8 = concatenate([up8, conv2], axis=3)
+        conv8 = Conv2D(64, (3, 3), activation='relu', padding='same')(up8)
+        conv8 = Conv2D(64, (3, 3), activation='relu', padding='same')(conv8)
+
+        up9 = Conv2DTranspose(32, (2, 2), strides=(2, 2), padding='same')(conv8)
+        up9 = concatenate([up9, conv1], axis=3)
+        conv9 = Conv2D(32, (3, 3), activation='relu', padding='same')(up9)
+        conv9 = Conv2D(32, (3, 3), activation='relu', padding='same')(conv9)
+
+        # Output layer
+        outputs = Conv2D(n_classes, (1, 1), activation='softmax')(conv9)
+
+        model = Model(inputs=[inputs], outputs=[outputs])
+
+        return model
 
     # Define constants
     epochs = 4
@@ -64,32 +120,14 @@ def app():
         shuffle=True,  # Shuffle data
     )
 
-    # Define the model
-    encoder_name = 'efficientnetb0'
-    model = sm.Unet(
-        encoder_name=encoder_name,
-        encoder_weights='imagenet',
-        classes=n_classes,
-        activation='softmax'
-    )
-
-    # Compile the model
-    optimizer = Adam(learning_rate=0.001)
-    loss = sm.losses.categorical_crossentropy(label_smoothing=0.1)
-    metrics = [sm.metrics.IOUScore(threshold=0.5), sm.metrics.categorical_crossentropy]
-    model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
+    # Build and compile the model
+    model = unet(input_height, input_width, n_classes)
+    model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Train the model
-    history = model.fit(
-        x=training_set,
-        y=training_mask,
-        batch_size=32,
-        epochs=epochs,
-        validation_split=0.2
-    )
-
-    # Save the best performing model
-    model.save('unet_drone_segmentation.h5')
+    model.fit(training_set, training_mask, steps_per_epoch=len(training_set), epochs=epochs)
+  
+  
 
 
 
