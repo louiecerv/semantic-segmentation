@@ -4,10 +4,7 @@ import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
 import seaborn as sns
-import tensorflow as tf
-from tensorflow import keras
 import matplotlib.pyplot as plt
-from tensorflow.keras import datasets, layers, models
 import time
 from PIL import Image
 import imgaug.augmenters as ia
