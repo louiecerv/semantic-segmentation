@@ -51,7 +51,7 @@ def app():
 
     # Define callbacks
     callbacks = [
-        ModelCheckpoint('model_weights.h5', monitor='val_loss', save_best_only=True)
+        ModelCheckpoint('model_weights.keras', monitor='val_loss', save_best_only=True)
     ]
 
     # Train the model
