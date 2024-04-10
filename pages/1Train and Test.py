@@ -12,7 +12,7 @@ import imgaug.augmenters as ia
 from tensorflow.keras.models import Model
 from tensorflow.keras.layers import Input, Conv2D, MaxPooling2D, Dropout, concatenate, Conv2DTranspose
 from tensorflow.keras.optimizers import Adam
-from keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 # Define the Streamlit app
 def app():
@@ -102,23 +102,13 @@ def app():
         horizontal_flip=True
     )
 
-    train_mask_datagen = ImageDataGenerator(rescale=1.0 / 255)
-
-    # Load training data
     training_set = train_image_datagen.flow_from_directory(
-        "semantic_drone_dataset/original_images",
-        target_size=(input_height, input_width),
+        "semantic_drone_dataset/training_set",
+        target_size=(64, 64),
         batch_size=32,
-        class_mode=None,
-        shuffle=True,  # Shuffle data
-    )
-
-    training_mask = train_mask_datagen.flow_from_directory(
-        "semantic_drone_dataset/label_images_semantic",
-        target_size=(input_height, input_width),
-        batch_size=32,
-        class_mode=None,
-        shuffle=True,  # Shuffle data
+        class_mode="input",  # Use "input" for semantic segmentation
+        color_mode="rgb",  # Ensure consistent color mode
+        classes=['images', 'masks'],  # Assuming your directory structure has images and masks folders
     )
 
     # Build and compile the model
@@ -126,7 +116,7 @@ def app():
     model.compile(optimizer=Adam(), loss='categorical_crossentropy', metrics=['accuracy'])
 
     # Train the model
-    model.fit(training_set, training_mask, steps_per_epoch=len(training_set), epochs=epochs)
+    model.fit(training_set, steps_per_epoch=len(training_set), epochs=epochs)
   
   
 
