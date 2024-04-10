@@ -23,10 +23,6 @@ n_classes = 23
 input_height = 416
 input_width = 608
 
-# Define a learning rate scheduler (example: exponential decay)
-learning_rate_initial = 1e-5
-decay_rate = 0.96
-decay_steps = 1000
 
 # Define paths
 train_path = 'semantic_drone_dataset/training_set'
@@ -69,11 +65,16 @@ def app():
         callbacks=callbacks
     )
     
+# Define a learning rate schedule function (example: exponential decay)
+learning_rate_initial = 1e-5
+decay_rate = 0.96
+decay_steps = 1000
+
 def learning_rate_schedule(epoch):
     return learning_rate_initial * decay_rate**(epoch // decay_steps)
 
 def get_unet():
-    # Define the U-Net model architecture
+    # Create the learning rate scheduler object
     learning_rate_scheduler = LearningRateSchedule(learning_rate_schedule)
     # Create the Adam optimizer with the learning rate scheduler
     adam_optimizer = Adam(learning_rate=learning_rate_scheduler)
