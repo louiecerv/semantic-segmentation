@@ -16,7 +16,7 @@ from PIL import Image
 def app():
 
     original_image = "semantic_drone_dataset/original_images/001.jpg"
-    label_image_semantic = "/semantic_drone_dataset/label_images_semantic/001.png"
+    label_image_semantic = "semantic_drone_dataset/label_images_semantic/001.png"
 
     fig, axs = plt.subplots(1, 2, figsize=(16, 8), constrained_layout=True)
     axs[0].imshow( Image.open(original_image))
