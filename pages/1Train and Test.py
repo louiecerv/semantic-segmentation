@@ -30,6 +30,33 @@ def app():
 
     epochs = 4
 
+    from segmentation_models import image_augmentation as ia
+
+    train_image_datagen = ia.AugmentationDataGenerator(
+        rescale=1.0 / 255,
+        shear_range=0.2,
+        horizontal_flip=True
+    )
+
+    train_mask_datagen = ia.AugmentationDataGenerator(rescale=1.0 / 255)  # No augmentations for masks
+
+
+
+    training_set = train_image_datagen.flow_from_directory(
+        "emantic_drone_dataset/original_images",
+        target_size=(418, 608),
+        batch_size=32,
+        class_mode=None,
+    )
+
+    training_mask = train_mask_datagen.flow_from_directory(
+        "semantic_drone_dataset/label_images_semantic",
+        target_size=(418, 608),
+        batch_size=32,
+        class_mode=None,
+    )
+
+
     import segmentation_models as sm
     from tensorflow.keras.optimizers import Adam  # Or any other optimizer you prefer
 
@@ -59,14 +86,10 @@ def app():
     # Compile the model
     model.compile(optimizer=optimizer, loss=loss, metrics=metrics)
 
-    # Data preparation (modify for your specific data loading)
-    # Assuming you have functions to load training images (X_train) and annotations (y_train)
-    X_train, y_train = load_training_data(...)
-
     # Train the model
     model.fit(
-        x=X_train,
-        y=y_train,
+        x=training_set,
+        y=training_mask,
         batch_size=16,  # Adjust batch size based on GPU memory
         epochs=epochs,
         validation_split=0.2  # Split training data for validation
